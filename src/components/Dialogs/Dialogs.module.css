@@ -1,0 +1,86 @@
+.dialogs {
+display: grid;
+grid-template-columns: 2fr 10fr;
+}
+
+.dialogItems {
+padding: 10px;
+
+}
+
+
+.dialog {
+
+
+
+}
+
+.dialog a {
+    text-decoration: none;
+    color: white;
+}
+
+.dialog a.active {
+    color: black;
+}
+
+.messages {
+padding: 10px;
+}
+
+
+.containera {
+display: flex;
+
+}
+
+.containerb {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.inMessage {
+    min-width: 150px;
+    max-width: 300px;
+    overflow-wrap:break-word;
+}
+
+.outMessage {
+
+    min-width: 150px;
+    max-width: 300px;
+    overflow-wrap:break-word;
+
+}
+
+
+.inMessageContain {
+    padding: 5px;
+    background-color: white;
+    border-radius:  5px;
+    border: 1px solid black;
+    margin-bottom: 2px;
+}
+
+.outMessageContain {
+
+    padding: 5px;
+    background-color: white;
+    border-radius:  5px;
+    border: 1px solid black;
+    margin-bottom: 2px;
+    justify-content: flex-end;
+}
+
+.dialog img{
+    height:40px ;
+    width: 40px;
+    border-radius: 20px;
+    margin-right: 10px;
+}
+
+.dialogTextArea textarea {
+    width: 100%;
+
+
+}

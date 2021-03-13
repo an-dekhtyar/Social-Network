@@ -1,0 +1,42 @@
+
+.navLinkPages {
+    grid-area: n;
+    background-color: cornflowerblue;
+    padding: 20px;
+}
+
+.item a {
+    color: white;
+    text-decoration: none;
+}
+.item a.active {
+    color: black;
+}
+
+.friendsBlock {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.imgFriendsBlock img {
+    height:40px ;
+    width: 40px;
+    border-radius: 20px;
+}
+
+.settingItem {
+    padding-top: 30px;
+}
+
+.friendsItem {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    color: white;
+    font-size: 20px;
+}
+
+.nameFriendsBlock {
+    font-size: 13px;
+    color: white;
+    text-align: center;
+}
