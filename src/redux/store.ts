@@ -1,6 +1,6 @@
 import {DialogPageReducerType, dialogReducer} from "./dialogReducer";
 import {ProfilePageReducerType,profileReducer} from "./profileReducer";
-import {navbarReducer} from "./navbarReducer";
+import {sidebarReducer} from "./navbarReducer";
 
 export type newTextPostValueType = string
 export type PostType = {
@@ -48,7 +48,7 @@ export type StoreType = {
     changeValuePost: (newText: string) => void
     addOutMessage: (newOutMessageText: string) => void
     changeValueOutMessage: (newText: string) => void
-    subscriber: (observer: () => void) => void
+    subscribe: (observer: () => void) => void
     _callSubscriber: () => void
     getState: () => RootStateType
     dispatch: (action: ActionsTypes) => void
@@ -187,14 +187,14 @@ export let store: StoreType = {
         this._state.dialogsPageState.newOutMessageText = newText
         this._callSubscriber()
     },
-    subscriber(observer) {
+    subscribe(observer) {
         this._callSubscriber = observer
     },
     _callSubscriber() {},
     dispatch(action) {
         this._state.dialogsPageState = dialogReducer(this._state.dialogsPageState, action)
         this._state.profilePageState = profileReducer(this._state.profilePageState, action)
-        this._state.sideBarState = navbarReducer(this._state.sideBarState, action)
+        this._state.sideBarState = sidebarReducer(this._state.sideBarState, action)
         this._callSubscriber()
     }
 

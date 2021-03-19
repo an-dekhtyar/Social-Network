@@ -1,4 +1,4 @@
-import {ActionsTypes, PostType, ProfilePageType} from "./state";
+import {ActionsTypes, PostType, ProfilePageType} from "./store";
 
 
 export type ProfilePageReducerType= ReturnType<typeof AddPostCreator> | ReturnType<typeof ChangePostCreator>
@@ -11,7 +11,32 @@ export const AddPostCreator = (newPostElement: string) =>
 export const ChangePostCreator = (newText: string) =>
     ({type: CHANGE_VALUE_POST, newText: newText}) as const;
 
-export const profileReducer = (state: ProfilePageType, action: ActionsTypes): ProfilePageType => {
+let initialState: ProfilePageType = {
+        posts: [
+            {
+                id: 1,
+                message: "Hi, how are you?",
+                likesAmount: 45,
+                urlImage: "https://bohnice.cz/wp-content/uploads/2020/05/avatarka.jpg"
+            },
+            {
+                id: 2,
+                message: "What is your name?",
+                likesAmount: 24,
+                urlImage: "https://bohnice.cz/wp-content/uploads/2020/05/avatarka.jpg"
+            },
+            {
+                id: 3,
+                message: "What is your favorite TV-show?",
+                likesAmount: 56,
+                urlImage: "https://bohnice.cz/wp-content/uploads/2020/05/avatarka.jpg"
+            },
+        ],
+        newTextPostValue: ""
+    }
+
+
+export const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType => {
     switch (action.type) {
         case "ADD-POST":
             let newPost: PostType = {

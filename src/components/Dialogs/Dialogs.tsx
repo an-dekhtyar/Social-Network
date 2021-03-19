@@ -2,7 +2,7 @@ import React, {ChangeEvent, RefObject} from 'react';
 import s from './Dialogs.module.css'
 import {NavLink} from "react-router-dom";
 import DialogItem from "./DialogItem/DialogItem";
-import {ActionsTypes,DialogPageType} from "../../redux/state";
+import {ActionsTypes,DialogPageType} from "../../redux/store";
 import {InMessage, OutMessage} from './Message/Message';
 import {AddOutMessageCreator, ChangeOutMessageCreator} from "../../redux/dialogReducer";
 
