@@ -1,16 +1,15 @@
-import React, {ChangeEvent, RefObject} from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css'
-import {NavLink} from "react-router-dom";
 import DialogItem from "./DialogItem/DialogItem";
-import {ActionsTypes,DialogPageType} from "../../redux/store";
+import {DialogPageType} from "../../redux/store";
 import {InMessage, OutMessage} from './Message/Message';
-import {AddOutMessageCreator, ChangeOutMessageCreator} from "../../redux/dialogReducer";
 
 
 type DialogsPropsType = {
     dialogsPageState: DialogPageType
     newOutMessageText: string
-    dispatch: (action: ActionsTypes) => void
+    addOutMessage:(newMessageText:string) => void
+    outMessageChange:(newTextElement:string) => void
 }
 
 
@@ -26,12 +25,12 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
     const addOutMessageHandler = () => {
         let newMessage = props.newOutMessageText
         if (newMessage) {
-            props.dispatch(AddOutMessageCreator(newMessage))
+            props.addOutMessage(newMessage)
         }
     }
 
     const outMessageChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(ChangeOutMessageCreator(e.currentTarget.value))
+        props.outMessageChange(e.currentTarget.value)
     }
 
     return (

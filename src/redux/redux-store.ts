@@ -19,14 +19,15 @@ let reducers = combineReducers ({
 
 })
 
-export type RootStoreType = typeof reducers
-
-export let store:RootStoreType = createStore(combineReducers)
 
 
+export type RootStoreType = ReturnType<typeof reducers>
+
+export let store = createStore(reducers)
 
 
-export default combineReducers({})
+
+
 
 
 

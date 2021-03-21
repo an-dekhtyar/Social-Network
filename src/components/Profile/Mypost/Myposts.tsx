@@ -1,13 +1,13 @@
 import s from "./Myposts.module.css"
 import React, {ChangeEvent, RefObject} from "react";
 import Post from "./Post/Post";
-import {ActionsTypes, PostType} from "../../../redux/store";
-import {AddPostCreator, ChangePostCreator} from "../../../redux/profileReducer";
+import {PostType} from "../../../redux/store";
 
 type MypostPropsType ={
     posts:Array<PostType>
     newTextPostValue:string
-    dispatch:(action:ActionsTypes)=>void
+    onChangePost:(newPostElement:string)=>void
+    addNewPost:(newPostText:string) =>void
 }
 
 
@@ -19,12 +19,12 @@ const Myposts:React.FC<MypostPropsType> = (props) => {
     const newPostHandler = () => {
         let newPostElement= props.newTextPostValue
         if(newPostElement) {
-            props.dispatch(AddPostCreator(newPostElement))
+            props.addNewPost(newPostElement)
         }
     }
 
     const onChangePostHandler = (e:ChangeEvent<HTMLTextAreaElement>)=>{
-        props.dispatch(ChangePostCreator(e.currentTarget.value))
+        props.onChangePost(e.currentTarget.value)
     }
 
 

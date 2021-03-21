@@ -43,13 +43,13 @@ export type RootStateType = {
     sideBarState: SideBarType
 }
 export type StoreType = {
-    _state: RootStateType
-    addNewPost: (postMessage: string) => void
-    changeValuePost: (newText: string) => void
-    addOutMessage: (newOutMessageText: string) => void
-    changeValueOutMessage: (newText: string) => void
+    //_state: RootStateType
+    //addNewPost: (postMessage: string) => void
+    //: (newText: string) => void
+    //addOutMessage: (newOutMessageText: string) => void
+    //changeValueOutMessage: (newText: string) => void
     subscribe: (observer: () => void) => void
-    _callSubscriber: () => void
+    //_callSubscriber: () => void
     getState: () => RootStateType
     dispatch: (action: ActionsTypes) => void
 }
@@ -59,6 +59,7 @@ export type ActionsTypes = DialogPageReducerType | ProfilePageReducerType
 
 
 
+/*
 export let store: StoreType = {
     _state: {
         profilePageState: {
@@ -198,8 +199,5 @@ export let store: StoreType = {
         this._callSubscriber()
     }
 
+*/
 
-}
-
-
-export default store;
