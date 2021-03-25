@@ -4,17 +4,16 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import {StoreType} from "../../redux/store";
 import {MypostsContain} from "./Mypost/MypostContain";
 
-type ProfilePropsType={
-    store:StoreType
-
-}
 
 
-const Profile:React.FC<ProfilePropsType> = (props) => {
+
+const Profile = () => {
     return (
         <div className={s.content}>
             <ProfileInfo/>
-            <MypostsContain store={props.store}/>
+            <MypostsContain
+                //store={props.store}
+            />
 
         </div>
     )

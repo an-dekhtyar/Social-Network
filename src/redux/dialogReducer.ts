@@ -66,17 +66,22 @@ let initialState:DialogPageType = {
 
 export const dialogReducer = (state:DialogPageType = initialState, action:ActionsTypes):DialogPageType => {
     switch (action.type) {
-        case "ADD-OUT-MESSAGE":
+        case "ADD-OUT-MESSAGE":{
             let newMessage: MessageType = {
                 id: 4,
                 message: action.newOutMessageText
             }
-            state.outMessages.push(newMessage)
-            state.newOutMessageText = ''
-            return state;
+            let copyState = {
+                ...state,
+                outMessages:[...state.outMessages, newMessage],
+                newOutMessageText:''}
+            return copyState;}
         case "CHANGE-VALUE-OUT-MESSAGE":
-            state.newOutMessageText = action.newText
-            return state;
+            let copyState = {
+                ...state,
+                newOutMessageText:action.newText
+            }
+            return copyState;
         default: return state
     }
 

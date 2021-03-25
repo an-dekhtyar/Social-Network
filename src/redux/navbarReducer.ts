@@ -19,7 +19,7 @@ let initialState:SideBarType = {
             name: "Sveta",
             urlImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE1vTzqH-MVVPtDn_aoZ-5Jm_ibot1uqH9VQ&usqp=CAU"
         },
-]}
+    ]}
 
 export const sidebarReducer = (state:SideBarType = initialState, action:ActionsTypes):SideBarType => {
     return state

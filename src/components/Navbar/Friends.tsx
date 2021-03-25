@@ -1,17 +1,16 @@
 import s from "./Navbar.module.css";
 import React from "react";
 import {FriendsType} from "../../redux/store";
+import { mapStatePropsType } from "./FriendsContain";
 
 
-type FriendsPropsType = {
-    friends:Array<FriendsType>
-}
+type FriendsPropsType = mapStatePropsType
 
 
 
-const Friends:React.FC<FriendsPropsType> = (props) => {
+export const Friends:React.FC<FriendsPropsType> = (props) => {
 
-   let friendsElement = props.friends.map(f => <Friend key={f.id} id={f.id} name={f.name} urlImage={f.urlImage}/> )
+    let friendsElement = props.sideBarState.friends.map(f => <Friend key={f.id} id={f.id} name={f.name} urlImage={f.urlImage}/> )
 
     return (
         <div>

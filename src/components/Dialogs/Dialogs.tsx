@@ -3,14 +3,10 @@ import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import {DialogPageType} from "../../redux/store";
 import {InMessage, OutMessage} from './Message/Message';
+import { mapDispatchToPropsType, MapStatePropsType } from './DialogsContain';
 
 
-type DialogsPropsType = {
-    dialogsPageState: DialogPageType
-    newOutMessageText: string
-    addOutMessage:(newMessageText:string) => void
-    outMessageChange:(newTextElement:string) => void
-}
+type DialogsPropsType = MapStatePropsType & mapDispatchToPropsType
 
 
 const Dialogs: React.FC<DialogsPropsType> = (props) => {
@@ -23,7 +19,7 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
 
     const addOutMessageHandler = () => {
-        let newMessage = props.newOutMessageText
+        let newMessage = props.dialogsPageState.newOutMessageText
         if (newMessage) {
             props.addOutMessage(newMessage)
         }
@@ -42,7 +38,7 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
                 {inMessagesElement}
                 {outMessagesElements}
                 <div className={s.dialogTextArea}>
-                    <textarea value={props.newOutMessageText} onChange={outMessageChangeHandler}
+                    <textarea value={props.dialogsPageState.newOutMessageText} onChange={outMessageChangeHandler}
                               placeholder={"Enter your message "}/>
                     <div>
                         <button onClick={addOutMessageHandler}>Send</button>

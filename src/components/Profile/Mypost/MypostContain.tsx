@@ -1,36 +1,32 @@
-import React, {ChangeEvent, RefObject} from "react";
-import { StoreType} from "../../../redux/store";
-import {AddPostCreator, ChangePostCreator} from "../../../redux/profileReducer";
+import React, { ChangeEvent, RefObject } from "react";
+import { ProfilePageType, StoreType } from "../../../redux/store";
+import { AddPostCreator, ChangePostCreator } from "../../../redux/profileReducer";
 import Myposts from "./Myposts";
+import { connect } from "react-redux";
+import { AppStateType } from "../../../redux/redux-store";
+import { Dispatch } from "redux";
 
-type MypostContainPropsType = {
-    store: StoreType
+
+
+export type mapStatePropsType = {
+    profilePageState: ProfilePageType
+}
+export type mapDispatchPropsType = {
+    addNewPost: (newPostText: string) => void
+    onChangePost: (newPostElement: string) => void
 }
 
-export const MypostsContain:React.FC<MypostContainPropsType> = (props) => {
-
-
-    const state = props.store.getState().profilePageState
-
-    const addNewPost = (newPostText:string) => {
-            props.store.dispatch(AddPostCreator(newPostText))
-        }
-
-
-    const onChangePost = (newPostElement:string)=>{
-        props.store.dispatch(ChangePostCreator(newPostElement))
+const mapStateToProps = (state: AppStateType): mapStatePropsType => {
+    return {
+        profilePageState: state.profilePageState
     }
-
-
-
-    return (
-        <div>
-         <Myposts
-             posts={state.posts}
-             newTextPostValue={state.newTextPostValue}
-             addNewPost={addNewPost}
-             onChangePost={onChangePost}
-         />
-        </div>)
 }
 
+const mapDispatcToProps = (dispatch: Dispatch): mapDispatchPropsType => {
+    return {
+        addNewPost: (newPostText: string) => { dispatch(AddPostCreator(newPostText)) },
+        onChangePost: (newPostElement: string) => { dispatch(ChangePostCreator(newPostElement)) }
+    }
+}
+
+export const MypostsContain = connect(mapStateToProps, mapDispatcToProps)(Myposts)

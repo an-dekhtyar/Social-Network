@@ -12,18 +12,18 @@ import {ActionsTypes, DialogPageType, ProfilePageType, SideBarType} from "./stor
     navbarReducer:(state:SideBarType, action:ActionsTypes)=> SideBarType
 }*/
 
-let reducers = combineReducers ({
+let rootReducers = combineReducers ({
     dialogsPageState:dialogReducer,
     profilePageState:profileReducer,
     sideBarState:sidebarReducer
 
 })
 
+export type AppStateType = ReturnType<typeof rootReducers>
 
 
-export type RootStoreType = ReturnType<typeof reducers>
 
-export let store = createStore(reducers)
+export let store = createStore(rootReducers)
 
 
 

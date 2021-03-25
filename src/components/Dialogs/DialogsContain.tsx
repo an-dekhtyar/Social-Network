@@ -1,37 +1,38 @@
 import React, {ChangeEvent} from 'react';
-import {StoreType} from "../../redux/store";
+import {ActionsTypes, DialogPageType, RootStateType, StoreType} from "../../redux/store";
 import {AddOutMessageCreator, ChangeOutMessageCreator} from "../../redux/dialogReducer";
 import Dialogs from "./Dialogs";
 
+import { AppStateType } from '../../redux/redux-store';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 
-type DialogsContainPropsType = {
-    store:StoreType
+
+
+export type MapStatePropsType = {
+    dialogsPageState:DialogPageType
 }
 
+export type mapDispatchToPropsType = {
+    addOutMessage:(newMessageText:string) => void
+    outMessageChange: (newTextElement:string) => void
+}
 
-export const DialogsContain: React.FC<DialogsContainPropsType> = (props) => {
-
-    const state = props.store.getState().dialogsPageState
-
-    const addOutMessage = (newMessageText:string) => {
-            props.store.dispatch(AddOutMessageCreator(newMessageText))
-        }
-
-    const outMessageChange = (newTextElement:string) => {
-        props.store.dispatch(ChangeOutMessageCreator(newTextElement))
+const mapStateToProps =(state:AppStateType):MapStatePropsType => {
+    return {
+        dialogsPageState: state.dialogsPageState
     }
-
-    return (
-        <div>
-           <Dialogs
-               dialogsPageState={state}
-               newOutMessageText={state.newOutMessageText}
-               addOutMessage={addOutMessage}
-               outMessageChange={outMessageChange}
-           />
-        </div>
-    )
-
-
 }
 
+const mapDispatchToProps =(dispatch:Dispatch):mapDispatchToPropsType => {
+    return {
+        addOutMessage: (newMessageText:string) => {
+            dispatch(AddOutMessageCreator(newMessageText))
+        },
+        outMessageChange: (newTextElement:string) => {
+            dispatch(ChangeOutMessageCreator(newTextElement))
+        }
+    }
+}
+
+export const DialogsContain = connect(mapStateToProps,mapDispatchToProps)(Dialogs)

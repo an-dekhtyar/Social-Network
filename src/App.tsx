@@ -11,35 +11,23 @@ import Settings from "./components/Settings/Settings";
 import {StoreType} from "./redux/store";
 import {DialogsContain} from "./components/Dialogs/DialogsContain";
 
-type AppPropsType ={
-    store:StoreType
 
 
-}
-
-const App:React.FC<AppPropsType> = (props) => {
-
-
+const App = () => {
 
     return (
-            <div className='app-wrapper'>
-                <Header/>
-                <Navbar store={props.store}/>
-                <div className='app-wrapper-content'>
-                    <Route path='/dialogs' render={ () => <DialogsContain
-                        store={props.store}
+        <div className='app-wrapper'>
+            <Header/>
+            <Navbar/>
+            <div className='app-wrapper-content'>
+                <Route path='/dialogs' render={ () => <DialogsContain/>}/>
+                <Route path='/profile' render={ () => <Profile/>}/>
+                <Route path='/news' render={() => <News/>}/>
+                <Route path='/music' render={() => <Music/>}/>
+                <Route path='/settings' render={ ()=> <Settings/>}/>
 
-                    />}/>
-                    <Route path='/profile' render={ () => <Profile
-                        store={props.store}
-
-                    />}/>
-                    <Route path='/news' render={() => <News/>}/>
-                    <Route path='/music' render={() => <Music/>}/>
-                    <Route path='/settings' render={ ()=> <Settings/>}/>
-
-                </div>
             </div>
+        </div>
     )
 }
 

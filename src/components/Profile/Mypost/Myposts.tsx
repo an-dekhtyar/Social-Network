@@ -2,22 +2,18 @@ import s from "./Myposts.module.css"
 import React, {ChangeEvent, RefObject} from "react";
 import Post from "./Post/Post";
 import {PostType} from "../../../redux/store";
+import { mapDispatchPropsType, mapStatePropsType } from "./MypostContain";
 
-type MypostPropsType ={
-    posts:Array<PostType>
-    newTextPostValue:string
-    onChangePost:(newPostElement:string)=>void
-    addNewPost:(newPostText:string) =>void
-}
+type MypostPropsType = mapStatePropsType & mapDispatchPropsType
 
 
 const Myposts:React.FC<MypostPropsType> = (props) => {
 
-    let postElements = props.posts.map(p => <Post key={p.id} id ={p.id} message={p.message} likesAmount={p.likesAmount} urlImage={p.urlImage}/> )
+    let postElements = props.profilePageState.posts.map(p => <Post key={p.id} id ={p.id} message={p.message} likesAmount={p.likesAmount} urlImage={p.urlImage}/> )
 
 
     const newPostHandler = () => {
-        let newPostElement= props.newTextPostValue
+        let newPostElement= props.profilePageState.newTextPostValue
         if(newPostElement) {
             props.addNewPost(newPostElement)
         }
@@ -34,7 +30,7 @@ const Myposts:React.FC<MypostPropsType> = (props) => {
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea value={props.newTextPostValue}
+                    <textarea value={props.profilePageState.newTextPostValue}
                               onChange={onChangePostHandler}
                     />
                 </div>

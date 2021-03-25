@@ -12,45 +12,51 @@ export const ChangePostCreator = (newText: string) =>
     ({type: CHANGE_VALUE_POST, newText: newText}) as const;
 
 let initialState: ProfilePageType = {
-        posts: [
-            {
-                id: 1,
-                message: "Hi, how are you?",
-                likesAmount: 45,
-                urlImage: "https://bohnice.cz/wp-content/uploads/2020/05/avatarka.jpg"
-            },
-            {
-                id: 2,
-                message: "What is your name?",
-                likesAmount: 24,
-                urlImage: "https://bohnice.cz/wp-content/uploads/2020/05/avatarka.jpg"
-            },
-            {
-                id: 3,
-                message: "What is your favorite TV-show?",
-                likesAmount: 56,
-                urlImage: "https://bohnice.cz/wp-content/uploads/2020/05/avatarka.jpg"
-            },
-        ],
-        newTextPostValue: ""
-    }
+    posts: [
+        {
+            id: 1,
+            message: "Hi, how are you?",
+            likesAmount: 45,
+            urlImage: "https://bohnice.cz/wp-content/uploads/2020/05/avatarka.jpg"
+        },
+        {
+            id: 2,
+            message: "What is your name?",
+            likesAmount: 24,
+            urlImage: "https://bohnice.cz/wp-content/uploads/2020/05/avatarka.jpg"
+        },
+        {
+            id: 3,
+            message: "What is your favorite TV-show?",
+            likesAmount: 56,
+            urlImage: "https://bohnice.cz/wp-content/uploads/2020/05/avatarka.jpg"
+        },
+    ],
+    newTextPostValue: ""
+}
 
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType => {
     switch (action.type) {
-        case "ADD-POST":
+        case "ADD-POST":{
             let newPost: PostType = {
                 id: 4,
                 message: action.postMessage,
                 likesAmount: 0,
                 urlImage: "https://bohnice.cz/wp-content/uploads/2020/05/avatarka.jpg"
             }
-            state.posts.push(newPost)
-            state.newTextPostValue = ''
-            return state;
+            let copyState = {
+                ...state,
+                posts:[...state.posts, newPost],
+                newTextPostValue:""
+            }
+            return copyState;}
         case "CHANGE-VALUE-POST":
-            state.newTextPostValue = action.newText
-            return state;
+            let copyState = {
+                ...state,
+                newTextPostValue:action.newText
+            }
+            return copyState;
         default:
             return state
     }
