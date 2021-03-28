@@ -1,7 +1,6 @@
 import s from "./Myposts.module.css"
-import React, {ChangeEvent, RefObject} from "react";
+import React, {ChangeEvent} from "react";
 import Post from "./Post/Post";
-import {PostType} from "../../../redux/store";
 import { mapDispatchPropsType, mapStatePropsType } from "./MypostContain";
 
 type MypostPropsType = mapStatePropsType & mapDispatchPropsType

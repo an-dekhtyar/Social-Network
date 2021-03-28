@@ -1,7 +1,7 @@
 import s from "./Navbar.module.css";
 import React from "react";
-import {FriendsType} from "../../redux/store";
 import { mapStatePropsType } from "./FriendsContain";
+import { FriendsType } from "../../redux/navbarReducer";
 
 
 type FriendsPropsType = mapStatePropsType

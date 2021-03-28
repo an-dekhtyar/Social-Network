@@ -1,23 +1,20 @@
 import React from "react";
+import { MessageType } from "../../../redux/dialogReducer";
 import s from "../Dialogs.module.css";
-import {MessageType} from "../../../redux/store";
 
 
-type MessagePropsType ={
-    inMessages:Array<MessageType>
-    outMessages:Array<MessageType>
 
-}
+
 
 
 export const InMessage:React.FC<MessageType> = (props) => {
     return (
         <div className={s.containera}>
-        <div className={s.inMessageContain}>
-            <div className={s.inMessage}>
-                {props.message}
+            <div className={s.inMessageContain}>
+                <div className={s.inMessage}>
+                    {props.message}
+                </div>
             </div>
-        </div>
         </div>
     )
 }
@@ -25,11 +22,11 @@ export const InMessage:React.FC<MessageType> = (props) => {
 export const OutMessage:React.FC<MessageType> = (props) => {
     return (
         <div className={s.containerb}>
-        <div className={s.outMessageContain}>
-            <div className={s.outMessage}>
-                {props.message}
+            <div className={s.outMessageContain}>
+                <div className={s.outMessage}>
+                    {props.message}
+                </div>
             </div>
-        </div>
         </div>
     )
 }

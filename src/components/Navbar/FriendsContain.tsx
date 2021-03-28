@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
+import { SideBarType } from "../../redux/navbarReducer";
 import { AppStateType } from "../../redux/redux-store";
-import { SideBarType } from "../../redux/store";
 import {Friends} from "./Friends"
 
 
@@ -15,4 +15,4 @@ const mapStateToProps = (state:AppStateType):mapStatePropsType => {
     }
 }
 
-export const FriendsContain = connect(mapStateToProps)(Friends)
+export const FriendContain = connect(mapStateToProps)(Friends)

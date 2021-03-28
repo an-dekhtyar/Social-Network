@@ -1,6 +1,15 @@
-import {ActionsTypes, SideBarType} from "./store";
+import { ActionsTypes } from "./redux-store"
 
 
+export type FriendsType = {
+    id: number
+    name: string
+    urlImage: string
+
+}
+export type SideBarType = {
+    friends: Array<FriendsType>
+}
 
 let initialState:SideBarType = {
     friends: [

@@ -1,60 +1,22 @@
-import {DialogPageReducerType, dialogReducer} from "./dialogReducer";
-import {ProfilePageReducerType,profileReducer} from "./profileReducer";
-import {sidebarReducer} from "./navbarReducer";
+import {DialogPageReducerType} from "./dialogReducer";
+import {ProfilePageReducerType} from "./profileReducer";
 
-export type newTextPostValueType = string
-export type PostType = {
-    id: number
-    message: string
-    likesAmount: number
-    urlImage: string
-}
-export type DialogItemType = {
-    id: number
-    name: string
-    urlImage: string
-}
-export type MessageType = {
-    id: number
-    message: string
-}
-export type FriendsType = {
-    id: number
-    name: string
-    urlImage: string
 
-}
-export type SideBarType = {
-    friends: Array<FriendsType>
-}
-export type ProfilePageType = {
-    posts: Array<PostType>
-    newTextPostValue: string
-}
-export type DialogPageType = {
-    dialogs: Array<DialogItemType>
-    inMessages: Array<MessageType>
-    outMessages: Array<MessageType>
-    newOutMessageText: string
-}
-export type RootStateType = {
-    profilePageState: ProfilePageType
-    dialogsPageState: DialogPageType
-    sideBarState: SideBarType
-}
-export type StoreType = {
-    //_state: RootStateType
-    //addNewPost: (postMessage: string) => void
+
+
+/* export type StoreType = {
+    _state: RootStateType
+    addNewPost: (postMessage: string) => void
     //: (newText: string) => void
-    //addOutMessage: (newOutMessageText: string) => void
-    //changeValueOutMessage: (newText: string) => void
+    addOutMessage: (newOutMessageText: string) => void
+    changeValueOutMessage: (newText: string) => void
     subscribe: (observer: () => void) => void
-    //_callSubscriber: () => void
+    _callSubscriber: () => void
     getState: () => RootStateType
     dispatch: (action: ActionsTypes) => void
 }
 
-export type ActionsTypes = DialogPageReducerType | ProfilePageReducerType
+ */
 
 
 

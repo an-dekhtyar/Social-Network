@@ -1,7 +1,6 @@
 import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
-import {DialogPageType} from "../../redux/store";
 import {InMessage, OutMessage} from './Message/Message';
 import { mapDispatchToPropsType, MapStatePropsType } from './DialogsContain';
 

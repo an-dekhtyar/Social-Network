@@ -1,6 +1,6 @@
 import React, {ChangeEvent} from 'react';
-import {ActionsTypes, DialogPageType, RootStateType, StoreType} from "../../redux/store";
-import {AddOutMessageCreator, ChangeOutMessageCreator} from "../../redux/dialogReducer";
+
+import {AddOutMessageCreator, ChangeOutMessageCreator, DialogPageType} from "../../redux/dialogReducer";
 import Dialogs from "./Dialogs";
 
 import { AppStateType } from '../../redux/redux-store';

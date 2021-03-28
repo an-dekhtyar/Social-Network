@@ -1,7 +1,19 @@
-import {ActionsTypes, PostType, ProfilePageType} from "./store";
-
+import { ActionsTypes } from "./redux-store"
 
 export type ProfilePageReducerType= ReturnType<typeof AddPostCreator> | ReturnType<typeof ChangePostCreator>
+
+
+export type ProfilePageType = {
+    posts: Array<PostType>
+    newTextPostValue: string
+}
+export type PostType = {
+    id: number
+    message: string
+    likesAmount: number
+    urlImage: string
+}
+
 
 const ADD_POST = "ADD-POST"
 const CHANGE_VALUE_POST = "CHANGE-VALUE-POST"
@@ -52,11 +64,11 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
             }
             return copyState;}
         case "CHANGE-VALUE-POST":
-            let copyState = {
+            let stateCopy = {
                 ...state,
                 newTextPostValue:action.newText
             }
-            return copyState;
+            return stateCopy;
         default:
             return state
     }

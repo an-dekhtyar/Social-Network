@@ -1,20 +1,36 @@
-import {ActionsTypes, DialogPageType, MessageType} from "./store";
+import { ActionsTypes } from "./redux-store"
 
 
 export type DialogPageReducerType = ReturnType<typeof AddOutMessageCreator> |
     ReturnType<typeof ChangeOutMessageCreator>
 
+export type DialogPageType = {
+    dialogs: Array<DialogItemType>
+    inMessages: Array<MessageType>
+    outMessages: Array<MessageType>
+    newOutMessageText: string
+}
+
+export type DialogItemType = {
+    id: number
+    name: string
+    urlImage: string
+}
+export type MessageType = {
+    id: number
+    message: string
+}
 
 const ADD_OUT_MESSAGE = "ADD-OUT-MESSAGE"
 const CHANGE_VALUE_OUT_MESSAGE = "CHANGE-VALUE-OUT-MESSAGE"
 
 export const AddOutMessageCreator = (newMessage: string) =>
-    ({type: ADD_OUT_MESSAGE, newOutMessageText: newMessage}) as const;
+    ({ type: ADD_OUT_MESSAGE, newOutMessageText: newMessage }) as const;
 export const ChangeOutMessageCreator = (newText: string) =>
-    ({type: CHANGE_VALUE_OUT_MESSAGE, newText: newText}) as const;
+    ({ type: CHANGE_VALUE_OUT_MESSAGE, newText: newText }) as const;
 
 
-let initialState:DialogPageType = {
+let initialState: DialogPageType = {
     dialogs: [
         {
             id: 1,
@@ -48,40 +64,42 @@ let initialState:DialogPageType = {
         }
     ],
     inMessages: [
-        {id: 1, message: "Hi"},
-        {id: 2, message: "How are you?"},
-        {id: 3, message: "Where are you from?"},
-        {id: 4, message: "Where are you?"},
+        { id: 1, message: "Hi" },
+        { id: 2, message: "How are you?" },
+        { id: 3, message: "Where are you from?" },
+        { id: 4, message: "Where are you?" },
     ],
     outMessages: [
-        {id: 1, message: "Hi"},
-        {id: 2, message: "How are you?"},
-        {id: 3, message: "Where are you from?"},
-        {id: 4, message: "Where are youu?"},
+        { id: 1, message: "Hi" },
+        { id: 2, message: "How are you?" },
+        { id: 3, message: "Where are you from?" },
+        { id: 4, message: "Where are youu?" },
     ],
     newOutMessageText: ""
 }
 
 
 
-export const dialogReducer = (state:DialogPageType = initialState, action:ActionsTypes):DialogPageType => {
+export const dialogReducer = (state: DialogPageType = initialState, action: ActionsTypes): DialogPageType => {
     switch (action.type) {
-        case "ADD-OUT-MESSAGE":{
+        case "ADD-OUT-MESSAGE": {
             let newMessage: MessageType = {
                 id: 4,
                 message: action.newOutMessageText
             }
-            let copyState = {
+            let stateCopy = {
                 ...state,
-                outMessages:[...state.outMessages, newMessage],
-                newOutMessageText:''}
-            return copyState;}
-        case "CHANGE-VALUE-OUT-MESSAGE":
-            let copyState = {
-                ...state,
-                newOutMessageText:action.newText
+                outMessages: [...state.outMessages, newMessage],
+                newOutMessageText: ''
             }
-            return copyState;
+            return stateCopy;
+        }
+        case "CHANGE-VALUE-OUT-MESSAGE":
+            let stateCopy = {
+                ...state,
+                newOutMessageText: action.newText
+            }
+            return stateCopy;
         default: return state
     }
 

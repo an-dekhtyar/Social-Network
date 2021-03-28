@@ -1,9 +1,7 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import s from './Navbar.module.css'
-import Friends from "./Friends";
-import {SideBarType, StoreType} from "../../redux/store";
-import { FriendsContain } from "./FriendsContain";
+import { FriendContain } from "./FriendsContain";
 
 
 
@@ -26,11 +24,14 @@ const Navbar = () => {
             <div className={s.item}>
                 <NavLink to='/music' activeClassName={s.active}>Music</NavLink>
             </div>
+            <div className={s.item}>
+                <NavLink to='/users' activeClassName={s.active}>Users</NavLink>
+            </div>
             <div className={`${s.item} ${s.settingItem}`}>
                 <NavLink to='/settings' activeClassName={s.active}>Settings</NavLink>
             </div>
             <div className={s.navFriends}>
-                <FriendsContain/>
+                <FriendContain/>
             </div>
         </nav>
 

@@ -1,6 +1,6 @@
 import React, { ChangeEvent, RefObject } from "react";
-import { ProfilePageType, StoreType } from "../../../redux/store";
-import { AddPostCreator, ChangePostCreator } from "../../../redux/profileReducer";
+
+import { AddPostCreator, ChangePostCreator, ProfilePageType } from "../../../redux/profileReducer";
 import Myposts from "./Myposts";
 import { connect } from "react-redux";
 import { AppStateType } from "../../../redux/redux-store";

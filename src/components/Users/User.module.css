@@ -1,0 +1,29 @@
+.userImg img {
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+}
+
+.userImg {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid ;
+    padding: 20px;
+    text-align: center;
+
+}
+.userContain {
+    padding: 20px;
+    display: flex;
+
+
+
+}
+
+.textContain {
+    border: 1px solid;
+    margin-left: 20px;
+    width: 400px;
+    padding: 10px
+}
