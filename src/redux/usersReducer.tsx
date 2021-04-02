@@ -13,12 +13,21 @@ export type UserPageType = {
 export type UserItemType = {
     id: number
     followed: boolean
-    fullName: string
-    status: string
-    location: LocationType
-    urlImage: string
+    name: string
+    status: string | null
+    photos: AxiosUsersPhotoType
 }
 
+export type AxiosUsersResponceType = {
+    items:Array<UserItemType>
+    totalCount:number
+    error:number | null
+}
+
+export type AxiosUsersPhotoType = {
+    small: string | null
+    large: string | null
+}
 
 export type LocationType = {
     city: string
@@ -39,46 +48,7 @@ export const setUsersAC = (users: Array<UserItemType>) =>
 
 
 let initialState: UserPageType = {
-    users: [{
-        id: 1,
-        fullName: 'Andrey',
-        followed: true,
-        location: {country: 'Belarus', city: 'Minsk'},
-        status: 'Life is life',
-        urlImage: "https://pbs.twimg.com/profile_images/488616487197106177/xIFT8idk.jpeg"
-    },
-        {
-            id: 2,
-            fullName: 'Dima',
-            followed: true,
-            location: {country: 'Russia', city: 'Moscow'},
-            status: 'dont cry!',
-            urlImage:  "https://bohnice.cz/wp-content/uploads/2020/05/avatarka.jpg"
-        },
-        {
-            id: 3,
-            fullName: 'Sasha',
-            followed: true,
-            location: {country: 'Ukraine', city: 'Kiev'},
-            status: 'got is king',
-            urlImage: "https://i.pinimg.com/originals/d5/28/70/d52870bf3c60d63d304a589f395e6a86.png"
-        },
-        {
-            id: 4,
-            fullName: 'Olga',
-            followed: true,
-            location: {country: 'Belarus', city: 'Minsk'},
-            status: 'sport is life',
-            urlImage:  "https://bohnice.cz/wp-content/uploads/2020/05/avatarka.jpg"
-        },
-        {
-            id: 5,
-            fullName: 'Sveta',
-            followed: true,
-            location: {country: 'Belarus', city: 'Minsk'},
-            status: 'pam pam',
-            urlImage:  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE1vTzqH-MVVPtDn_aoZ-5Jm_ibot1uqH9VQ&usqp=CAU"
-        }]
+    users: []
 
 }
 
