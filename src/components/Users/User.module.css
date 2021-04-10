@@ -19,9 +19,10 @@
 .userContain {
     padding: 20px;
     display: flex;
+}
 
-
-
+.selected {
+    font-weight: bold;
 }
 
 .textContain {

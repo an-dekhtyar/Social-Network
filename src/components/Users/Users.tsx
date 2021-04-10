@@ -1,60 +1,76 @@
 import React from 'react';
-import {AxiosUsersResponceType, setUsersAC, UserItemType} from '../../redux/usersReducer';
+import {UserItemType} from '../../redux/usersReducer';
 import s from './User.module.css'
-import {mapDispatchPropsType, mapStatePropsType} from './UsersContain';
-import axios, {AxiosResponse} from 'axios'
+
 import userPhoto from '../../assets/images/userPhoto.png'
 
+type UsersPagePropsType = {
+    totalCount: number
+    pageSize: number
+    onPageChange: (page: number) => void
+    currentPage: number
+    users: Array<UserItemType>
+    follow: (userId:number) => void
+    unfollow: (userId:number) => void
+}
 
-export type UsersPageTPropsType = mapStatePropsType & mapDispatchPropsType
-
-export const Users: React.FC<UsersPageTPropsType> = (props) => {
-
-    const getUser = () => {
-        if (props.users.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users').then((response: AxiosResponse<AxiosUsersResponceType>) => {
-                props.setUsers(response.data.items)
-            })
-        }
+export const Users = (props: UsersPagePropsType) => {
+    let pages = []
+    let pageCount = Math.ceil(props.totalCount / props.pageSize)
+    for (let i = 1; i <= pageCount; i++) {
+        pages.push(i)
     }
-    const users = props.users.map(u => {
-        debugger
-        const onFollowHandler = () => {
-            props.follow(u.id)
-        }
-        const onUnfollowHandler = () => {
-            props.unfollow(u.id)
-        }
-
-        return (
-            <div className={s.userContain} key={u.id}>
-                <div className={s.userImg}>
-                    <div>
-                        <img src={u.photos.small !== null ? u.photos.small : userPhoto }/>
-                    </div>
-                    <div>
-                        {u.followed
-                            ?
-                            <button onClick={onUnfollowHandler}>Unfollow</button>
-                            :
-                            <button onClick={onFollowHandler}>Follow</button>}
-                    </div>
-                </div>
-                <div className={s.textContain}>
-                    <div>{u.name}</div>
-                    <div>{u.status}</div>
-                    <div>{'u.location.country'}</div>
-                    <div>{'u.location.city'}</div>
-                </div>
-            </div>)
-    })
-
 
     return (
         <div>
-            <button onClick={getUser}>add users</button>
-            {users}
-        </div>
-    )
+            <div>
+                {pages.map(p => {
 
+                    const setCurrentPageHandler = () => {
+                        props.onPageChange(p)
+                    }
+
+                    return <span
+                        key={p}
+                        className={props.currentPage === p ? s.selected : ""}
+                        onClick={setCurrentPageHandler}
+                    >{p} </span>
+                })}
+            </div>
+            {props.users.map(u => {
+                const onFollowHandler = () => {
+                    props.follow(u.id)
+                }
+                const onUnfollowHandler = () => {
+                    props.unfollow(u.id)
+                }
+
+                return (
+                    <div className={s.userContain} key={u.id}>
+                        <div className={s.userImg}>
+                            <div>
+                                <img src={u.photos.small !== null ? u.photos.small : userPhoto}/>
+                            </div>
+                            <div>
+                                {u.followed
+                                    ?
+                                    <button onClick={onUnfollowHandler}>Unfollow</button>
+                                    :
+                                    <button onClick={onFollowHandler}>Follow</button>}
+                            </div>
+                        </div>
+                        <div className={s.textContain}>
+                            <div>{u.name}</div>
+                            <div>{u.status}</div>
+                            <div>{'u.location.country'}</div>
+                            <div>{'u.location.city'}</div>
+                        </div>
+                    </div>)
+            })}
+        </div>)
 }
+
+
+
+
+
