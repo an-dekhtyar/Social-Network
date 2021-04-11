@@ -9,7 +9,8 @@ import Music from "./components/Music/Music";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
 import {DialogsContain} from "./components/Dialogs/DialogsContain";
-import {UsersContain} from "./components/Users/UsersContain";
+import UsersContain from "./components/Users/UsersContain";
+
 
 const App = () => {
 

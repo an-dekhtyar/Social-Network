@@ -12,8 +12,6 @@ import {
     UserItemType
 } from '../../redux/usersReducer';
 import axios, {AxiosResponse} from "axios";
-import s from "./User.module.css";
-import userPhoto from "../../assets/images/userPhoto.png";
 import {Users} from "./Users";
 
 
@@ -32,25 +30,24 @@ export type mapDispatchPropsType = {
 }
 export type UsersPageTPropsType = mapStatePropsType & mapDispatchPropsType
 
-export class UsersContainerComponent extends React.Component<UsersPageTPropsType, {}> {
+class UsersContain extends React.Component<UsersPageTPropsType> {
 
 
     componentDidMount() {
 
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then((response: AxiosResponse<AxiosUsersResponceType>) => {
+            .then(response => {
                 this.props.setUsers(response.data.items)
                 this.props.setTotalCount(response.data.totalCount)
             })
 
     }
 
-    onPageChange(page: number) {
+    onPageChange = (page: number) =>{
         this.props.setCurrentPage(page)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`)
-            .then((response: AxiosResponse<AxiosUsersResponceType>) => {
+            .then(response => {
                 this.props.setUsers(response.data.items)
-                this.props.setTotalCount(response.data.totalCount)
             })
     }
 
@@ -91,4 +88,4 @@ const mapDispatchToProps = (dispatch:Dispatch):mapDispatchPropsType => {
     }
 }
 
-export const UsersContain = connect(mapStateToProps, mapDispatchToProps) (UsersContainerComponent)
+export default connect(mapStateToProps, mapDispatchToProps) (UsersContain)
