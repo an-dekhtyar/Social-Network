@@ -69,6 +69,7 @@ class UsersContain extends React.Component<UsersPageTPropsType> {
                 users={this.props.users}
                 follow={this.props.follow}
                 unfollow={this.props.unfollow}
+                isFetching={this.props.isFetching}
             />
         </>
     }

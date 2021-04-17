@@ -1,8 +1,9 @@
 import React from 'react';
-import {UserItemType} from '../../redux/usersReducer';
+import { UserItemType } from '../../redux/usersReducer';
 import s from './User.module.css'
 
 import userPhoto from '../../assets/images/userPhoto.png'
+import { NavLink } from 'react-router-dom';
 
 type UsersPagePropsType = {
     totalCount: number
@@ -10,8 +11,10 @@ type UsersPagePropsType = {
     onPageChange: (page: number) => void
     currentPage: number
     users: Array<UserItemType>
-    follow: (userId:number) => void
-    unfollow: (userId:number) => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    isFetching: boolean
+
 }
 
 export const Users = (props: UsersPagePropsType) => {
@@ -47,10 +50,13 @@ export const Users = (props: UsersPagePropsType) => {
 
                 return (
                     <div className={s.userContain} key={u.id}>
+
                         <div className={s.userImg}>
-                            <div>
-                                <img src={u.photos.small !== null ? u.photos.small : userPhoto}/>
-                            </div>
+                            <NavLink to={'/profile/' + u.id} >
+                                <div>
+                                    <img src={u.photos.small !== null ? u.photos.small : userPhoto} />
+                                </div>
+                            </NavLink>
                             <div>
                                 {u.followed
                                     ?
@@ -59,6 +65,7 @@ export const Users = (props: UsersPagePropsType) => {
                                     <button onClick={onFollowHandler}>Follow</button>}
                             </div>
                         </div>
+
                         <div className={s.textContain}>
                             <div>{u.name}</div>
                             <div>{u.status}</div>

@@ -1,11 +1,15 @@
 import { ActionsTypes } from "./redux-store"
 
-export type ProfilePageReducerType= ReturnType<typeof addPost> | ReturnType<typeof changePost>
+export type ProfilePageReducerType=
+    ReturnType<typeof addPost> |
+    ReturnType<typeof changePost> |
+    ReturnType<typeof setUserProfile>
 
 
 export type ProfilePageType = {
     posts: Array<PostType>
     newTextPostValue: string
+    profile:ProfileType | null
 }
 export type PostType = {
     id: number
@@ -13,15 +17,43 @@ export type PostType = {
     likesAmount: number
     urlImage: string
 }
+export type ContactsType = {
+    github: string | null
+    vk: string | null
+    facebook: string | null
+    instagram: string | null
+    twitter: string | null
+    website: string | null
+    youtube: string | null
+    mainLink: string | null
+}
+export type PhotosType = {
+    small:string | null
+    large:string | null
+}
+export type ProfileType = {
+    contacts:ContactsType
+    photos:PhotosType
+    userId: number | null
+    lookingForAJob:boolean
+    lookingForAJobDescription: string | null
+    fullName: string
+    aboutMe: string | null
+
+}
 
 
 const ADD_POST = "ADD-POST"
 const CHANGE_VALUE_POST = "CHANGE-VALUE-POST"
+const SET_USER_PROFILE = "SET_USER_PROFILE"
 
 export const addPost = (newPostElement: string) =>
     ({type: ADD_POST, postMessage: newPostElement}) as const;
 export const changePost = (newText: string) =>
     ({type: CHANGE_VALUE_POST, newText: newText}) as const;
+export const setUserProfile = (profile: ProfileType) =>
+    ({ type: SET_USER_PROFILE, profile }) as const;
+
 
 let initialState: ProfilePageType = {
     posts: [
@@ -44,7 +76,8 @@ let initialState: ProfilePageType = {
             urlImage: "https://bohnice.cz/wp-content/uploads/2020/05/avatarka.jpg"
         },
     ],
-    newTextPostValue: ""
+    newTextPostValue: "",
+    profile:null
 }
 
 
@@ -63,12 +96,17 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
                 newTextPostValue:""
             }
             return copyState;}
-        case "CHANGE-VALUE-POST":
+        case "CHANGE-VALUE-POST":{
             let stateCopy = {
                 ...state,
                 newTextPostValue:action.newText
             }
-            return stateCopy;
+            return stateCopy;}
+        case "SET_USER_PROFILE":
+            return {
+                ...state,
+                profile:action.profile
+            }
         default:
             return state
     }
