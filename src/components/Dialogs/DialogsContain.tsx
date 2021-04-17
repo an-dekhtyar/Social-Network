@@ -1,6 +1,6 @@
 import React, {ChangeEvent} from 'react';
 
-import {AddOutMessageCreator, ChangeOutMessageCreator, DialogPageType} from "../../redux/dialogReducer";
+import {addMessage, changeMessage, DialogPageType} from "../../redux/dialogReducer";
 import Dialogs from "./Dialogs";
 
 import { AppStateType } from '../../redux/redux-store';
@@ -14,8 +14,8 @@ export type MapStatePropsType = {
 }
 
 export type mapDispatchToPropsType = {
-    addOutMessage:(newMessageText:string) => void
-    outMessageChange: (newTextElement:string) => void
+    addMessage:(newMessageText:string) => void
+    changeMessage: (newTextElement:string) => void
 }
 
 const mapStateToProps =(state:AppStateType):MapStatePropsType => {
@@ -24,15 +24,9 @@ const mapStateToProps =(state:AppStateType):MapStatePropsType => {
     }
 }
 
-const mapDispatchToProps =(dispatch:Dispatch):mapDispatchToPropsType => {
-    return {
-        addOutMessage: (newMessageText:string) => {
-            dispatch(AddOutMessageCreator(newMessageText))
-        },
-        outMessageChange: (newTextElement:string) => {
-            dispatch(ChangeOutMessageCreator(newTextElement))
-        }
-    }
-}
 
-export const DialogsContain = connect(mapStateToProps,mapDispatchToProps)(Dialogs)
+
+export const DialogsContain = connect(mapStateToProps,{
+    addMessage,
+    changeMessage
+})(Dialogs)

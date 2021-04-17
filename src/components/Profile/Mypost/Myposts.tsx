@@ -14,12 +14,12 @@ const Myposts:React.FC<MypostPropsType> = (props) => {
     const newPostHandler = () => {
         let newPostElement= props.profilePageState.newTextPostValue
         if(newPostElement) {
-            props.addNewPost(newPostElement)
+            props.addPost(newPostElement)
         }
     }
 
     const onChangePostHandler = (e:ChangeEvent<HTMLTextAreaElement>)=>{
-        props.onChangePost(e.currentTarget.value)
+        props.changePost(e.currentTarget.value)
     }
 
 

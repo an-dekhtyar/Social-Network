@@ -1,8 +1,8 @@
 import { ActionsTypes } from "./redux-store"
 
 
-export type DialogPageReducerType = ReturnType<typeof AddOutMessageCreator> |
-    ReturnType<typeof ChangeOutMessageCreator>
+export type DialogPageReducerType = ReturnType<typeof addMessage> |
+    ReturnType<typeof changeMessage>
 
 export type DialogPageType = {
     dialogs: Array<DialogItemType>
@@ -24,9 +24,9 @@ export type MessageType = {
 const ADD_OUT_MESSAGE = "ADD-OUT-MESSAGE"
 const CHANGE_VALUE_OUT_MESSAGE = "CHANGE-VALUE-OUT-MESSAGE"
 
-export const AddOutMessageCreator = (newMessage: string) =>
+export const addMessage = (newMessage: string) =>
     ({ type: ADD_OUT_MESSAGE, newOutMessageText: newMessage }) as const;
-export const ChangeOutMessageCreator = (newText: string) =>
+export const changeMessage = (newText: string) =>
     ({ type: CHANGE_VALUE_OUT_MESSAGE, newText: newText }) as const;
 
 

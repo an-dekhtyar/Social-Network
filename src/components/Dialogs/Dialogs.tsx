@@ -20,12 +20,12 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
     const addOutMessageHandler = () => {
         let newMessage = props.dialogsPageState.newOutMessageText
         if (newMessage) {
-            props.addOutMessage(newMessage)
+            props.addMessage(newMessage)
         }
     }
 
     const outMessageChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.outMessageChange(e.currentTarget.value)
+        props.changeMessage(e.currentTarget.value)
     }
 
     return (

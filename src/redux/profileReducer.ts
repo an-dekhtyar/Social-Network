@@ -1,6 +1,6 @@
 import { ActionsTypes } from "./redux-store"
 
-export type ProfilePageReducerType= ReturnType<typeof AddPostCreator> | ReturnType<typeof ChangePostCreator>
+export type ProfilePageReducerType= ReturnType<typeof addPost> | ReturnType<typeof changePost>
 
 
 export type ProfilePageType = {
@@ -18,9 +18,9 @@ export type PostType = {
 const ADD_POST = "ADD-POST"
 const CHANGE_VALUE_POST = "CHANGE-VALUE-POST"
 
-export const AddPostCreator = (newPostElement: string) =>
+export const addPost = (newPostElement: string) =>
     ({type: ADD_POST, postMessage: newPostElement}) as const;
-export const ChangePostCreator = (newText: string) =>
+export const changePost = (newText: string) =>
     ({type: CHANGE_VALUE_POST, newText: newText}) as const;
 
 let initialState: ProfilePageType = {

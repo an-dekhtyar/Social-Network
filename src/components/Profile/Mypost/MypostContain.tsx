@@ -1,6 +1,6 @@
 import React, { ChangeEvent, RefObject } from "react";
 
-import { AddPostCreator, ChangePostCreator, ProfilePageType } from "../../../redux/profileReducer";
+import { addPost, changePost, ProfilePageType } from "../../../redux/profileReducer";
 import Myposts from "./Myposts";
 import { connect } from "react-redux";
 import { AppStateType } from "../../../redux/redux-store";
@@ -12,8 +12,8 @@ export type mapStatePropsType = {
     profilePageState: ProfilePageType
 }
 export type mapDispatchPropsType = {
-    addNewPost: (newPostText: string) => void
-    onChangePost: (newPostElement: string) => void
+    addPost: (newPostText: string) => void
+    changePost: (newPostElement: string) => void
 }
 
 const mapStateToProps = (state: AppStateType): mapStatePropsType => {
@@ -22,11 +22,7 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
     }
 }
 
-const mapDispatcToProps = (dispatch: Dispatch): mapDispatchPropsType => {
-    return {
-        addNewPost: (newPostText: string) => { dispatch(AddPostCreator(newPostText)) },
-        onChangePost: (newPostElement: string) => { dispatch(ChangePostCreator(newPostElement)) }
-    }
-}
-
-export const MypostsContain = connect(mapStateToProps, mapDispatcToProps)(Myposts)
+export const MypostsContain = connect(mapStateToProps, {
+    addPost,
+    changePost
+})(Myposts)
