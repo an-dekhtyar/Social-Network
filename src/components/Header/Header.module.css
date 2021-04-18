@@ -9,3 +9,15 @@
     width:50px;
     padding: 5px;
 }
+
+.loginBlock {
+    float: right;
+    padding: 20px;
+
+}
+
+.loginBlock a {
+    color: cornflowerblue;
+    text-decoration: none;
+    border: 1px cornflowerblue solid;
+}

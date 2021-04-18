@@ -43,8 +43,8 @@ export type ProfileType = {
 }
 
 
-const ADD_POST = "ADD-POST"
-const CHANGE_VALUE_POST = "CHANGE-VALUE-POST"
+const ADD_POST = "ADD_POST"
+const CHANGE_VALUE_POST = "CHANGE_VALUE_POST"
 const SET_USER_PROFILE = "SET_USER_PROFILE"
 
 export const addPost = (newPostElement: string) =>
@@ -83,7 +83,7 @@ let initialState: ProfilePageType = {
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType => {
     switch (action.type) {
-        case "ADD-POST":{
+        case "ADD_POST":{
             let newPost: PostType = {
                 id: 4,
                 message: action.postMessage,
@@ -96,7 +96,7 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
                 newTextPostValue:""
             }
             return copyState;}
-        case "CHANGE-VALUE-POST":{
+        case "CHANGE_VALUE_POST":{
             let stateCopy = {
                 ...state,
                 newTextPostValue:action.newText
