@@ -20,11 +20,11 @@ export type ProfileContainerType = mapDispatchPropsProfileType & mapStatePropsPr
 type PropsType = RouteComponentProps<PathParamType> & ProfileContainerType
 
 
-
+ 
 class ProfileContainer extends React.Component <PropsType> {
 
     componentDidMount () {
-        let userId = this.props.match.params
+        let userId = this.props.match.params.userId
 
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/`+ userId)
             .then(response => {
