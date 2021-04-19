@@ -10,8 +10,8 @@ import {
     UserItemType,
     toggleIsFetching
 } from '../../redux/usersReducer';
-import axios from "axios";
 import {Users} from "./Users";
+import {userAPI} from '../../api/api'
 
 import { Preloader } from '../../common/Preloader';
 
@@ -38,23 +38,24 @@ class UsersContain extends React.Component<UsersPageTPropsType> {
 
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(response.data.items)
-                this.props.setTotalCount(response.data.totalCount)
-            })
+
+
+        userAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+            this.props.toggleIsFetching(false)
+            this.props.setUsers(data.items)
+            this.props.setTotalCount(data.totalCount)
+        })
 
     }
 
     onPageChange = (page: number) =>{
         this.props.toggleIsFetching(true)
         this.props.setCurrentPage(page)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(response.data.items)
-            })
+
+        userAPI.changeUsersPage(page,this.props.pageSize).then(data => {
+            this.props.toggleIsFetching(false)
+            this.props.setUsers(data.items)
+        })
     }
 
     render() {

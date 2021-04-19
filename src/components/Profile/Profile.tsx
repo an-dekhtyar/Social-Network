@@ -2,7 +2,7 @@ import React from "react";
 import s from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import {MypostsContain} from "./Mypost/MypostContain";
-import { mapDispatchPropsProfileType, mapStatePropsProfileType } from "./ProfileContainer";
+import { mapStatePropsProfileType } from "./ProfileContainer";
 
 type ProfilePropsType = mapStatePropsProfileType
 
