@@ -122,7 +122,9 @@ export const userReducer = (state: UserPageType = initialState, action: ActionsT
         case TOGGLE_IS_FOLLOWING_PROGRESS:
             return {
                 ...state,
-
+                followingInProgress: action.isFetching
+                    ? [...state.followingInProgress, action.userId]
+                    : state.followingInProgress.filter(f => f !== action.userId)
             }
         default:
             return state

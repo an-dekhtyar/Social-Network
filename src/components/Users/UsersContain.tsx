@@ -23,6 +23,7 @@ export type mapStatePropsType = {
     totalCount:number
     pageSize:number
     isFetching:boolean
+    followingInProgress:number[]
 }
 export type mapDispatchPropsType = {
     follow:(userId:number)=>void
@@ -74,6 +75,7 @@ class UsersContain extends React.Component<UsersPageTPropsType> {
                 unfollow={this.props.unfollow}
                 isFetching={this.props.isFetching}
                 toggleIsFollowing={this.props.toggleIsFollowing}
+                followingInProgress={this.props.followingInProgress}
             />
         </>
     }
@@ -85,7 +87,8 @@ const mapStateToProps = (state:AppStateType):mapStatePropsType => {
         currentPage:state.usersPageState.currentPage,
         totalCount:state.usersPageState.totalCount,
         pageSize:state.usersPageState.pageSize,
-        isFetching:state.usersPageState.isFetching
+        isFetching:state.usersPageState.isFetching,
+        followingInProgress:state.usersPageState.followingInProgress
     }
 }
 

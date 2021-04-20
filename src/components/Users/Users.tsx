@@ -1,10 +1,10 @@
 import React from 'react';
-import { UserItemType } from '../../redux/usersReducer';
+import {UserItemType} from '../../redux/usersReducer';
 import s from './User.module.css'
 
 import userPhoto from '../../assets/images/userPhoto.png'
-import { NavLink } from 'react-router-dom';
-import { followAPI} from '../../api/api';
+import {NavLink} from 'react-router-dom';
+import {followAPI} from '../../api/api';
 
 type UsersPagePropsType = {
     totalCount: number
@@ -15,8 +15,8 @@ type UsersPagePropsType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     isFetching: boolean
-    toggleIsFollowing:(isFetching:boolean,userId:number)=>void
-
+    toggleIsFollowing: (isFetching: boolean, userId: number) => void
+    followingInProgress: number[]
 }
 
 export const Users = (props: UsersPagePropsType) => {
@@ -44,18 +44,21 @@ export const Users = (props: UsersPagePropsType) => {
             </div>
             {props.users.map(u => {
                 const onFollowHandler = () => {
-
+                    props.toggleIsFollowing(true, u.id)
                     followAPI.onFollow(u.id).then(data => {
                         if (data.resultCode === 0) {
                             props.follow(u.id)
                         }
+                        props.toggleIsFollowing(false, u.id)
                     })
                 }
                 const onUnfollowHandler = () => {
+                    props.toggleIsFollowing(true, u.id)
                     followAPI.onUnFollow(u.id).then(data => {
                         if (data.resultCode === 0) {
                             props.unfollow(u.id)
                         }
+                        props.toggleIsFollowing(false, u.id)
                     })
                 }
 
@@ -63,17 +66,19 @@ export const Users = (props: UsersPagePropsType) => {
                     <div className={s.userContain} key={u.id}>
 
                         <div className={s.userImg}>
-                            <NavLink to={'/profile/' + u.id} >
+                            <NavLink to={'/profile/' + u.id}>
                                 <div>
-                                    <img src={u.photos.small !== null ? u.photos.small : userPhoto} />
+                                    <img src={u.photos.small !== null ? u.photos.small : userPhoto}/>
                                 </div>
                             </NavLink>
                             <div>
                                 {u.followed
                                     ?
-                                    <button onClick={onUnfollowHandler}>Unfollow</button>
+                                    <button disabled={props.followingInProgress.some(id => id === u.id)}
+                                            onClick={onUnfollowHandler}>Unfollow</button>
                                     :
-                                    <button onClick={onFollowHandler}>Follow</button>}
+                                    <button disabled={props.followingInProgress.some(id => id === u.id)}
+                                            onClick={onFollowHandler}>Follow</button>}
                             </div>
                         </div>
 
