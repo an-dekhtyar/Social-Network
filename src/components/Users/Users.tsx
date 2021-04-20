@@ -4,6 +4,7 @@ import s from './User.module.css'
 
 import userPhoto from '../../assets/images/userPhoto.png'
 import { NavLink } from 'react-router-dom';
+import { followAPI} from '../../api/api';
 
 type UsersPagePropsType = {
     totalCount: number
@@ -14,6 +15,7 @@ type UsersPagePropsType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     isFetching: boolean
+    toggleIsFollowing:(isFetching:boolean,userId:number)=>void
 
 }
 
@@ -42,10 +44,19 @@ export const Users = (props: UsersPagePropsType) => {
             </div>
             {props.users.map(u => {
                 const onFollowHandler = () => {
-                    props.follow(u.id)
+
+                    followAPI.onFollow(u.id).then(data => {
+                        if (data.resultCode === 0) {
+                            props.follow(u.id)
+                        }
+                    })
                 }
                 const onUnfollowHandler = () => {
-                    props.unfollow(u.id)
+                    followAPI.onUnFollow(u.id).then(data => {
+                        if (data.resultCode === 0) {
+                            props.unfollow(u.id)
+                        }
+                    })
                 }
 
                 return (

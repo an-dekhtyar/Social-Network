@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const instance = axios.create({
-    baseURL:`https:https://social-network.samuraijs.com/api/1.0/`,
+    baseURL:`https://social-network.samuraijs.com/api/1.0/`,
     withCredentials: true,
     headers: {"API-KEY": "05d9bcdd-f837-4b7d-a2a0-c9d433328199"}
 })
@@ -10,7 +10,7 @@ const instance = axios.create({
 export const userAPI = {
     getUsers (currentPage: number, pageSize: number) {
 
-        return instance.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`, {
+        return instance.get(`users?page=${currentPage}&count=${pageSize}`, {
             withCredentials: true
         })
             .then(responce => responce.data)
@@ -18,7 +18,7 @@ export const userAPI = {
 
     changeUsersPage (page: number, pageSize: number) {
 
-        return instance.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${pageSize}`, {
+        return instance.get(`users?page=${page}&count=${pageSize}`, {
             withCredentials: true
         })
             .then(responce => responce.data)
@@ -28,7 +28,7 @@ export const userAPI = {
 
 export const profileAPI = {
     selectUser (userId: string) {
-        return instance.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
+        return instance.get(`profile/` + userId)
             .then(responce => responce.data)
     }
 
@@ -36,7 +36,7 @@ export const profileAPI = {
 
 export const authAPI = {
     getAuthUserData () {
-        return instance.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
+        return instance.get(`auth/me`, {
             withCredentials: true
         })
             .then(responce => responce.data)
@@ -46,14 +46,15 @@ export const authAPI = {
 
 export const followAPI = {
     onFollow (id:number) {
-        return instance.post(`https://social-network.samuraijs.com/api/1.0/follow/` + id, {}, {
+        debugger
+        return instance.post(`follow/` + id, {}, {
             withCredentials: true
         })
             .then(responce => responce.data)
     },
 
     onUnFollow (id:number) {
-        return instance.delete(`https://social-network.samuraijs.com/api/1.0/follow/` + id, {
+        return instance.delete(`follow/` + id, {
             withCredentials: true,
         })
             .then(responce => responce.data)

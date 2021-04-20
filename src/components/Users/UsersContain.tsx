@@ -8,7 +8,8 @@ import {
     setUsers,
     unfollow,
     UserItemType,
-    toggleIsFetching
+    toggleIsFetching,
+    toggleIsFollowing
 } from '../../redux/usersReducer';
 import {Users} from "./Users";
 import {userAPI} from '../../api/api'
@@ -30,6 +31,7 @@ export type mapDispatchPropsType = {
     setCurrentPage:(currentPage:number)=>void
     setTotalCount:(totalCount:number)=>void
     toggleIsFetching:(isFetching:boolean)=>void
+    toggleIsFollowing:(isFetching:boolean,userId:number)=>void
 }
 export type UsersPageTPropsType = mapStatePropsType & mapDispatchPropsType
 
@@ -71,6 +73,7 @@ class UsersContain extends React.Component<UsersPageTPropsType> {
                 follow={this.props.follow}
                 unfollow={this.props.unfollow}
                 isFetching={this.props.isFetching}
+                toggleIsFollowing={this.props.toggleIsFollowing}
             />
         </>
     }
@@ -93,5 +96,6 @@ export default connect(mapStateToProps, {
     setUsers,
     setCurrentPage,
     setTotalCount,
-    toggleIsFetching
+    toggleIsFetching,
+    toggleIsFollowing
 }) (UsersContain)
