@@ -3,6 +3,7 @@ import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import {InMessage, OutMessage} from './Message/Message';
 import { mapDispatchToPropsType, MapStatePropsType } from './DialogsContain';
+import { Redirect } from 'react-router-dom';
 
 
 type DialogsPropsType = MapStatePropsType & mapDispatchToPropsType
@@ -27,6 +28,9 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
     const outMessageChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.changeMessage(e.currentTarget.value)
     }
+
+    if (!props.isAuth) return <Redirect to='/login' />
+
 
     return (
         <div className={s.dialogs}>

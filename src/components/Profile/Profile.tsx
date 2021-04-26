@@ -3,8 +3,11 @@ import s from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import {MypostsContain} from "./Mypost/MypostContain";
 import { mapStatePropsProfileType } from "./ProfileContainer";
+import {ProfileType} from "../../redux/profileReducer";
 
-type ProfilePropsType = mapStatePropsProfileType
+type ProfilePropsType = {
+    profile:ProfileType | null
+}
 
 
 const Profile = (props:ProfilePropsType) => {

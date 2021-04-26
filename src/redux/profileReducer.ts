@@ -1,6 +1,8 @@
-import { ActionsTypes } from "./redux-store"
+import {ActionsTypes} from "./redux-store"
+import {profileAPI} from "../api/api";
+import {Dispatch} from "redux";
 
-export type ProfilePageReducerType=
+export type ProfilePageReducerType =
     ReturnType<typeof addPost> |
     ReturnType<typeof changePost> |
     ReturnType<typeof setUserProfile>
@@ -9,7 +11,7 @@ export type ProfilePageReducerType=
 export type ProfilePageType = {
     posts: Array<PostType>
     newTextPostValue: string
-    profile:ProfileType | null
+    profile: ProfileType | null
 }
 export type PostType = {
     id: number
@@ -28,14 +30,14 @@ export type ContactsType = {
     mainLink: string | null
 }
 export type PhotosType = {
-    small:string | null
-    large:string | null
+    small: string | null
+    large: string | null
 }
 export type ProfileType = {
-    contacts:ContactsType
-    photos:PhotosType
+    contacts: ContactsType
+    photos: PhotosType
     userId: number | null
-    lookingForAJob:boolean
+    lookingForAJob: boolean
     lookingForAJobDescription: string | null
     fullName: string
     aboutMe: string | null
@@ -52,7 +54,7 @@ export const addPost = (newPostElement: string) =>
 export const changePost = (newText: string) =>
     ({type: CHANGE_VALUE_POST, newText: newText}) as const;
 export const setUserProfile = (profile: ProfileType) =>
-    ({ type: SET_USER_PROFILE, profile }) as const;
+    ({type: SET_USER_PROFILE, profile}) as const;
 
 
 let initialState: ProfilePageType = {
@@ -77,13 +79,13 @@ let initialState: ProfilePageType = {
         },
     ],
     newTextPostValue: "",
-    profile:null
+    profile: null
 }
 
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType => {
     switch (action.type) {
-        case "ADD_POST":{
+        case "ADD_POST": {
             let newPost: PostType = {
                 id: 4,
                 message: action.postMessage,
@@ -92,23 +94,32 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
             }
             let copyState = {
                 ...state,
-                posts:[...state.posts, newPost],
-                newTextPostValue:""
+                posts: [...state.posts, newPost],
+                newTextPostValue: ""
             }
-            return copyState;}
-        case "CHANGE_VALUE_POST":{
+            return copyState;
+        }
+        case "CHANGE_VALUE_POST": {
             let stateCopy = {
                 ...state,
-                newTextPostValue:action.newText
+                newTextPostValue: action.newText
             }
-            return stateCopy;}
+            return stateCopy;
+        }
         case "SET_USER_PROFILE":
             return {
                 ...state,
-                profile:action.profile
+                profile: action.profile
             }
         default:
             return state
     }
 
+}
+
+export const selectUser = (userId: string) => (dispatch: Dispatch<ProfilePageReducerType>) => {
+    profileAPI.selectUser(userId)
+        .then(data => {
+            dispatch(setUserProfile(data))
+        })
 }

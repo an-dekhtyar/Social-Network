@@ -15,7 +15,6 @@ type UsersPagePropsType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     isFetching: boolean
-    toggleIsFollowing: (isFetching: boolean, userId: number) => void
     followingInProgress: number[]
 }
 
@@ -44,22 +43,10 @@ export const Users = (props: UsersPagePropsType) => {
             </div>
             {props.users.map(u => {
                 const onFollowHandler = () => {
-                    props.toggleIsFollowing(true, u.id)
-                    followAPI.onFollow(u.id).then(data => {
-                        if (data.resultCode === 0) {
-                            props.follow(u.id)
-                        }
-                        props.toggleIsFollowing(false, u.id)
-                    })
+                    props.follow(u.id)
                 }
                 const onUnfollowHandler = () => {
-                    props.toggleIsFollowing(true, u.id)
-                    followAPI.onUnFollow(u.id).then(data => {
-                        if (data.resultCode === 0) {
-                            props.unfollow(u.id)
-                        }
-                        props.toggleIsFollowing(false, u.id)
-                    })
+                    props.unfollow(u.id)
                 }
 
                 return (

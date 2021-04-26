@@ -4,13 +4,13 @@ import {addMessage, changeMessage, DialogPageType} from "../../redux/dialogReduc
 import Dialogs from "./Dialogs";
 
 import { AppStateType } from '../../redux/redux-store';
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 
 
 export type MapStatePropsType = {
     dialogsPageState:DialogPageType
+    isAuth:boolean
 }
 
 export type mapDispatchToPropsType = {
@@ -20,7 +20,8 @@ export type mapDispatchToPropsType = {
 
 const mapStateToProps =(state:AppStateType):MapStatePropsType => {
     return {
-        dialogsPageState: state.dialogsPageState
+        dialogsPageState: state.dialogsPageState,
+        isAuth:state.authUserData.isAuth
     }
 }
 

@@ -10,6 +10,7 @@ import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
 import {DialogsContain} from "./components/Dialogs/DialogsContain";
 import UsersContain from "./components/Users/UsersContain";
+import Login from "./components/Login/Login";
 
 
 const App = () => {
@@ -20,11 +21,12 @@ const App = () => {
             <Navbar/>
             <div className='app-wrapper-content'>
                 <Route path='/dialogs' render={ () => <DialogsContain/>}/>
-                <Route path='/profile/:userId' render={ () => <ProfileContainer/>}/>
+                <Route path='/profile/:userId?' render={ () => <ProfileContainer/>}/>
                 <Route path='/news' render={() => <News/>}/>
                 <Route path='/music' render={() => <Music/>}/>
                 <Route path='/users' render={() => <UsersContain/>}/>
-                <Route path='/settings' render={ ()=> <Settings/>}/>
+                <Route path='/settings' render={()=> <Settings/>}/>
+                <Route path='/login' render={() => <Login/>}/>
 
             </div>
         </div>

@@ -2,8 +2,9 @@ import React from "react";
 import { Preloader } from "../../../common/Preloader";
 import { mapStatePropsProfileType } from "../ProfileContainer";
 import s from "./ProfileInfo.module.css"
+import {ProfileType} from "../../../redux/profileReducer";
 
-type ProfileInfoType = mapStatePropsProfileType
+type ProfileInfoType = { profile:ProfileType | null }
 
 
 const  ProfileInfo = (props:ProfileInfoType) => {

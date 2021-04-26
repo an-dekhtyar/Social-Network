@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import Header from "./Header"
 import { AppStateType } from "../../redux/redux-store";
-import { AuthType, setAuthUserData} from "../../redux/auth-reducer";
+import {authMe, AuthType, setAuthUserData} from "../../redux/auth-reducer";
 import { authAPI } from "../../api/api";
 
 type mapStateToProps = {
@@ -10,19 +10,14 @@ type mapStateToProps = {
     isAuth: boolean
 }
 type mapDispathToProps = {
-    setAuthUserData:(data:AuthType)=>void
+    authMe:()=>void
 }
 
 type HeaderContainerType = mapStateToProps & mapDispathToProps
 
 class HeaderContainer extends React.Component<HeaderContainerType> {
     componentDidMount(){
-
-        authAPI.getAuthUserData().then(data => {
-            if (data.resultCode === 0) {
-                this.props.setAuthUserData(data.data)
-            }
-        })
+        this.props.authMe()
     }
 
     render(){
@@ -37,4 +32,4 @@ let mapStateToProps = (state:AppStateType):mapStateToProps => ({
 })
 
 
-export default connect(mapStateToProps, {setAuthUserData})(HeaderContainer)
+export default connect(mapStateToProps, {authMe})(HeaderContainer)
