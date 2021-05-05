@@ -8,6 +8,7 @@ import { withRouter } from "react-router";
 import {Redirect, RouteComponentProps} from "react-router-dom";
 import { profileAPI} from "../../api/api";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import { compose } from "redux";
 
 export type mapDispatchPropsProfileType = {
     selectUser:(userId:string)=>void
@@ -50,9 +51,10 @@ const mapStateToProps = (state:AppStateType):mapStatePropsProfileType =>({
     isAuth:state.authUserData.isAuth
 })
 
-let WithUrlDataContainerComponent = withRouter(ProfileContainer)
-
-export default withAuthRedirect(connect(mapStateToProps, {selectUser})(WithUrlDataContainerComponent))
-
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {selectUser}),
+    withRouter,
+    withAuthRedirect
+)(ProfileContainer)
 
 

@@ -8,7 +8,7 @@ import {Route} from "react-router-dom";
 import Music from "./components/Music/Music";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
-import {DialogsContain} from "./components/Dialogs/DialogsContain";
+import DialogsContain from "./components/Dialogs/DialogsContain";
 import UsersContain from "./components/Users/UsersContain";
 import Login from "./components/Login/Login";
 
