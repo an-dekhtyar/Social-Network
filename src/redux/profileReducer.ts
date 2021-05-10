@@ -5,13 +5,14 @@ import {Dispatch} from "redux";
 export type ProfilePageReducerType =
     ReturnType<typeof addPost> |
     ReturnType<typeof changePost> |
-    ReturnType<typeof setUserProfile>
-
+    ReturnType<typeof setUserProfile> |
+    ReturnType<typeof getStatus>
 
 export type ProfilePageType = {
     posts: Array<PostType>
     newTextPostValue: string
     profile: ProfileType | null
+    status: string | null
 }
 export type PostType = {
     id: number
@@ -48,6 +49,7 @@ export type ProfileType = {
 const ADD_POST = "ADD_POST"
 const CHANGE_VALUE_POST = "CHANGE_VALUE_POST"
 const SET_USER_PROFILE = "SET_USER_PROFILE"
+const GET_USER_STATUS = "GET_USER_STATUS"
 
 export const addPost = (newPostElement: string) =>
     ({type: ADD_POST, postMessage: newPostElement}) as const;
@@ -55,7 +57,8 @@ export const changePost = (newText: string) =>
     ({type: CHANGE_VALUE_POST, newText: newText}) as const;
 export const setUserProfile = (profile: ProfileType) =>
     ({type: SET_USER_PROFILE, profile}) as const;
-
+export const getStatus = (status:string) =>
+    ({type:GET_USER_STATUS, status }) as const;
 
 let initialState: ProfilePageType = {
     posts: [
@@ -79,7 +82,8 @@ let initialState: ProfilePageType = {
         },
     ],
     newTextPostValue: "",
-    profile: null
+    profile: null,
+    status: null
 }
 
 
@@ -111,6 +115,11 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
                 ...state,
                 profile: action.profile
             }
+        case GET_USER_STATUS:
+            return {
+                ...state,
+                status:action.status
+            }
         default:
             return state
     }
@@ -122,4 +131,12 @@ export const selectUser = (userId: string) => (dispatch: Dispatch<ProfilePageRed
         .then(data => {
             dispatch(setUserProfile(data))
         })
+}
+
+export const getUserStatus = (userId:string) => (dispatch: Dispatch<ProfilePageReducerType>) => {
+    profileAPI.getUserStatus(userId)
+        .then(data => {
+            dispatch(getStatus(data))
+        })
+
 }

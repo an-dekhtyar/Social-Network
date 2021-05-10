@@ -3,8 +3,12 @@ import { Preloader } from "../../../common/Preloader";
 import { mapStatePropsProfileType } from "../ProfileContainer";
 import s from "./ProfileInfo.module.css"
 import {ProfileType} from "../../../redux/profileReducer";
+import ProfileStatus from "./ProfileStatus";
 
-type ProfileInfoType = { profile:ProfileType | null }
+type ProfileInfoType = {
+    profile:ProfileType | null
+    status: string | null
+}
 
 
 const  ProfileInfo = (props:ProfileInfoType) => {
@@ -15,12 +19,14 @@ const  ProfileInfo = (props:ProfileInfoType) => {
 
     return (
         <div>
-            <div className={s.profileInfoImg}>
+            {/*<div className={s.profileInfoImg}>
                 <img src='https://draft.gr/wp-content/uploads/sites/56/2018/12/1200-x-300-website-sliders-china-man.jpg'/>
-            </div>
+            </div>*/}
             <div className={s.profileInfoBlock}>
                 <img src={props.profile.photos.large?props.profile.photos.large:'' }/>
+                <ProfileStatus status={props.status}/>
                 <span>{props.profile.aboutMe}</span>
+
 
             </div>
         </div>
