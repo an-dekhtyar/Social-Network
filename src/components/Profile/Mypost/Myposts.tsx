@@ -3,6 +3,8 @@ import React, {ChangeEvent} from "react";
 import Post from "./Post/Post";
 import {mapDispatchPropsType, mapStatePropsType} from "./MypostContain";
 import {reduxForm, Field, InjectedFormProps} from "redux-form";
+import {MaxValueCreator, required} from "../../../utils/validators/validators";
+import {TextArea} from "../../../common/formControl/FormControl";
 
 type MypostPropsType = mapStatePropsType & mapDispatchPropsType
 type PostFormType = {
@@ -14,14 +16,6 @@ const Myposts:  React.FC<MypostPropsType> = (props) => {
     let postElements = props.profilePageState.posts.map(p => <Post key={p.id} id={p.id} message={p.message}
                                                                    likesAmount={p.likesAmount} urlImage={p.urlImage}/>)
 
-    /*const newPostHandler = () => {
-        let newPostElement = props.profilePageState.newTextPostValue
-
-    }
-
-    const onChangePostHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.changePost(e.currentTarget.value)
-    }*/
 
     const onSubmit = (post:PostFormType) => {
         if (post.postText) {
@@ -40,14 +34,16 @@ const Myposts:  React.FC<MypostPropsType> = (props) => {
         </div>)
 }
 
-
+const maxValueCreator10 = MaxValueCreator(10)
 
 const PostForm: React.FC<InjectedFormProps<PostFormType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
                 <div>
-                    <Field name='postText' component='textarea'/>
+                    <Field name='postText' component={TextArea}
+                    validate={[required, maxValueCreator10]}
+                    />
                 </div>
                 <div>
                     <button>Add post</button>

@@ -3,8 +3,9 @@ import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import {InMessage, OutMessage} from './Message/Message';
 import {mapDispatchToPropsType, MapStatePropsType} from './DialogsContain';
-import {Redirect} from 'react-router-dom';
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {TextArea} from "../../common/formControl/FormControl";
+import {MaxValueCreator, required} from "../../utils/validators/validators";
 
 
 type DialogsPropsType = MapStatePropsType & mapDispatchToPropsType
@@ -19,18 +20,7 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
         <DialogItem key={d.id} id={d.id} name={d.name} urlImage={d.urlImage}/>)
 
 
-    /*const addOutMessageHandler = () => {
-        let newMessage = props.dialogsPageState.newOutMessageText
-        if (newMessage) {
-            props.addMessage(newMessage)
-        }
-    }
-
-    const outMessageChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.changeMessage(e.currentTarget.value)
-    }
-*/
-    const onSubmit = (message:MessageFormType) => {
+    const addMessage = (message:MessageFormType) => {
         if (message.messageText) {
             props.addMessage(message.messageText)
         }
@@ -47,7 +37,7 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
                 {inMessagesElement}
                 {outMessagesElements}
                 <div className={s.dialogTextArea}>
-                    <MessageReduxForm onSubmit={onSubmit}/>
+                    <AddMessageReduxForm onSubmit={addMessage}/>
                 </div>
             </div>
 
@@ -58,13 +48,15 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
 type MessageFormType = {
     messageText: string
 }
+const maxValue100 = MaxValueCreator(100)
 
-const MessageForm: React.FC<InjectedFormProps<MessageFormType>> = (props) => {
+const AddMessageForm: React.FC<InjectedFormProps<MessageFormType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
                 <div>
-                    <Field name={'messageText'} component={'textarea'} placeholder={"Enter your message "}/>
+                    <Field name={'messageText'} component={TextArea} placeholder={"Enter your message "}
+                    validate={[required,maxValue100]}/>
                 </div>
                 <div>
                     <button>Add post</button>
@@ -73,8 +65,8 @@ const MessageForm: React.FC<InjectedFormProps<MessageFormType>> = (props) => {
         </form>
     )
 }
-const MessageReduxForm = reduxForm<MessageFormType>({
-    form: 'message'
-})(MessageForm)
+const AddMessageReduxForm = reduxForm<MessageFormType>({
+    form: 'AddMessageForm'
+})(AddMessageForm)
 
 export default Dialogs

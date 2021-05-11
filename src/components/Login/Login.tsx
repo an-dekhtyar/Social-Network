@@ -1,11 +1,14 @@
 import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {Input} from "../../common/formControl/FormControl";
+import {MaxValueCreator, required} from "../../utils/validators/validators";
 
 type FormDataType = {
     login: string
     password: string
     rememberMe:boolean
 }
+const maxValue10 = MaxValueCreator(10)
 
 const LoginForm:React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return(
@@ -13,8 +16,9 @@ const LoginForm:React.FC<InjectedFormProps<FormDataType>> = (props) => {
                 <div>
                     <Field
                         placeholder={'Login'}
-                        component={'input'}
+                        component={Input}
                         name={'login'}
+                        validate={[required, maxValue10]}
                         // type={"text"}
                         // title={"Login"}
                     />
@@ -22,8 +26,9 @@ const LoginForm:React.FC<InjectedFormProps<FormDataType>> = (props) => {
                 <div>
                     <Field
                         placeholder={'Password'}
-                        component={'input'}
+                        component={Input}
                         name={'password'}
+                        validate={[required, maxValue10]}
                         // type={"text"}
                         // title={"password"}
 
@@ -31,7 +36,7 @@ const LoginForm:React.FC<InjectedFormProps<FormDataType>> = (props) => {
                 </div>
                 <div>
                     <Field type={'checkbox'}
-                           component={'input'}
+                           component={Input}
                            name={'rememberMe'}
                            // title={"checkbox"}
                     />
@@ -45,7 +50,6 @@ const LoginForm:React.FC<InjectedFormProps<FormDataType>> = (props) => {
 const LoginReduxForm = reduxForm<FormDataType>({
     form: 'login'
 })(LoginForm)
-
 
 
 const Login = () => {

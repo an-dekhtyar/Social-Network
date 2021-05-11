@@ -1,6 +1,6 @@
 import React, {ChangeEvent} from 'react';
 
-import {addMessage, changeMessage, DialogPageType} from "../../redux/dialogReducer";
+import {addMessage, DialogPageType} from "../../redux/dialogReducer";
 import Dialogs from "./Dialogs";
 
 import { AppStateType } from '../../redux/redux-store';
@@ -17,7 +17,6 @@ export type MapStatePropsType = {
 
 export type mapDispatchToPropsType = {
     addMessage:(newMessageText:string) => void
-    changeMessage: (newTextElement:string) => void
 }
 
 const mapStateToProps =(state:AppStateType):MapStatePropsType => {
@@ -28,7 +27,7 @@ const mapStateToProps =(state:AppStateType):MapStatePropsType => {
 }
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps,{addMessage, changeMessage}),
+    connect(mapStateToProps,{addMessage}),
     withAuthRedirect
 )(Dialogs)
 

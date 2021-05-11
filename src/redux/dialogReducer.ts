@@ -1,14 +1,13 @@
 import { ActionsTypes } from "./redux-store"
 
 
-export type DialogPageReducerType = ReturnType<typeof addMessage> |
-    ReturnType<typeof changeMessage>
+export type DialogPageReducerType = ReturnType<typeof addMessage>
 
 export type DialogPageType = {
     dialogs: Array<DialogItemType>
     inMessages: Array<MessageType>
     outMessages: Array<MessageType>
-    newOutMessageText: string
+
 }
 
 export type DialogItemType = {
@@ -22,13 +21,9 @@ export type MessageType = {
 }
 
 const ADD_OUT_MESSAGE = "ADD-OUT-MESSAGE"
-const CHANGE_VALUE_OUT_MESSAGE = "CHANGE-VALUE-OUT-MESSAGE"
 
 export const addMessage = (newMessage: string) =>
     ({ type: ADD_OUT_MESSAGE, newOutMessageText: newMessage }) as const;
-export const changeMessage = (newText: string) =>
-    ({ type: CHANGE_VALUE_OUT_MESSAGE, newText: newText }) as const;
-
 
 let initialState: DialogPageType = {
     dialogs: [
@@ -75,7 +70,6 @@ let initialState: DialogPageType = {
         { id: 3, message: "Where are you from?" },
         { id: 4, message: "Where are youu?" },
     ],
-    newOutMessageText: ""
 }
 
 
@@ -87,6 +81,7 @@ export const dialogReducer = (state: DialogPageType = initialState, action: Acti
                 id: 4,
                 message: action.newOutMessageText
             }
+
             let stateCopy = {
                 ...state,
                 outMessages: [...state.outMessages, newMessage],
@@ -94,12 +89,6 @@ export const dialogReducer = (state: DialogPageType = initialState, action: Acti
             }
             return stateCopy;
         }
-        case "CHANGE-VALUE-OUT-MESSAGE":
-            let stateCopy = {
-                ...state,
-                newOutMessageText: action.newText
-            }
-            return stateCopy;
         default: return state
     }
 

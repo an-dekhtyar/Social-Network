@@ -4,13 +4,11 @@ import {Dispatch} from "redux";
 
 export type ProfilePageReducerType =
     ReturnType<typeof addPost> |
-    ReturnType<typeof changePost> |
     ReturnType<typeof setUserProfile> |
     ReturnType<typeof getStatus>
 
 export type ProfilePageType = {
     posts: Array<PostType>
-    newTextPostValue: string
     profile: ProfileType | null
     status: string
 }
@@ -47,15 +45,12 @@ export type ProfileType = {
 
 
 const ADD_POST = "ADD_POST"
-const CHANGE_VALUE_POST = "CHANGE_VALUE_POST"
 const SET_USER_PROFILE = "SET_USER_PROFILE"
 const GET_USER_STATUS = "GET_USER_STATUS"
 
 
 export const addPost = (newPostElement: string) =>
     ({type: ADD_POST, postMessage: newPostElement}) as const;
-export const changePost = (newText: string) =>
-    ({type: CHANGE_VALUE_POST, newText: newText}) as const;
 export const setUserProfile = (profile: ProfileType) =>
     ({type: SET_USER_PROFILE, profile}) as const;
 export const getStatus = (status:string) =>
@@ -82,7 +77,6 @@ let initialState: ProfilePageType = {
             urlImage: "https://bohnice.cz/wp-content/uploads/2020/05/avatarka.jpg"
         },
     ],
-    newTextPostValue: "",
     profile: null,
     status: ""
 }
@@ -100,13 +94,6 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
             return {
                 ...state,
                 posts: [...state.posts, newPost],
-                newTextPostValue: ""
-            };
-        }
-        case "CHANGE_VALUE_POST": {
-            return {
-                ...state,
-                newTextPostValue: action.newText
             };
         }
         case "SET_USER_PROFILE":
@@ -130,9 +117,6 @@ export const selectUser = (userId: string) => (dispatch: any) => {
         .then(data => {
             dispatch(setUserProfile(data))
         })
-        // .then( ()=> {
-        //     dispatch(getUserStatus(userId))
-        // } )
 }
 
 export const getUserStatus = (userId:string) => (dispatch: Dispatch<ProfilePageReducerType>) => {
