@@ -2,8 +2,9 @@ import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import {InMessage, OutMessage} from './Message/Message';
-import { mapDispatchToPropsType, MapStatePropsType } from './DialogsContain';
-import { Redirect } from 'react-router-dom';
+import {mapDispatchToPropsType, MapStatePropsType} from './DialogsContain';
+import {Redirect} from 'react-router-dom';
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
 
 type DialogsPropsType = MapStatePropsType & mapDispatchToPropsType
@@ -18,7 +19,7 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
         <DialogItem key={d.id} id={d.id} name={d.name} urlImage={d.urlImage}/>)
 
 
-    const addOutMessageHandler = () => {
+    /*const addOutMessageHandler = () => {
         let newMessage = props.dialogsPageState.newOutMessageText
         if (newMessage) {
             props.addMessage(newMessage)
@@ -28,8 +29,13 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
     const outMessageChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.changeMessage(e.currentTarget.value)
     }
-
-
+*/
+    const onSubmit = (message:MessageFormType) => {
+        if (message.messageText) {
+            props.addMessage(message.messageText)
+        }
+        console.log(message)
+    }
 
 
     return (
@@ -41,19 +47,34 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
                 {inMessagesElement}
                 {outMessagesElements}
                 <div className={s.dialogTextArea}>
-                    <textarea value={props.dialogsPageState.newOutMessageText} onChange={outMessageChangeHandler}
-                              placeholder={"Enter your message "}/>
-                    <div>
-                        <button onClick={addOutMessageHandler}>Send</button>
-                    </div>
+                    <MessageReduxForm onSubmit={onSubmit}/>
                 </div>
             </div>
 
+
         </div>
     )
-
-
+}
+type MessageFormType = {
+    messageText: string
 }
 
+const MessageForm: React.FC<InjectedFormProps<MessageFormType>> = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <div>
+                    <Field name={'messageText'} component={'textarea'} placeholder={"Enter your message "}/>
+                </div>
+                <div>
+                    <button>Add post</button>
+                </div>
+            </div>
+        </form>
+    )
+}
+const MessageReduxForm = reduxForm<MessageFormType>({
+    form: 'message'
+})(MessageForm)
 
 export default Dialogs
