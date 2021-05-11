@@ -12,7 +12,7 @@ export type ProfilePageType = {
     posts: Array<PostType>
     newTextPostValue: string
     profile: ProfileType | null
-    status: string | null
+    status: string
 }
 export type PostType = {
     id: number
@@ -51,6 +51,7 @@ const CHANGE_VALUE_POST = "CHANGE_VALUE_POST"
 const SET_USER_PROFILE = "SET_USER_PROFILE"
 const GET_USER_STATUS = "GET_USER_STATUS"
 
+
 export const addPost = (newPostElement: string) =>
     ({type: ADD_POST, postMessage: newPostElement}) as const;
 export const changePost = (newText: string) =>
@@ -83,7 +84,7 @@ let initialState: ProfilePageType = {
     ],
     newTextPostValue: "",
     profile: null,
-    status: null
+    status: ""
 }
 
 
@@ -96,19 +97,17 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
                 likesAmount: 0,
                 urlImage: "https://bohnice.cz/wp-content/uploads/2020/05/avatarka.jpg"
             }
-            let copyState = {
+            return {
                 ...state,
                 posts: [...state.posts, newPost],
                 newTextPostValue: ""
-            }
-            return copyState;
+            };
         }
         case "CHANGE_VALUE_POST": {
-            let stateCopy = {
+            return {
                 ...state,
                 newTextPostValue: action.newText
-            }
-            return stateCopy;
+            };
         }
         case "SET_USER_PROFILE":
             return {
@@ -126,11 +125,14 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
 
 }
 
-export const selectUser = (userId: string) => (dispatch: Dispatch<ProfilePageReducerType>) => {
+export const selectUser = (userId: string) => (dispatch: any) => {
     profileAPI.selectUser(userId)
         .then(data => {
             dispatch(setUserProfile(data))
         })
+        // .then( ()=> {
+        //     dispatch(getUserStatus(userId))
+        // } )
 }
 
 export const getUserStatus = (userId:string) => (dispatch: Dispatch<ProfilePageReducerType>) => {
@@ -139,4 +141,12 @@ export const getUserStatus = (userId:string) => (dispatch: Dispatch<ProfilePageR
             dispatch(getStatus(data))
         })
 
+}
+export const updateUserStatus = (status:string) => (dispatch: Dispatch<ProfilePageReducerType>) => {
+    profileAPI.updateStatus(status)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(getStatus(status))
+            }
+        })
 }
