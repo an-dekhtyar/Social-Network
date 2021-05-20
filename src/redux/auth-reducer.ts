@@ -2,8 +2,9 @@ import {ActionsTypes} from "./redux-store"
 import {authAPI} from "../api/api";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
+import {stopSubmit} from "redux-form";
 
-export type AuthReducerType = ReturnType<typeof setAuthUserData>
+export type AuthReducerType = ReturnType<typeof setAuthUserData> /*| ReturnType<typeof stopSubmit>*/
 
 export type AuthType = {
     id: number | null
@@ -61,6 +62,9 @@ export const login = (email: string, password: string, rememberMe: boolean):Thun
         .then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(authMe())
+            } else {
+                const error = response.data.messages.length > 0 ? response.data.messages[0] : 'Some Error!'
+                dispatch(stopSubmit('login',{_error:error}) as AuthReducerType)
             }
         })
 }

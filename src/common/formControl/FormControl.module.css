@@ -7,3 +7,10 @@
     color:red;
     display: block;
 }
+.commonAuthError {
+    width:200px;
+    background-color: white;
+    boeder: 1px solid black;
+    color: red;
+    text-align: center;
+}
