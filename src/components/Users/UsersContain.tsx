@@ -5,11 +5,11 @@ import {
     follow,
     unfollow,
     UserItemType,
-    getUsers, changeUsersPage
+    requestUsers, changeUsersPage
 } from '../../redux/usersReducer';
 import {Users} from "./Users";
 import { Preloader } from '../../common/Preloader';
-
+import {getCurrentPage, getFollowInProgresValue, getIsFetchingValue, getPageSize, getTotalCount, getUsers} from '../../selectors/users-selector'
 
 
 export type mapStatePropsType = {
@@ -25,7 +25,7 @@ export type mapDispatchPropsType = {
     unfollow:(userId:number)=>void
 
 
-    getUsers:(currentPage: number, pageSize: number) => void
+    requestUsers:(currentPage: number, pageSize: number) => void
     changeUsersPage:(page:number, pageSize:number) =>void
 }
 export type UsersPageTPropsType = mapStatePropsType & mapDispatchPropsType
@@ -34,7 +34,7 @@ class UsersContain extends React.Component<UsersPageTPropsType> {
 
 
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+        this.props.requestUsers(this.props.currentPage, this.props.pageSize)
     }
 
     onPageChange = (page: number) =>{
@@ -62,12 +62,12 @@ class UsersContain extends React.Component<UsersPageTPropsType> {
 
 const mapStateToProps = (state:AppStateType):mapStatePropsType => {
     return {
-        users:state.usersPageState.users,
-        currentPage:state.usersPageState.currentPage,
-        totalCount:state.usersPageState.totalCount,
-        pageSize:state.usersPageState.pageSize,
-        isFetching:state.usersPageState.isFetching,
-        followingInProgress:state.usersPageState.followingInProgress
+        users:getUsers(state),
+        currentPage:getCurrentPage(state),
+        totalCount:getTotalCount(state),
+        pageSize:getPageSize(state),
+        isFetching:getIsFetchingValue(state),
+        followingInProgress:getFollowInProgresValue(state)
     }
 }
 
@@ -75,6 +75,6 @@ const mapStateToProps = (state:AppStateType):mapStatePropsType => {
 export default connect(mapStateToProps, {
     follow,
     unfollow,
-    getUsers,
+    requestUsers,
     changeUsersPage
 }) (UsersContain)
