@@ -12,9 +12,11 @@ type ProfilePropsType = {
 
 
 const Profile = (props:ProfilePropsType) => {
+
+    const {profile, status, updateUserStatus} = props
     return (
         <div className={s.content}>
-            <ProfileInfo profile={props.profile} status={props.status} updateUserStatus={props.updateUserStatus}/>
+            <ProfileInfo profile={profile} status={status} updateUserStatus={updateUserStatus}/>
             <MypostsContain/>
         </div>
     )

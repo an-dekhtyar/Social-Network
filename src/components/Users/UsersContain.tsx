@@ -34,11 +34,13 @@ class UsersContain extends React.Component<UsersPageTPropsType> {
 
 
     componentDidMount() {
-        this.props.requestUsers(this.props.currentPage, this.props.pageSize)
+        const {currentPage, pageSize} = this.props
+        this.props.requestUsers(currentPage, pageSize)
     }
 
     onPageChange = (page: number) =>{
-        this.props.changeUsersPage(page, this.props.pageSize)
+        const {pageSize} = this.props
+        this.props.changeUsersPage(page, pageSize)
     }
 
     render() {

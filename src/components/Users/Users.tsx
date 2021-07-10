@@ -1,6 +1,6 @@
 import React from 'react';
 import {UserItemType} from '../../redux/usersReducer';
-import {Pagination} from './Pagination'
+import {Pagination} from '../../common/Pagination/Pagination'
 import {User} from './User'
 
 
@@ -30,7 +30,7 @@ export const Users = (props: UsersPagePropsType) => {
     return (
         <div>
             <Pagination totalCount={totalCount} pageSize={pageSize}
-                        onPageChange={onPageChange} currentPage={currentPage}/>
+                        onPageChange={onPageChange} currentPage={currentPage} portionSize={10}/>
 
             {users.map(u => <User key={u.id} user={u} follow={follow}
                                   unfollow={unfollow} followingInProgress={followingInProgress} />)}

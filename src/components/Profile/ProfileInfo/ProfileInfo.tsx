@@ -13,7 +13,9 @@ type ProfileInfoType = {
 
 
 const  ProfileInfo = (props:ProfileInfoType) => {
-    if (!props.profile){
+
+    const {profile, status, updateUserStatus} = props
+    if (!profile){
         return <Preloader/>
     }
 
@@ -23,9 +25,9 @@ const  ProfileInfo = (props:ProfileInfoType) => {
                 <img src='https://draft.gr/wp-content/uploads/sites/56/2018/12/1200-x-300-website-sliders-china-man.jpg'/>
             </div>*/}
             <div className={s.profileInfoBlock}>
-                <img src={props.profile.photos.large?props.profile.photos.large:'' }/>
+                <img src={profile.photos.large?profile.photos.large:'' }/>
                 <ProfileStatusWithHooks status={props.status} updateUserStatus={props.updateUserStatus}/>
-                <span>{props.profile.aboutMe}</span>
+                <span>{profile.aboutMe}</span>
 
 
             </div>
