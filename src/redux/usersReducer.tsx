@@ -2,7 +2,7 @@ import {ActionsTypes, AppStateType} from "./redux-store"
 import {followAPI, userAPI} from "../api/api";
 import {Dispatch} from "redux";
 import { ThunkAction } from "redux-thunk";
-
+import {updateObjectInArray} from './../utils/validators/object-helper'
 
 export type UsersPageReducerType =
     followSuccessType
@@ -56,13 +56,13 @@ export type LocationType = {
     country: string
 }
 
-const FOLLOW = "FOLLOW"
-const UNFOLLOW = "UNFOLLOW"
-const SET_USERS = "SET-USERS"
-const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
-const SET_TOTAL_COUNT = "SET_TOTAL_COUNT"
-const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING"
-const TOGGLE_IS_FOLLOWING_PROGRESS = "TOGGLE_IS_FOLLOWING_PROGRESS"
+const FOLLOW = "social-network/user-reducer/FOLLOW"
+const UNFOLLOW = "social-network/user-reducer/UNFOLLOW"
+const SET_USERS = "social-network/user-reducer/SET-USERS"
+const SET_CURRENT_PAGE = "social-network/user-reducer/SET_CURRENT_PAGE"
+const SET_TOTAL_COUNT = "social-network/user-reducer/SET_TOTAL_COUNT"
+const TOGGLE_IS_FETCHING = "social-network/user-reducer/TOGGLE_IS_FETCHING"
+const TOGGLE_IS_FOLLOWING_PROGRESS = "social-network/user-reducer/TOGGLE_IS_FOLLOWING_PROGRESS"
 
 export const followSuccess = (userID: number) =>
     ({type: FOLLOW, userID}) as const;
@@ -94,23 +94,13 @@ export const userReducer = (state: UserPageType = initialState, action: ActionsT
 
             return {
                 ...state,
-                users: state.users.map(u => {
-                    if (u.id === action.userID) {
-                        return {...u, followed: true}
-                    }
-                    return u
-                })
+                users: updateObjectInArray(state.users, action.userID, 'id', {followed: true})
             }
         case UNFOLLOW:
 
             return {
                 ...state,
-                users: state.users.map(u => {
-                    if (u.id === action.userID) {
-                        return {...u, followed: false}
-                    }
-                    return u
-                })
+                users: updateObjectInArray(state.users, action.userID, 'id', {followed: false})
             }
         case SET_USERS:
             return {
@@ -146,44 +136,41 @@ export const userReducer = (state: UserPageType = initialState, action: ActionsT
 }
 
 
-export const requestUsers = (currentPage:number, pageSize:number) => (dispatch:Dispatch<UsersPageReducerType>) => {
+export const requestUsers = (currentPage:number, pageSize:number) => async (dispatch:Dispatch<UsersPageReducerType>) => {
     dispatch(toggleIsFetching(true))
-    userAPI.getUsers(currentPage, pageSize)
-        .then(data => {
-            dispatch(toggleIsFetching(false))
-            dispatch(setUsers(data.items))
-            dispatch(setTotalCount(data.totalCount))
+    let data = await userAPI.getUsers(currentPage, pageSize)
+    dispatch(toggleIsFetching(false))
+    dispatch(setUsers(data.items))
+    dispatch(setTotalCount(data.totalCount))
 
-        })
 }
 
-export const changeUsersPage = (page:number, pageSize:number) =>(dispatch:Dispatch<UsersPageReducerType>) =>{
+export const changeUsersPage = (page:number, pageSize:number) => async (dispatch:Dispatch<UsersPageReducerType>) =>{
     dispatch(toggleIsFetching(true))
     dispatch(setCurrentPage(page))
-    userAPI.changeUsersPage(page,pageSize).then(data => {
-        dispatch(toggleIsFetching(false))
-        dispatch(setUsers(data.items))
-    })
+    let data = await userAPI.changeUsersPage(page,pageSize)
+    dispatch(toggleIsFetching(false))
+    dispatch(setUsers(data.items))
+
 }
 
 
-export const follow = (userId:number) => (dispatch:Dispatch<UsersPageReducerType>) => {
+export const follow = (userId:number) => async (dispatch:Dispatch<UsersPageReducerType>) => {
+
     dispatch(toggleIsFollowing(true, userId))
-    followAPI.onFollow(userId).then(data => {
-        if (data.resultCode === 0) {
-            dispatch(followSuccess(userId))
-        }
-        dispatch(toggleIsFollowing(false, userId))
-    })
+    let data = await followAPI.onFollow(userId)
+    if (data.resultCode === 0) {
+        dispatch(followSuccess(userId))
+    }
+    dispatch(toggleIsFollowing(false, userId))
 }
 
-export const unfollow = (userId:number) => (dispatch:Dispatch<UsersPageReducerType>) => {
+export const unfollow = (userId:number) => async (dispatch:Dispatch<UsersPageReducerType>) => {
 
     dispatch(toggleIsFollowing(true, userId))
-    followAPI.onUnFollow(userId).then(data => {
-        if (data.resultCode === 0) {
-            dispatch(unfollowSuccess(userId))
-        }
-        dispatch(toggleIsFollowing(false, userId))
-    })
+    let data = await followAPI.onUnFollow(userId)
+    if (data.resultCode === 0) {
+        dispatch(unfollowSuccess(userId))
+    }
+    dispatch(toggleIsFollowing(false, userId))
 }

@@ -1,11 +1,13 @@
 import {ActionsTypes} from "./redux-store"
 import {profileAPI} from "../api/api";
 import {Dispatch} from "redux";
+import { stat } from "fs";
 
 export type ProfilePageReducerType =
     ReturnType<typeof addPost> |
     ReturnType<typeof setUserProfile> |
-    ReturnType<typeof getStatus>
+    ReturnType<typeof getStatus> |
+    ReturnType<typeof deletePost>
 
 export type ProfilePageType = {
     posts: Array<PostType>
@@ -44,10 +46,10 @@ export type ProfileType = {
 }
 
 
-const ADD_POST = "ADD_POST"
-const SET_USER_PROFILE = "SET_USER_PROFILE"
-const GET_USER_STATUS = "GET_USER_STATUS"
-
+const ADD_POST = "social-network/profile-reducer/ADD_POST"
+const SET_USER_PROFILE = "social-network/profile-reducer/SET_USER_PROFILE"
+const GET_USER_STATUS = "social-network/profile-reducer/GET_USER_STATUS"
+const DELETE_POST = "social-network/profile-reducer/DELETE_POST"
 
 export const addPost = (newPostElement: string) =>
     ({type: ADD_POST, postMessage: newPostElement}) as const;
@@ -55,6 +57,8 @@ export const setUserProfile = (profile: ProfileType) =>
     ({type: SET_USER_PROFILE, profile}) as const;
 export const getStatus = (status:string) =>
     ({type:GET_USER_STATUS, status }) as const;
+export const deletePost = (id:number) =>
+    ({type:DELETE_POST, id} as const)
 
 let initialState: ProfilePageType = {
     posts: [
@@ -84,7 +88,7 @@ let initialState: ProfilePageType = {
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType => {
     switch (action.type) {
-        case "ADD_POST": {
+        case ADD_POST: {
             let newPost: PostType = {
                 id: 4,
                 message: action.postMessage,
@@ -96,7 +100,7 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
                 posts: [...state.posts, newPost],
             };
         }
-        case "SET_USER_PROFILE":
+        case SET_USER_PROFILE:
             return {
                 ...state,
                 profile: action.profile
@@ -106,31 +110,30 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
                 ...state,
                 status:action.status
             }
+        case DELETE_POST:
+            return {
+                ...state,
+                posts: state.posts.filter(p => p.id !== action.id)
+            }
         default:
             return state
     }
 
 }
 
-export const selectUser = (userId: string) => (dispatch: any) => {
-    profileAPI.selectUser(userId)
-        .then(data => {
-            dispatch(setUserProfile(data))
-        })
+export const selectUser = (userId: string) => async (dispatch: any) => {
+    let data = await profileAPI.selectUser(userId)
+    dispatch(setUserProfile(data))
 }
 
-export const getUserStatus = (userId:string) => (dispatch: Dispatch<ProfilePageReducerType>) => {
-    profileAPI.getUserStatus(userId)
-        .then(data => {
-            dispatch(getStatus(data))
-        })
+export const getUserStatus = (userId:string) => async (dispatch: Dispatch<ProfilePageReducerType>) => {
+    let data = await profileAPI.getUserStatus(userId)
+    dispatch(getStatus(data))
 
 }
-export const updateUserStatus = (status:string) => (dispatch: Dispatch<ProfilePageReducerType>) => {
-    profileAPI.updateStatus(status)
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(getStatus(status))
-            }
-        })
+export const updateUserStatus = (status:string) => async (dispatch: Dispatch<ProfilePageReducerType>) => {
+    let response = await profileAPI.updateStatus(status)
+    if (response.data.resultCode === 0) {
+        dispatch(getStatus(status))
+    }
 }

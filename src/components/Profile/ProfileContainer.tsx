@@ -26,7 +26,7 @@ type PropsType = RouteComponentProps<PathParamType> & ProfileContainerType
 
 
 
- class ProfileContainer extends React.Component <PropsType> {
+class ProfileContainer extends React.Component <PropsType> {
 
     componentDidMount () {
         let userId = Number(this.props.match.params.userId)
@@ -41,7 +41,7 @@ type PropsType = RouteComponentProps<PathParamType> & ProfileContainerType
     }
 
     render () {
-       // if (!this.props.isAuth) return <Redirect to='/login' />
+        // if (!this.props.isAuth) return <Redirect to='/login' />
         return (
             <Profile profile={this.props.profile} status={this.props.status} updateUserStatus={this.props.updateUserStatus}/>
         )

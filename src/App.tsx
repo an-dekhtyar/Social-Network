@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Navbar from "./components/Navbar/Navbar";
@@ -12,8 +11,6 @@ import DialogsContain from "./components/Dialogs/DialogsContain";
 import UsersContain from "./components/Users/UsersContain";
 import Login from "./components/Login/Login";
 import {connect} from "react-redux";
-import {authMe} from "./redux/auth-reducer";
-import {ProfilePageType} from "./redux/profileReducer";
 import {withRouter} from "react-router";
 import {compose} from "redux";
 import {initializeAppTC} from "./redux/appReducer";

@@ -22,9 +22,9 @@ type MapStateToPropsType = {
 type LoginType = MapDispatchToPropsType & MapStateToPropsType
 const maxValue10 = MaxValueCreator(20)
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
                 <Field
                     placeholder={'Email'}
@@ -49,7 +49,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                        name={'rememberMe'}
                 />
             </div>
-            {props.error && <div className={style.commonAuthError}>{props.error}</div>}
+            {error && <div className={style.commonAuthError}>{error}</div>}
             <div>
                 <button>Login</button>
             </div>

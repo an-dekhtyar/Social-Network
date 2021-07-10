@@ -21,9 +21,6 @@
     display: flex;
 }
 
-.selected {
-    font-weight: bold;
-}
 
 .textContain {
     border: 1px solid;

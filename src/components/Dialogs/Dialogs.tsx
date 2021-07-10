@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import {InMessage, OutMessage} from './Message/Message';
@@ -56,7 +56,7 @@ const AddMessageForm: React.FC<InjectedFormProps<MessageFormType>> = (props) => 
             <div>
                 <div>
                     <Field name={'messageText'} component={TextArea} placeholder={"Enter your message "}
-                    validate={[required,maxValue100]}/>
+                           validate={[required,maxValue100]}/>
                 </div>
                 <div>
                     <button>Add post</button>

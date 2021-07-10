@@ -10,29 +10,26 @@ type MypostPropsType = mapStatePropsType & mapDispatchPropsType
 type PostFormType = {
     postText:string
 }
+const Myposts = (props:MypostPropsType) => {
+    console.log("Myposts render");
+    console.log("props", props);
 
-const Myposts:  React.FC<MypostPropsType> = (props) => {
+    let postElements = props.posts.map(p => <Post key={p.id} id={p.id} message={p.message} likesAmount={p.likesAmount} urlImage={p.urlImage} />);
 
-    let postElements = props.profilePageState.posts.map(p => <Post key={p.id} id={p.id} message={p.message}
-                                                                   likesAmount={p.likesAmount} urlImage={p.urlImage}/>)
-
-
-    const onSubmit = (post:PostFormType) => {
+    const onSubmit = (post: PostFormType) => {
         if (post.postText) {
-            props.addPost(post.postText)
+            props.addPost(post.postText);
         }
-        console.log(post)
-    }
+    };
 
-    return (
-        <div className={s.postsBlock}>
-            <h3>My posts</h3>
-            <PostReduxForm onSubmit={onSubmit}/>
-            <div className={s.posts}>
-                {postElements}
-            </div>
-        </div>)
-}
+    return <div className={s.postsBlock}>
+        <h3>My posts</h3>
+        <PostReduxForm onSubmit={onSubmit} />
+        <div className={s.posts}>
+            {postElements}
+        </div>
+    </div>;
+};
 
 const maxValueCreator10 = MaxValueCreator(10)
 
@@ -42,7 +39,7 @@ const PostForm: React.FC<InjectedFormProps<PostFormType>> = (props) => {
             <div>
                 <div>
                     <Field name='postText' component={TextArea}
-                    validate={[required, maxValueCreator10]}
+                           validate={[required, maxValueCreator10]}
                     />
                 </div>
                 <div>

@@ -11,7 +11,7 @@ export type AppStateType = {
     initialized:boolean
 }
 
-const INITIALIZED_SUCCESS = "INITIALIZED_SUCCESS"
+const INITIALIZED_SUCCESS = "social-network/app-reducer/INITIALIZED_SUCCESS"
 
 
 let initialState: AppStateType = {
@@ -21,8 +21,8 @@ let initialState: AppStateType = {
 
 export const appReducer = (state: AppStateType = initialState, action: appReducerType): AppStateType => {
     switch (action.type) {
-        case "INITIALIZED_SUCCESS":
-            debugger
+        case INITIALIZED_SUCCESS:
+
             return {
                 ...state,
                 initialized:true
@@ -32,15 +32,13 @@ export const appReducer = (state: AppStateType = initialState, action: appReduce
             return state
     }
 }
-export const initializeApp = () => ({
-    type:INITIALIZED_SUCCESS
-} as const)
+export const initializeApp = () => ( {type:INITIALIZED_SUCCESS} as const)
 
 
-export const initializeAppTC = ():ThunkAction<void,AuthType,unknown, ActionsTypes >=> (dispatch) => {
+export const initializeAppTC = ():ThunkAction<void,AuthType,unknown, ActionsTypes > => async (dispatch) => {
     const promise = dispatch(authMe())
-    promise.then(()=>{
-            debugger
+    Promise.all([promise])
+        .then(()=>{
             dispatch(initializeApp())
         })
 }

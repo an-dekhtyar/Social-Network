@@ -20,7 +20,7 @@ export type MessageType = {
     message: string
 }
 
-const ADD_OUT_MESSAGE = "ADD-OUT-MESSAGE"
+const ADD_OUT_MESSAGE = "social-network/dialog-reducer/ADD-OUT-MESSAGE"
 
 export const addMessage = (newMessage: string) =>
     ({ type: ADD_OUT_MESSAGE, newOutMessageText: newMessage }) as const;
@@ -76,7 +76,7 @@ let initialState: DialogPageType = {
 
 export const dialogReducer = (state: DialogPageType = initialState, action: ActionsTypes): DialogPageType => {
     switch (action.type) {
-        case "ADD-OUT-MESSAGE": {
+        case ADD_OUT_MESSAGE: {
             let newMessage: MessageType = {
                 id: 4,
                 message: action.newOutMessageText
