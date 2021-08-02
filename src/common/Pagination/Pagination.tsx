@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import s from '../../components/Users/User.module.css'
+import s from './Pagination.module.css'
 import cn from 'classnames'
 
 type PaginationPropsType = {

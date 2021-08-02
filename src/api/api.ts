@@ -1,4 +1,5 @@
 import axios from "axios"
+import {ProfileType} from "../redux/profileReducer";
 
 const instance = axios.create({
     baseURL: `https://social-network.samuraijs.com/api/1.0/`,
@@ -9,19 +10,17 @@ const instance = axios.create({
 
 export const userAPI = {
     getUsers(currentPage: number, pageSize: number) {
-
         return instance.get(`users?page=${currentPage}&count=${pageSize}`, {
             withCredentials: true
         })
-            .then(responce => responce.data)
+            .then(response => response.data)
     },
 
     changeUsersPage(page: number, pageSize: number) {
-
         return instance.get(`users?page=${page}&count=${pageSize}`, {
             withCredentials: true
         })
-            .then(responce => responce.data)
+            .then(response => response.data)
     }
 }
 
@@ -36,17 +35,29 @@ export const profileAPI = {
             .then(response => response.data)
     },
     updateStatus(status: string) {
-        return instance.put(`profile/status`, {status:status})
+        return instance.put(`profile/status`, {status: status})
+    },
+    savePhoto(image: any) {
+        const formData = new FormData();
+        formData.append("image", image);
+        return instance.put('profile/photo',formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+    },
+    changeProfile(profileData:ProfileType){
+        return instance.put('profile',profileData)
     }
 }
 
 export const authAPI = {
     getAuthUserData() {
-        return instance.get(`auth/me` )
+        return instance.get(`auth/me`)
             .then(response => response.data)
     },
-    login(email:string, password:string, rememberMe:boolean = false) {
-        return instance.post('auth/login', {email, password, rememberMe})
+    login(email: string, password: string, rememberMe: boolean = false, captcha:string | null = null) {
+        return instance.post('auth/login', {email, password, rememberMe, captcha})
     },
     logout() {
         return instance.delete('auth/login')
@@ -57,14 +68,20 @@ export const authAPI = {
 
 export const followAPI = {
     onFollow(id: number) {
-        debugger
-        return instance.post(`follow/` + id, {}, )
-            .then(responce => responce.data)
+        return instance.post(`follow/` + id, {},)
+            .then(response => response.data)
     },
 
     onUnFollow(id: number) {
         return instance.delete(`follow/` + id,)
-            .then(responce => responce.data)
+            .then(response => response.data)
     }
+}
+
+export const securityAPI = {
+    getCaptcha() {
+        return instance.get(`security/get-captcha-url`)
+            .then(response => response.data.url)
+    },
 }
 

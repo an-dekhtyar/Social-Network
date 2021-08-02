@@ -2,7 +2,17 @@
     padding: 10px;
 }
 
-.profileInfoImg img {
+/*.profileInfoImg img {
     width: 100%;
     height: 250px;
+}*/
+
+.photo {
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+}
+.contact{
+    margin-left: 10px;
 }

@@ -8,15 +8,24 @@ type ProfilePropsType = {
     profile:ProfileType | null
     status:string
     updateUserStatus:(status:string)=>void
+    isOwner:boolean
+    updatePhoto:(newPhoto:object)=>void
+    editMode:boolean
 }
 
 
 const Profile = (props:ProfilePropsType) => {
 
-    const {profile, status, updateUserStatus} = props
+    const {profile, status, updateUserStatus, isOwner, updatePhoto, editMode} = props
     return (
         <div className={s.content}>
-            <ProfileInfo profile={profile} status={status} updateUserStatus={updateUserStatus}/>
+            <ProfileInfo profile={profile}
+                         status={status}
+                         updateUserStatus={updateUserStatus}
+                         isOwner={isOwner}
+                         updatePhoto={updatePhoto}
+                         editMode={editMode}
+            />
             <MypostsContain/>
         </div>
     )
