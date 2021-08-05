@@ -26,7 +26,6 @@ export type PostType = {
     id: number
     message: string
     likesAmount: number
-    urlImage: string
 }
 export interface ContactsType {
     [key: string]: string;
@@ -70,21 +69,18 @@ let initialState: ProfilePageType = {
     posts: [
         {
             id: 1,
-            message: "Hi, how are you?",
+            message: "In his work Leonard Bernstein, Humphrey Burton explained: When it was decided to add Tony’s first-act song “Something’s Coming,” Bernstein and Sond",
             likesAmount: 45,
-            urlImage: "https://bohnice.cz/wp-content/uploads/2020/05/avatarka.jpg"
         },
         {
             id: 2,
-            message: "What is your name?",
+            message: "In his work Leonard Bernstein, Humphrey Burton explained: When it was decided to add Tony’s first-act song “Something’s Coming,” Bernstein and Sond",
             likesAmount: 24,
-            urlImage: "https://bohnice.cz/wp-content/uploads/2020/05/avatarka.jpg"
         },
         {
             id: 3,
-            message: "What is your favorite TV-show?",
+            message: "In his work Leonard Bernstein, Humphrey Burton explained: When it was decided to add Tony",
             likesAmount: 56,
-            urlImage: "https://bohnice.cz/wp-content/uploads/2020/05/avatarka.jpg"
         },
     ],
     profile: null,
@@ -97,14 +93,14 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
     switch (action.type) {
         case ADD_POST: {
             let newPost: PostType = {
-                id: 4,
+                id: Math.random(),
                 message: action.postMessage,
                 likesAmount: 0,
-                urlImage: "https://bohnice.cz/wp-content/uploads/2020/05/avatarka.jpg"
+
             }
             return {
                 ...state,
-                posts: [...state.posts, newPost],
+                posts: [newPost, ...state.posts ],
             };
         }
         case SET_USER_PROFILE:
@@ -118,6 +114,7 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
                 status:action.status
             }
         case DELETE_POST:
+            debugger
             return {
                 ...state,
                 posts: state.posts.filter(p => p.id !== action.id)

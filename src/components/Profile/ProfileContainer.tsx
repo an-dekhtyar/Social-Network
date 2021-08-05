@@ -6,6 +6,7 @@ import { AppStateType } from "../../redux/redux-store";
 import { withRouter } from "react-router";
 import {RouteComponentProps} from "react-router-dom";
 import { compose } from "redux";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 
 export type mapDispatchPropsProfileType = {
     selectUser:(userId:number)=>void

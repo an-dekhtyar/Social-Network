@@ -1,8 +1,6 @@
 import React, {ChangeEvent} from 'react';
-
-import {addMessage, DialogPageType} from "../../redux/dialogReducer";
+import {addMessage, DialogItemType} from "../../redux/dialogReducer";
 import Dialogs from "./Dialogs";
-
 import { AppStateType } from '../../redux/redux-store';
 import { connect } from 'react-redux';
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
@@ -11,18 +9,20 @@ import {compose} from "redux";
 
 
 export type MapStatePropsType = {
-    dialogsPageState:DialogPageType
+    dialogs:Array<DialogItemType>
     isAuth:boolean
+    currentCollocutor:number | null
 }
 
 export type mapDispatchToPropsType = {
-    addMessage:(newMessageText:string) => void
+    addMessage:(newMessageText:string, id:number | null) => void
 }
 
 const mapStateToProps =(state:AppStateType):MapStatePropsType => {
     return {
-        dialogsPageState: state.dialogsPageState,
-        isAuth:state.authUserData.isAuth
+        dialogs: state.dialogsPageState.dialogs,
+        isAuth:state.authUserData.isAuth,
+        currentCollocutor: state.dialogsPageState.currentCollocutor
     }
 }
 

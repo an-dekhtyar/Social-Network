@@ -1,12 +1,13 @@
 import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {Input} from "../../common/formControl/FormControl";
+import {Checkbox, Input} from "../../common/formControl/FormControl";
 import {MaxValueCreator, required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {login} from "../../redux/auth-reducer";
-import {Redirect} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 import {AppStateType} from "../../redux/redux-store";
 import style from '../../common/formControl/FormControl.module.css'
+import s from './Login.module.css'
 
 
 type FormDataType = {
@@ -31,18 +32,20 @@ const maxValue10 = MaxValueCreator(20)
 
 const LoginForm: React.FC<InjectedFormProps<FormDataType, IpropsType> & IpropsType> = ({handleSubmit, error, captchaUrl}) => {
     return (
+        <div className={s.loginPageContent}>
         <form onSubmit={handleSubmit}>
-            <div>
+            <h2>Sing In</h2>
+            <div className={s.superInput}>
+                <label htmlFor={'email'}>Email</label>
                 <Field
-                    placeholder={'Email'}
                     component={Input}
                     name={'email'}
                     validate={[required, maxValue10]}
                 />
             </div>
             <div>
+                <label htmlFor={'password'}>Password</label>
                 <Field
-                    placeholder={'Password'}
                     component={Input}
                     name={'password'}
                     type='password'
@@ -50,9 +53,9 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, IpropsType> & IpropsTy
 
                 />
             </div>
-            <div>
+            <div className={s.checkbox}>
                 <Field type={'checkbox'}
-                       component={Input}
+                       component={Checkbox}
                        name={'rememberMe'}
                 />
             </div>
@@ -65,10 +68,14 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, IpropsType> & IpropsTy
                 validate={[required]}
 
             />}
-            <div>
-                <button>Login</button>
+                 <button className={s.loginButton}>Sing in</button>
+
+                <div className={s.singUp}>
+            <div>Don't have an account?</div>
+            <a href={'https://social-network.samuraijs.com/signUp'}>Sing up</a>
             </div>
         </form>
+            </div>
     )
 }
 
@@ -85,8 +92,7 @@ const Login: React.FC<LoginType> = (props) => {
         return <Redirect to='/profile'/>
     }
     return (
-        <div>
-            <h1>LOGIN</h1>
+        <div className={s.loginPageContainer}>
             <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>
         </div>
     )

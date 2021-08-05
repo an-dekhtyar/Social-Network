@@ -2,6 +2,9 @@ import s from "./Navbar.module.css";
 import React from "react";
 import { mapStatePropsType } from "./FriendsContain";
 import { FriendsType } from "../../redux/navbarReducer";
+import {backgroundImageHelper} from "../Header/Header";
+import settingsImage from "../../assets/images/settings.png";
+import l from "../Header/Header.module.css";
 
 
 type FriendsPropsType = mapStatePropsType
@@ -14,10 +17,7 @@ export const Friends:React.FC<FriendsPropsType> = (props) => {
 
     return (
         <div>
-            <div className={s.friendsItem}>
-                Friends
-            </div>
-            <div>
+            <div className={s.friendsBlock}>
                 {friendsElement}
             </div>
 
@@ -26,17 +26,8 @@ export const Friends:React.FC<FriendsPropsType> = (props) => {
 
 const Friend:React.FC<FriendsType> = (props) => {
     return (
-        <div className={s.friendsBlock}>
-            <div className={s.imgFriendsBlock}>
-                <img src={props.urlImage}/>
-            </div>
-            <div className={s.nameFriendsBlock}>
-                {props.name}
-            </div>
-        </div>
+            <span style={backgroundImageHelper(props.urlImage)} className={s.imgFriend}/>
     )
 }
-
-
 export default Friends
 

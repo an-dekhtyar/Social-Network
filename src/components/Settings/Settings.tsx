@@ -1,13 +1,10 @@
 import React from 'react';
-import s from './Settings.module.css'
+import {PageInConstruct} from "../../common/PageInConstruct/PageInConstruct";
 
 const Settings = () => {
     return(
-        <div>
-            Settings
-        </div>
+       <PageInConstruct/>
     )
-
 }
 
 export default Settings

@@ -11,7 +11,7 @@ export const InMessage:React.FC<MessageType> = (props) => {
     return (
         <div className={s.containera}>
             <div className={s.inMessageContain}>
-                <div className={s.inMessage}>
+                <div className={s.messageStyle}>
                     {props.message}
                 </div>
             </div>
@@ -23,7 +23,7 @@ export const OutMessage:React.FC<MessageType> = (props) => {
     return (
         <div className={s.containerb}>
             <div className={s.outMessageContain}>
-                <div className={s.outMessage}>
+                <div className={s.messageStyle}>
                     {props.message}
                 </div>
             </div>

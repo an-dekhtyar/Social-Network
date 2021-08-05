@@ -1,42 +1,63 @@
 
 .navLinkPages {
     grid-area: n;
-    background-color: cornflowerblue;
-    padding: 20px;
+
+}
+.mainBlock {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgb(0 0 0 / 3%);
+}
+.secondaryBlock {
+    background-color: #fff;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    box-shadow: 0 8px 30px rgb(0 0 0 / 3%);
+}
+.item {
+    margin: 10px;
+    display: flex;
+    align-items: center;
 }
 
-.item a {
-    color: white;
+.navLinkPages a {
     text-decoration: none;
+    color:#888888;
+    font-weight: 600;
+    transition: all 0.5s ease;
 }
-.item a.active {
-    color: black;
+.navLinkPages a.active {
+    color: #05f;
+}
+.navLinkPages a:hover {
+    color: #05f;
 }
 
 .friendsBlock {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px;
+}
+
+.imgFriend {
     display: inline-block;
-    margin-right: 10px;
+    width:40px;
+    height:40px;
+    border-radius: 40px;
+    background-size: cover;
+    background-position: center;
+    cursor:pointer;
 }
 
-.imgFriendsBlock img {
-    height:40px ;
-    width: 40px;
-    border-radius: 20px;
-}
 
-.settingItem {
-    padding-top: 30px;
-}
-
-.friendsItem {
-    padding-top: 50px;
-    padding-bottom: 20px;
-    color: white;
-    font-size: 20px;
-}
-
-.nameFriendsBlock {
-    font-size: 13px;
-    color: white;
-    text-align: center;
+.userImage {
+    width:40px;
+    height: 40px;
+    background-position: center;
+    background-size: cover;
 }

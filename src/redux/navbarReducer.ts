@@ -1,5 +1,8 @@
 import { ActionsTypes } from "./redux-store"
-
+import andrey from '../assets/images/andrey.png'
+import alena from '../assets/images/alena.png'
+import sasha from '../assets/images/sasha.png'
+import sveta from '../assets/images/sveta.png'
 
 export type FriendsType = {
     id: number
@@ -16,17 +19,23 @@ let initialState:SideBarType = {
         {
             id: 1,
             name: "Andrey",
-            urlImage: "https://pbs.twimg.com/profile_images/488616487197106177/xIFT8idk.jpeg"
+            urlImage: andrey
         },
         {
             id: 2,
-            name: "Sasha",
-            urlImage: "https://i.pinimg.com/originals/d5/28/70/d52870bf3c60d63d304a589f395e6a86.png"
+            name: "Sveta",
+            urlImage: sveta
         },
         {
             id: 3,
-            name: "Sveta",
-            urlImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE1vTzqH-MVVPtDn_aoZ-5Jm_ibot1uqH9VQ&usqp=CAU"
+            name: "Sasha",
+            urlImage: sasha
+        },
+
+        {
+            id: 4,
+            name: "Alena",
+            urlImage: alena
         },
     ]}
 

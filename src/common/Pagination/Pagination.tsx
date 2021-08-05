@@ -25,28 +25,35 @@ export const Pagination = (props: PaginationPropsType) => {
     let rightPortionNumber = portionNumber * portionSize
 
 
-    return <div className={s.paginator}>
-        {portionNumber > 1 &&
-        <button onClick={() => {
+    return <div className={s.paginationContainer}>
+
+        <button
+            className={s.button}
+            disabled={portionNumber === 1}
+            onClick={() => {
             setPortionNumber(portionNumber - 1)
-        }}>-</button>}
+        }}>«</button>
 
         {
             pages.filter((p) => p >= leftPortionNumber && p <= rightPortionNumber)
                 .map((p) => {
-                    return <span className={cn({[s.selected]: currentPage === p}, '')}
+                    return <div className={cn(s.paginationPage,{[s.selected]: currentPage === p}, '')}
                                  key={p}
                                  onClick={(e) => {
                                      onPageChange(p)
-                                 }}>{p}</span>
+                                 }}>
+                        <div className={s.page}>{p}</div>
+                    </div>
                 })
         }
 
 
-        {portionCount > portionNumber &&
-        <button onClick={() => {
+
+        <button
+            className={s.button}
+            disabled={portionCount === portionNumber} onClick={() => {
             setPortionNumber(portionNumber + 1)
-        }}>+</button>}
+        }}>»</button>
     </div>
 
 }

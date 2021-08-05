@@ -6,7 +6,7 @@ export const required = (value:string) => {
     return 'Field is required!'
 }
 export const MaxValueCreator = (maxValue:number) => (value:string) => {
-    if (value.length > maxValue) {
+    if (value && value.length > maxValue) {
         return `Max value is ${maxValue} symbols`
     }
     return undefined

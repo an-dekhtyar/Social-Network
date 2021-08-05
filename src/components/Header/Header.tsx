@@ -1,14 +1,32 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import s from './Header.module.css'
-import {NavLink} from "react-router-dom";
+import {NavLink, useLocation} from "react-router-dom";
+import cn from "classnames";
+import logoImage from '../../assets/images/logo.png'
+import logOutImage from '../../assets/images/logout.png'
+import userImage from '../../assets/images/user.png'
+
+
+export const backgroundImageHelper = (image:string | null) => {
+
+    if (image) {
+        return   { backgroundImage: `url(${image})`}
+    } else {
+        return   { backgroundImage: `url(${userImage})`}
+    }
+}
+
+
 
 type HeaderPropsType = {
-    login: string | null
+    userPhoto: string | null
     isAuth: boolean
-    logout:()=>void
+    logout: () => void
 }
 
 const Header = (props: HeaderPropsType) => {
+
+    const params = useLocation().pathname
 
     const logoutHandler = () => {
         props.logout()
@@ -16,13 +34,20 @@ const Header = (props: HeaderPropsType) => {
 
     return (
         <header className={s.header}>
-            <img src="https://cdn.logo.com/hotlink-ok/logo-social-sq.png"/>
+            <div className={s.logo} style={backgroundImageHelper(logoImage)}/>
             <div className={s.loginBlock}>
                 {props.isAuth
                     ?
-                    <div>{props.login} <button onClick={logoutHandler}>Log Out</button></div>
+                    <div>
+                        <span className={s.userImage} style={backgroundImageHelper(props.userPhoto)}/>
+                        <span className={s.logOut} style={backgroundImageHelper(logOutImage)} onClick={logoutHandler}/>
+                    </div>
                     :
-                    <NavLink to='/login'>Login</NavLink>
+
+                    <div
+                        className={cn(s.button, {[s.hide]: params === '/login'}, '')}>
+                        <NavLink to='/login'>Sing In</NavLink>
+                    </div>
                 }
             </div>
         </header>)

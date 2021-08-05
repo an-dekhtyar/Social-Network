@@ -1,31 +1,50 @@
 .dialogs {
     display: grid;
-    grid-template-columns: 2fr 10fr;
+    grid-template-columns: 2fr 8fr;
+    grid-gap: 10px;
 }
 
 .dialogItems {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgb(0 0 0 / 3%);
+    max-height: 300px;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
 }
 
+.userName {
+    display: inline-block;
+    color: #888888;
+    font-weight: 500;
+}
 
 .dialog {
-
-
+    display: flex;
+    text-align: center;
+    align-items: center;
 
 }
 
 .dialog a {
     text-decoration: none;
-    color: white;
+    color: #888888;
+    font-weight: 500;
 }
 
 .dialog a.active {
-    color: black;
+    color: #0055ff;
 }
 
 .messages {
     padding: 10px;
+    background-color: white;
+    box-shadow: 0 8px 30px rgb(0 0 0 / 3%);
+    border-radius: 15px;
+    box-sizing: border-box;
 }
 
 
@@ -39,48 +58,83 @@
     justify-content: flex-end;
 }
 
-.inMessage {
+.messageStyle {
     min-width: 150px;
     max-width: 300px;
-    overflow-wrap:break-word;
-}
-
-.outMessage {
-
-    min-width: 150px;
-    max-width: 300px;
-    overflow-wrap:break-word;
-
+    overflow-wrap: break-word;
+    font-weight: 500;
+    color: #626262;
 }
 
 
 .inMessageContain {
     padding: 5px;
-    background-color: white;
-    border-radius:  5px;
-    border: 1px solid black;
-    margin-bottom: 2px;
+    background-color: #f5f5f5;
+    border-radius: 10px 10px 10px 0;
+    border: 1px solid #dbdbdb;
+    margin-bottom: 5px;
 }
 
 .outMessageContain {
 
     padding: 5px;
-    background-color: white;
-    border-radius:  5px;
-    border: 1px solid black;
-    margin-bottom: 2px;
+    background-color: #f5f5f5;
+    border-radius: 10px 10px 0 10px;
+    border: 1px solid #dbdbdb;
+    margin-bottom: 5px;
     justify-content: flex-end;
 }
 
-.dialog img{
-    height:40px ;
+.dialog img {
+    height: 40px;
     width: 40px;
     border-radius: 20px;
     margin-right: 10px;
 }
 
+.dialogTextArea {
+    box-sizing: border-box;
+}
+
 .dialogTextArea textarea {
+    max-width: 100%;
+    resize: none;
+    box-sizing: border-box;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    height: 60px;
+    margin-top: 20px;
+    outline: none;
+    border: 1px solid #dbdbdb;
+    font-size: 16px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding: 5px;
+}
+.button {
+    margin: 5px 0 0 0 !important;
+}
+.chooseDialog {
     width: 100%;
+    background-color: white;
+    border-radius: 15px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.dialogImage {
+    height: 100px;
+    width: 100px;
+    background-size: cover;
+    background-position: center;
 
-
+ }
+.chooseMessage {
+    background-color: #f5f5f5;
+    color: #888888;
+    border-radius: 10px;
+    font-weight: 500;
+    padding: 5px;
+    margin-top: 10px;
 }

@@ -13,6 +13,7 @@ export type AuthType = {
     email: string | null
     isAuth: boolean
     captchaUrl: string | null
+    userPhoto: string | null
 }
 
 const SET_USER_DATA = "social-network/auth-reducer/SET_USER_DATA"
@@ -21,7 +22,7 @@ const SET_CAPTCHA_URL = "social-network/auth-reducer/SET_CAPTCHA_URL"
 
 export const setAuthUserData = (id:number | null, login:string | null, email:string | null, isAuth:boolean) =>
     ({type: SET_USER_DATA, payload : {id, login, email, isAuth} }) as const;
-export const setCaptchaUrl = (captchaUrl:string) =>
+export const setCaptchaUrl = (captchaUrl:string | null) =>
     ({ type: SET_CAPTCHA_URL, payload : {captchaUrl}}) as const;
 
 
@@ -30,7 +31,9 @@ let initialState: AuthType = {
     login: null,
     email: null,
     isAuth: false,
-    captchaUrl: null
+    captchaUrl: null,
+    userPhoto:null
+
 }
 
 
@@ -52,7 +55,7 @@ export const authReducer = (state: AuthType = initialState, action: ActionsTypes
 export const authMe = ()=> async (dispatch: Dispatch<AuthReducerType>) => {
     let data = await authAPI.getAuthUserData()
     if (data.resultCode === 0) {
-        let {id, login, email} = data.data
+        let {id, login, email, } = data.data
         dispatch(setAuthUserData(id, login, email,true))
     }
 
@@ -62,6 +65,7 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
     let response = await authAPI.login(email, password, rememberMe, captcha)
     if (response.data.resultCode === 0) {
         dispatch(authMe())
+        dispatch(setCaptchaUrl(null))
     } else {
         if(response.data.resultCode === 10) {
          const error = response.data.messages.length > 0 ? response.data.messages[0] : 'Some Error!'

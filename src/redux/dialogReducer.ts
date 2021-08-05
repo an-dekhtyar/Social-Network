@@ -1,95 +1,194 @@
-import { ActionsTypes } from "./redux-store"
+import {ActionsTypes} from "./redux-store"
+import girl1 from '../assets/images/girl1.png'
+import girl2 from '../assets/images/girl2.png'
+import girl3 from '../assets/images/girl3.png'
+import man1 from '../assets/images/man1.png'
+import man2 from '../assets/images/man2.png'
+import man3 from '../assets/images/man3.png'
 
-
-export type DialogPageReducerType = ReturnType<typeof addMessage>
+export type DialogPageReducerType = ReturnType<typeof addMessage> | ReturnType<typeof changeCollocutor>
 
 export type DialogPageType = {
     dialogs: Array<DialogItemType>
-    inMessages: Array<MessageType>
-    outMessages: Array<MessageType>
-
+    currentCollocutor: number | null
 }
 
 export type DialogItemType = {
     id: number
     name: string
     urlImage: string
+    messages: Messages
 }
 export type MessageType = {
     id: number
     message: string
 }
+export type Messages = {
+    inMessages: Array<MessageType>
+    outMessages: Array<MessageType>
+}
 
 const ADD_OUT_MESSAGE = "social-network/dialog-reducer/ADD-OUT-MESSAGE"
+const CHANGE_COLLOCUTOR_MESSAGE = "social-network/dialog-reducer/CHANGE_COLLOCUTOR_MESSAGE"
 
-export const addMessage = (newMessage: string) =>
-    ({ type: ADD_OUT_MESSAGE, newOutMessageText: newMessage }) as const;
+export const addMessage = (newMessage: string, id: number | null) =>
+    ({type: ADD_OUT_MESSAGE, newOutMessageText: newMessage, id}) as const;
+export const changeCollocutor = (id: number | null) =>
+    ({type: CHANGE_COLLOCUTOR_MESSAGE, id}) as const;
 
 let initialState: DialogPageType = {
+    currentCollocutor: null,
     dialogs: [
         {
             id: 1,
-            name: "Andrey",
-            urlImage: "https://pbs.twimg.com/profile_images/488616487197106177/xIFT8idk.jpeg"
+            name: "Andrey Koval",
+            urlImage: man1,
+            messages: {
+                inMessages: [
+                    {id: 1, message: "Hi"},
+                    {id: 2, message: "How are you?"},
+                    {id: 3, message: "Where are you from?"},
+                    {id: 4, message: "Where are you?"},
+                ],
+                outMessages: [
+                    {id: 1, message: "Hi"},
+                    {id: 2, message: "I'm fine"},
+                    {id: 3, message: "I'm from Minsk"},
+                    {id: 4, message: "Where are you from"},
+
+                ],
+            }
         },
         {
             id: 2,
-            name: "Sasha",
-            urlImage: "https://i.pinimg.com/originals/d5/28/70/d52870bf3c60d63d304a589f395e6a86.png"
+            name: "Sveta Rys",
+            urlImage: girl1,
+            messages: {
+                inMessages: [
+                    {id: 1, message: "Hi"},
+                    {id: 2, message: "yesterday i`ll have a party"},
+                    {id: 3, message: "Come and visit)"},
+                    {id: 4, message: "grab a bottle of wine)"},
+                ],
+                outMessages: [
+                    {id: 1, message: "Hi"},
+                    {id: 2, message: "With great pleasure"},
+                    {id: 3, message: "I will grab a bottle of Brancote Estate"},
+                    {id: 4, message: "What time does it start?"},
+                ],
+            }
         },
         {
             id: 3,
-            name: "Sveta",
-            urlImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE1vTzqH-MVVPtDn_aoZ-5Jm_ibot1uqH9VQ&usqp=CAU"
+            name: "Sasha Ivanov",
+            urlImage:  man2,
+            messages: {
+                inMessages: [
+                    {id: 1, message: "Hello"},
+                    {id: 2, message: "I watched a new film yesterday"},
+                    {id: 3, message: "Green book"},
+                    {id: 4, message: "highly recommend!"},
+                ],
+                outMessages: [
+                    {id: 1, message: "Hi"},
+                    {id: 2, message: "I have not watched this movie"},
+                    {id: 3, message: "I will definitely watch"},
+                    {id: 4, message: "Thnks"},
+                ],
+            }
         },
         {
             id: 4,
-            name: "Nastya",
-            urlImage: "https://i.pinimg.com/originals/fa/53/2d/fa532da807474b076afdfad93565e447.jpg"
+            name: "Nastya Bolovina",
+            urlImage: girl3,
+            messages: {
+                inMessages: [
+                    {id: 1, message: "Hi"},
+                    {id: 2, message: "How are you?"},
+                    {id: 3, message: "What are your plans for the summer"},
+                    {id: 4, message: "Where do you plan to go?"},
+                ],
+                outMessages: [
+                    {id: 1, message: "HI"},
+                    {id: 2, message: "I'm fine"},
+                    {id: 3, message: "I plan to take a vacation in August"},
+                    {id: 4, message: "and visit italy"},
+                ],
+            }
         },
         {
             id: 5,
-            name: "Tanya",
-            urlImage: "https://i.pinimg.com/originals/19/5a/51/195a519a5dff6fb6495d2b1ea7176240.jpg"
+            name: "Tanya Karas",
+            urlImage: girl2,
+            messages: {
+                inMessages: [
+                    {id: 1, message: "Hi"},
+                    {id: 2, message: "you were at the game yesterday?"},
+                    {id: 3, message: "found out that you favorite team won"},
+                    {id: 4, message: "congratulations!"},
+                ],
+                outMessages: [
+                    {id: 1, message: "Ou Hi!"},
+                    {id: 2, message: "yes"},
+                    {id: 3, message: "it was a very difficult game"},
+                    {id: 4, message: "Thnks"},
+                ],
+            }
         },
         {
             id: 6,
-            name: "Alex",
-            urlImage: "https://previews.123rf.com/images/sudowoodo/sudowoodo1706/sudowoodo170600033/80907546-green-alien-face-emoji-extraterrestrial-humanoid-head-icon-vector-illustration-.jpg"
+            name: "Alex Bryl",
+            urlImage: man3,
+            messages: {
+                inMessages: [
+                    {id: 1, message: "Hi"},
+                    {id: 2, message: "you are looking for a job for the position of Frontend Developer?"},
+                    {id: 3, message: "how are you doing in this"},
+                    {id: 4, message: "how many interviews have you had"},
+                ],
+                outMessages: [
+                    {id: 1, message: "Hi"},
+                    {id: 2, message: "yes looking job for the position of Frontend Developer"},
+                    {id: 3, message: "already had 5 interviews"},
+                    {id: 4, message: "So far no results"},
+                ],
+            }
         }
     ],
-    inMessages: [
-        { id: 1, message: "Hi" },
-        { id: 2, message: "How are you?" },
-        { id: 3, message: "Where are you from?" },
-        { id: 4, message: "Where are you?" },
-    ],
-    outMessages: [
-        { id: 1, message: "Hi" },
-        { id: 2, message: "How are you?" },
-        { id: 3, message: "Where are you from?" },
-        { id: 4, message: "Where are youu?" },
-    ],
-}
 
+}
 
 
 export const dialogReducer = (state: DialogPageType = initialState, action: ActionsTypes): DialogPageType => {
     switch (action.type) {
-        case ADD_OUT_MESSAGE: {
+        case ADD_OUT_MESSAGE:
             let newMessage: MessageType = {
-                id: 4,
+                id: Math.random(),
                 message: action.newOutMessageText
             }
 
-            let stateCopy = {
+            return {
                 ...state,
-                outMessages: [...state.outMessages, newMessage],
-                newOutMessageText: ''
+                dialogs: state.dialogs
+                    .map(d => d.id === action.id
+                        ? {
+                            ...d,
+                            messages: {
+                                ...d.messages,
+                                outMessages: [...d.messages.outMessages, newMessage]
+                            }
+                        }
+                        : d)
+
+
             }
-            return stateCopy;
-        }
-        default: return state
+        case CHANGE_COLLOCUTOR_MESSAGE:
+            return {
+                ...state,
+                currentCollocutor: action.id
+            }
+        default:
+            return state
     }
 
 }

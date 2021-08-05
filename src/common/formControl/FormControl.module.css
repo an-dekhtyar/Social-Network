@@ -2,14 +2,49 @@
 .formControl.error textarea
 {
     border: 1px solid red;
+    border-radius: 5px;
 }
-.formControl.error span{
+.formControl {
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+}
+.formControl.error div{
     color:red;
     display: block;
+    text-align: left;
+    font-size: 14px;
+
 }
 .commonAuthError {
     width: 300px;
     border: 2px solid red;
     color: red;
 
+}
+.superInput {
+    font-size: 20px;
+    color: #888888;
+    width: 330px;
+    height: 40px;
+    outline: none;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1.58px solid #888888;
+    background: white;
+    margin-bottom: 3px;
+
+}
+.superCheckBox {
+    height: 15px;
+    width: 15px;
+    margin: 0;
+
+}
+.formControl textarea {
+    width: 100%;
+}
+.rememberMe {
+    margin-left: 10px;
 }

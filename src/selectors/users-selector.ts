@@ -20,3 +20,6 @@ export const getIsFetchingValue = (state:AppStateType):boolean => {
 export const getFollowInProgresValue = (state:AppStateType):number[] => {
     return state.usersPageState.followingInProgress
 }
+export const getIsAuthValue = (state:AppStateType):boolean => {
+    return state.authUserData.isAuth
+}

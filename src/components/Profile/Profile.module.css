@@ -3,3 +3,10 @@
     height:400px;
 
 }
+.content {
+
+    display: grid;
+    grid-template-columns: 6fr 6fr;
+    grid-gap: 10px;
+
+}

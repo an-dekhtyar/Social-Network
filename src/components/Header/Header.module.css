@@ -1,13 +1,20 @@
 
 .header {
     grid-area: h;
-    background-color: lightgray;
-
+    background-color: white;
+    border-radius: 0 0 15px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 8px 30px rgb(0 0 0 / 3%);
 }
 
-.header img {
+.logo {
     width:50px;
-    padding: 5px;
+    height:50px;
+    background-size: cover;
+    background-position: center;
+    margin-left: 2rem ;
 }
 
 .loginBlock {
@@ -16,8 +23,62 @@
 
 }
 
+
 .loginBlock a {
-    color: cornflowerblue;
+    color: #fff;
     text-decoration: none;
-    border: 1px cornflowerblue solid;
+    outline: none;
+    font-size: 16px ;
+}
+
+.button{
+    font-weight: 600;
+    text-align: center;
+    padding: 0.5rem ;
+    margin-right: 0.5rem ;
+    border-radius: 30px ;
+    width: 80px ;
+    line-height: 20px ;
+    letter-spacing: 0.4px;
+    background: linear-gradient(135deg, #05f, #09f);
+    cursor: pointer;
+}
+.button:hover {
+    background: linear-gradient(135deg, #0b51de, #006eb7);
+}
+.button:active {
+    border: 1px solid white;
+}
+.hide {
+    display: none;
+}
+.logOut {
+    display: inline-block;
+    width:40px;
+    height:40px;
+    border-radius: 40px;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    position: relative;
+}
+.logOut:hover::before {
+    border-radius: 40px;
+    content: '';
+    background-color: black;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left:0;
+    right: 0;
+    opacity: 0.2;
+}
+.userImage {
+    display: inline-block;
+    width:40px;
+    height:40px;
+    border-radius: 40px;
+    background-size: cover;
+    background-position: center;
+    margin-right: 20px;
 }

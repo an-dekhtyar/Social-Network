@@ -3,7 +3,7 @@ import './App.css';
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Navbar from "./components/Navbar/Navbar";
 import ProfileContainer from "./components/Profile/ProfileContainer";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import Music from "./components/Music/Music";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
@@ -16,6 +16,7 @@ import {compose} from "redux";
 import {initializeAppTC} from "./redux/appReducer";
 import {AppStateType, store} from "./redux/redux-store";
 import {Preloader} from "./common/Preloader";
+import {NotFound} from "./components/NotFound404/NotFound404";
 
 
 type AppPropsType = mapDispatchPropsType & mapStatetoPropsTyep
@@ -38,6 +39,8 @@ class App extends React.Component<AppPropsType> {
                 <HeaderContainer/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
+                    <Switch>
+                    <Route path={'/'} exact render={() => <Redirect to={'/profile'}/>}/>
                     <Route path='/dialogs' render={() => <DialogsContain/>}/>
                     <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
                     <Route path='/news' render={() => <News/>}/>
@@ -45,7 +48,9 @@ class App extends React.Component<AppPropsType> {
                     <Route path='/users' render={() => <UsersContain/>}/>
                     <Route path='/settings' render={() => <Settings/>}/>
                     <Route path='/login' render={() => <Login/>}/>
-
+                    <Route path='/404' render={() => <NotFound/>}/>
+                    <Redirect from='*' to={'/404'}/>
+                    </Switch>
                 </div>
             </div>
         )

@@ -1,0 +1,64 @@
+.loginPageContainer {
+    display: flex;
+    justify-content: center;
+    min-height: 80vh;
+    color: #3b4652;
+    text-align: center;
+}
+
+.loginPageContent {
+    padding: 35px;
+    border: 0;
+    box-shadow: 0 8px 30px rgb(0 0 0 / 3%);
+    width: 400px;
+    min-height: 440px;
+    align-self: center;
+    border-radius: 15px;
+    background-color: white;
+    text-align: center;
+    box-sizing: border-box;
+    color: #888888;
+}
+.superInput {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+label {
+    display: block;
+    text-align: left;
+    font-size: 14px;
+}
+.checkbox {
+    text-align: left;
+    margin: 10px 10px 10px 0;
+}
+
+
+.loginButton {
+    margin: 50px 0 20px 0;
+    font-weight: 600;
+    text-align: center;
+    padding: 0.5rem ;
+    border-radius: 30px ;
+    width: 80px ;
+    line-height: 20px ;
+    letter-spacing: 0.4px;
+    background: linear-gradient(135deg, #05f, #09f);
+    cursor: pointer;
+    color: white;
+    border: none;
+}
+.loginButton:hover {
+    background: linear-gradient(135deg, #0b51de, #006eb7);
+}
+.loginButton:active {
+    color: #dddddd;
+}
+.singUp {
+   font-size: 14px;
+}
+.singUp a {
+    text-decoration: none;
+    color: #05f;
+    font-weight: bold;
+}

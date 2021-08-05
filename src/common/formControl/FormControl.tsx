@@ -1,5 +1,7 @@
 import {WrappedFieldProps} from "redux-form";
 import style from './FormControl.module.css'
+import s from "../../components/Login/Login.module.css";
+import React from "react";
 
 export const FormControl:React.FC<WrappedFieldProps> = ({ input, meta,...props }) => {
 
@@ -10,7 +12,7 @@ export const FormControl:React.FC<WrappedFieldProps> = ({ input, meta,...props }
             <div>
                 {props.children}
             </div>
-            {hasError && <span>{meta.error}</span>}
+            {hasError && <div className={s.error}>{meta.error}</div>}
         </div>
     )
 }
@@ -21,10 +23,14 @@ export const TextArea = (props:WrappedFieldProps) => {
 }
 export const Input = (props:WrappedFieldProps) => {
     const { input, meta,...restProps } = props
-    return <FormControl {...props}><input {...input} {...restProps}/></FormControl>
+    return <FormControl {...props}><input className={style.superInput} {...input} {...restProps}/></FormControl>
 
 }
+export const Checkbox = (props:WrappedFieldProps) => {
+    const { input, meta,...restProps } = props
+    return <FormControl {...props}><input className={style.superCheckBox} type={'checkbox'} {...input} {...restProps}/><span className={style.rememberMe}>Remember me</span></FormControl>
 
+}
 /*
 
 const Element = (Element:string ):React.FC<WrappedFieldProps> => ({ input, meta, ...props }) => {

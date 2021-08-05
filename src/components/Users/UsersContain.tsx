@@ -9,7 +9,15 @@ import {
 } from '../../redux/usersReducer';
 import {Users} from "./Users";
 import { Preloader } from '../../common/Preloader';
-import {getCurrentPage, getFollowInProgresValue, getIsFetchingValue, getPageSize, getTotalCount, getUsers} from '../../selectors/users-selector'
+import {
+    getCurrentPage,
+    getFollowInProgresValue,
+    getIsAuthValue,
+    getIsFetchingValue,
+    getPageSize,
+    getTotalCount,
+    getUsers
+} from '../../selectors/users-selector'
 
 
 export type mapStatePropsType = {
@@ -19,6 +27,7 @@ export type mapStatePropsType = {
     pageSize:number
     isFetching:boolean
     followingInProgress:number[]
+    isAuth:boolean
 }
 export type mapDispatchPropsType = {
     follow:(userId:number)=>void
@@ -46,7 +55,6 @@ class UsersContain extends React.Component<UsersPageTPropsType> {
     render() {
 
         return <>
-            {this.props.isFetching ? <Preloader/> : null}
             <Users
                 totalCount={this.props.totalCount}
                 pageSize={this.props.pageSize}
@@ -57,6 +65,7 @@ class UsersContain extends React.Component<UsersPageTPropsType> {
                 unfollow={this.props.unfollow}
                 isFetching={this.props.isFetching}
                 followingInProgress={this.props.followingInProgress}
+                isAuth={this.props.isAuth}
             />
         </>
     }
@@ -69,7 +78,8 @@ const mapStateToProps = (state:AppStateType):mapStatePropsType => {
         totalCount:getTotalCount(state),
         pageSize:getPageSize(state),
         isFetching:getIsFetchingValue(state),
-        followingInProgress:getFollowInProgresValue(state)
+        followingInProgress:getFollowInProgresValue(state),
+        isAuth:getIsAuthValue(state)
     }
 }
 

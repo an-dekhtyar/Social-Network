@@ -1,12 +1,11 @@
 import React from 'react';
-import s from './Music.module.css'
+import {PageInConstruct} from "../../common/PageInConstruct/PageInConstruct";
+
 
 const Music = () => {
-    return(
-        <div>
-            Music
-        </div>
-    )
 
+    return(
+        <PageInConstruct/>
+    )
 }
 export default Music
