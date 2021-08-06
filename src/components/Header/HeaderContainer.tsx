@@ -22,20 +22,13 @@ class HeaderContainer extends React.Component<HeaderContainerType> {
     }
 }
 
-let mapStateToProps = (state:AppStateType):mapStateToProps => {
-    if (state.profilePageState.profile) {
+const mapStateToProps = (state:AppStateType):mapStateToProps => {
+
         return {
-            userPhoto:state.profilePageState.profile.photos.large ,
-            isAuth: state.authUserData.isAuth
+            userPhoto:state.authUserData.authUserPhoto || null,
+            isAuth: state.authUserData.isAuth,
         }
-    } else {
-        return {
-            userPhoto:null ,
-            isAuth: state.authUserData.isAuth
-        }
-    }
+
 
 }
-
-
-export default connect(mapStateToProps, {logout})(HeaderContainer)
+export const HeaderContain = connect(mapStateToProps, {logout})(HeaderContainer)

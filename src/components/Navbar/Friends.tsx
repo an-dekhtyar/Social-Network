@@ -3,8 +3,6 @@ import React from "react";
 import { mapStatePropsType } from "./FriendsContain";
 import { FriendsType } from "../../redux/navbarReducer";
 import {backgroundImageHelper} from "../Header/Header";
-import settingsImage from "../../assets/images/settings.png";
-import l from "../Header/Header.module.css";
 
 
 type FriendsPropsType = mapStatePropsType

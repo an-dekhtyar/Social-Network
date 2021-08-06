@@ -4,7 +4,7 @@ import {Checkbox, Input} from "../../common/formControl/FormControl";
 import {MaxValueCreator, required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {login} from "../../redux/auth-reducer";
-import {NavLink, Redirect} from "react-router-dom";
+import {Redirect} from "react-router-dom";
 import {AppStateType} from "../../redux/redux-store";
 import style from '../../common/formControl/FormControl.module.css'
 import s from './Login.module.css'
@@ -61,7 +61,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, IpropsType> & IpropsTy
                 <span className={s.rememberMe}>Remember me</span>
             </div>
             {error && <div className={style.commonAuthError}>{error}</div>}
-            {captchaUrl && <img src={captchaUrl}/>}
+            {captchaUrl && <img alt={'captcha'} src={captchaUrl}/>}
             {captchaUrl && <Field
                 placeholder={'Symbols from image'}
                 component={Input}

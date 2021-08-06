@@ -1,7 +1,6 @@
 import React, {useEffect} from "react";
 import s from "../Dialogs.module.css";
 import {NavLink, useLocation} from "react-router-dom";
-import {DialogItemType, Messages} from "../../../redux/dialogReducer";
 
 type DialogItemPropsType = {
     id: number
@@ -22,15 +21,15 @@ const DialogItem: React.FC<DialogItemPropsType> = (props) => {
         } else {
             props.changeCollocutorHandler(id)
         }
-    },[url.pathname])
-
+    },[url.pathname, id, props])
+    console.log('d r')
     const onClickHandler = () => {
 
     }
 
     return (
                 <div className={s.dialog}>
-                    <img src={props.urlImage}/>
+                    <img alt={'urlImage'} src={props.urlImage}/>
                     <NavLink to={path} activeClassName={s.active} onClick={onClickHandler}>
                         {props.name}
                     </NavLink>

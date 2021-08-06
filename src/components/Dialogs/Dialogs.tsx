@@ -6,7 +6,6 @@ import {InMessage, OutMessage} from './Message/Message';
 import {mapDispatchToPropsType, MapStatePropsType} from './DialogsContain';
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {TextArea} from "../../common/formControl/FormControl";
-import {MaxValueCreator, required} from "../../utils/validators/validators";
 import image from '../../assets/images/dialog.png'
 import {useDispatch} from "react-redux";
 import {changeCollocutor} from "../../redux/dialogReducer";
@@ -21,13 +20,15 @@ type DialogsPropsType = MapStatePropsType & mapDispatchToPropsType
 
 const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
+    const dispatch = useDispatch()
+
     useEffect(()=>{
         return()=>{
             dispatch(changeCollocutor(null))
         }
-    },[])
+    },[dispatch])
 
-    const dispatch = useDispatch()
+
 
     const changeCollocutorHandler = (id:number | null) => {
         dispatch(changeCollocutor(id))
@@ -74,7 +75,6 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
 type MessageFormType = {
     messageText: string
 }
-const maxValue100 = MaxValueCreator(100)
 
 const AddMessageForm: React.FC<InjectedFormProps<MessageFormType>> = (props) => {
     return (

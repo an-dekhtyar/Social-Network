@@ -1,11 +1,15 @@
 import {ActionsTypes} from "./redux-store"
-import {authAPI, securityAPI} from "../api/api";
+import {authAPI, profileAPI, securityAPI} from "../api/api";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {stopSubmit} from "redux-form";
 import {appReducerType} from "./appReducer";
 
-export type AuthReducerType = ReturnType<typeof setAuthUserData> | ReturnType<typeof setCaptchaUrl>
+export type AuthReducerType = |
+    ReturnType<typeof setAuthUserData> |
+    ReturnType<typeof setCaptchaUrl> |
+    ReturnType<typeof setAuthUserPhoto>
+
 
 export type AuthType = {
     id: number | null
@@ -14,16 +18,20 @@ export type AuthType = {
     isAuth: boolean
     captchaUrl: string | null
     userPhoto: string | null
+    authUserPhoto: string | null
 }
 
 const SET_USER_DATA = "social-network/auth-reducer/SET_USER_DATA"
 const SET_CAPTCHA_URL = "social-network/auth-reducer/SET_CAPTCHA_URL"
+const SET_AUTH_USER_PHOTO = "social-network/auth-reducer/SET_AUTH_USER_PHOTO"
 
 
 export const setAuthUserData = (id:number | null, login:string | null, email:string | null, isAuth:boolean) =>
     ({type: SET_USER_DATA, payload : {id, login, email, isAuth} }) as const;
 export const setCaptchaUrl = (captchaUrl:string | null) =>
     ({ type: SET_CAPTCHA_URL, payload : {captchaUrl}}) as const;
+export const setAuthUserPhoto = (photo:string | null) =>
+    ({ type: SET_AUTH_USER_PHOTO, photo}) as const;
 
 
 let initialState: AuthType = {
@@ -32,8 +40,8 @@ let initialState: AuthType = {
     email: null,
     isAuth: false,
     captchaUrl: null,
-    userPhoto:null
-
+    userPhoto:null,
+    authUserPhoto:null,
 }
 
 
@@ -44,6 +52,11 @@ export const authReducer = (state: AuthType = initialState, action: ActionsTypes
             return {
                 ...state,
                 ...action.payload,
+            };
+        case SET_AUTH_USER_PHOTO:
+            return {
+                ...state,
+                authUserPhoto:action.photo
             }
 
         default:
@@ -52,13 +65,18 @@ export const authReducer = (state: AuthType = initialState, action: ActionsTypes
 
 }
 
-export const authMe = ()=> async (dispatch: Dispatch<AuthReducerType>) => {
+export const authMe = (): ThunkAction<void,AuthType,unknown, ActionsTypes >=> async (dispatch) => {
     let data = await authAPI.getAuthUserData()
     if (data.resultCode === 0) {
         let {id, login, email, } = data.data
         dispatch(setAuthUserData(id, login, email,true))
+        dispatch(getAuthUserPhoto(id))
     }
-
+}
+export const getAuthUserPhoto = (id:string) => async (dispatch: Dispatch<AuthReducerType>) => {
+    let data = await profileAPI.selectUser(id)
+    console.log('data', data)
+    dispatch(setAuthUserPhoto(data.photos.large))
 }
 
 export const login = (email: string, password: string, rememberMe: boolean, captcha:string |null = null):ThunkAction<void,AuthType,unknown, ActionsTypes > => async (dispatch) => {

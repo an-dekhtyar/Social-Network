@@ -1,7 +1,7 @@
-import {ActionsTypes, AppStateType} from "./redux-store"
+import {ActionsTypes} from "./redux-store"
 import {followAPI, userAPI} from "../api/api";
 import {Dispatch} from "redux";
-import { ThunkAction } from "redux-thunk";
+
 import {updateObjectInArray} from './../utils/validators/object-helper'
 
 export type UsersPageReducerType =

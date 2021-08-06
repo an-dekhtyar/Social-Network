@@ -29,7 +29,7 @@ export const User = (props: UserPagePropsType) => {
             <div className={s.user}>
                 <NavLink to={'/profile/' + user.id}>
                     <div>
-                        <img src={user.photos.large !== null ? user.photos.large : userPhoto} />
+                        <img alt={'user'} src={user.photos.large !== null ? user.photos.large : userPhoto} />
                     </div>
                 </NavLink>
                 <NavLink to={'/profile/' + user.id}>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import s from './Header.module.css'
 import {NavLink, useLocation} from "react-router-dom";
 import cn from "classnames";
@@ -31,6 +31,7 @@ const Header = (props: HeaderPropsType) => {
     const logoutHandler = () => {
         props.logout()
     }
+    console.log(props.userPhoto)
 
     return (
         <header className={s.header}>

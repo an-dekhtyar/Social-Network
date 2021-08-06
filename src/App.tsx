@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import HeaderContainer from "./components/Header/HeaderContainer";
+import {HeaderContain} from "./components/Header/HeaderContainer";
 import Navbar from "./components/Navbar/Navbar";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
@@ -36,7 +36,7 @@ class App extends React.Component<AppPropsType> {
         }
         return (
             <div className='app-wrapper'>
-                <HeaderContainer/>
+                <HeaderContain/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Switch>

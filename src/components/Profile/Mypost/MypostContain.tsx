@@ -1,5 +1,5 @@
-import React, { useMemo } from "react";
-import {addPost, deletePost, PostType, ProfilePageType} from "../../../redux/profileReducer";
+import React from "react";
+import {addPost, deletePost, PostType} from "../../../redux/profileReducer";
 import Myposts from "./Myposts";
 import { connect } from "react-redux";
 import { AppStateType } from "../../../redux/redux-store";

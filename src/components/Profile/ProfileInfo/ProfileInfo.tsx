@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent} from "react";
 import {Preloader} from "../../../common/Preloader";
 import s from "./ProfileInfo.module.css"
 import p from "./ProfileDataForm.module.css"

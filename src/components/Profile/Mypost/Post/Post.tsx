@@ -3,8 +3,6 @@ import React from "react";
 import userIcon from '../../../../assets/images/user.png'
 import deleteIcon from '../../../../assets/images/delete.png'
 import likeIcon from '../../../../assets/images/like.png'
-import jpg from '../../../../assets/images/like.jpg'
-
 
 type PostPropsType = {
     id: number

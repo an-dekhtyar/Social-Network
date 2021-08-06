@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import {addMessage, DialogItemType} from "../../redux/dialogReducer";
 import Dialogs from "./Dialogs";
 import { AppStateType } from '../../redux/redux-store';

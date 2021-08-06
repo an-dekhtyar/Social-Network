@@ -1,11 +1,8 @@
 import {ActionsTypes} from "./redux-store"
-import {authAPI} from "../api/api";
-import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
-import {stopSubmit} from "redux-form";
-import {authMe, AuthReducerType, AuthType} from "./auth-reducer";
+import {authMe, AuthType} from "./auth-reducer";
 
-export type appReducerType = ReturnType<typeof initializeApp> /*| ReturnType<typeof stopSubmit>*/
+export type appReducerType = ReturnType<typeof initializeApp>
 
 export type AppStateType = {
     initialized:boolean

@@ -8,7 +8,6 @@ import {
     requestUsers, changeUsersPage
 } from '../../redux/usersReducer';
 import {Users} from "./Users";
-import { Preloader } from '../../common/Preloader';
 import {
     getCurrentPage,
     getFollowInProgresValue,
