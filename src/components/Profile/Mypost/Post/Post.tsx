@@ -2,6 +2,8 @@ import s from "./Post.module.css";
 import React from "react";
 import userIcon from '../../../../assets/images/user.png'
 import deleteIcon from '../../../../assets/images/delete.png'
+import likeIcon from '../../../../assets/images/like.png'
+import jpg from '../../../../assets/images/like.jpg'
 
 
 type PostPropsType = {
@@ -23,6 +25,9 @@ export const Post: React.FC<PostPropsType> = (props) => {
     const deleteI = {
         backgroundImage: `url(${deleteIcon})`
     }
+    const like = {
+        backgroundImage: `url(${likeIcon})`
+    }
 
     const onClickHandler = () => {
         props.deletePost(props.id)
@@ -38,10 +43,12 @@ export const Post: React.FC<PostPropsType> = (props) => {
                 </div>
                     <div onClick={onClickHandler} className={s.deleteButton} style={deleteI}/>
                 </div>
+            <div className={s.text}>
                 {props.message}
-                <div>
-                    <span>like</span>
-                    <span> {props.likesAmount}</span>
+            </div>
+                <div className={s.likes}>
+                    <div className={s.like} style={like}/>
+                    <span >{props.likesAmount}</span>
                 </div>
             </div>
             )

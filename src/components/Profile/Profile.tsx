@@ -3,6 +3,7 @@ import s from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import {MypostsContain} from "./Mypost/MypostContain";
 import {ProfileType} from "../../redux/profileReducer";
+import { NoPostYet } from "./Mypost/NoPostYet";
 
 type ProfilePropsType = {
     profile:ProfileType | null
@@ -26,7 +27,7 @@ const Profile = (props:ProfilePropsType) => {
                          updatePhoto={updatePhoto}
                          editMode={editMode}
             />
-            <MypostsContain/>
+            {isOwner ? <MypostsContain/> : <NoPostYet/>}
         </div>
     )
 }

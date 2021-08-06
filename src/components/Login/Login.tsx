@@ -53,11 +53,12 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, IpropsType> & IpropsTy
 
                 />
             </div>
-            <div className={s.checkbox}>
+            <div className={style.checkbox}>
                 <Field type={'checkbox'}
                        component={Checkbox}
                        name={'rememberMe'}
                 />
+                <span className={s.rememberMe}>Remember me</span>
             </div>
             {error && <div className={style.commonAuthError}>{error}</div>}
             {captchaUrl && <img src={captchaUrl}/>}

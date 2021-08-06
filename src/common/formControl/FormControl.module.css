@@ -9,6 +9,14 @@
     width: 100%;
     box-sizing: border-box;
 }
+
+.checkbox .formControl{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    box-sizing: border-box;
+
+}
 .formControl.error div{
     color:red;
     display: block;
@@ -17,11 +25,14 @@
 
 }
 .commonAuthError {
-    width: 300px;
-    border: 2px solid red;
+    width: 100%;
+    border: 1px solid red;
     color: red;
-
+    font-size: 14px;
+    padding: 3px;
+    box-sizing: border-box;
 }
+
 .superInput {
     font-size: 20px;
     color: #888888;
@@ -45,6 +56,10 @@
 .formControl textarea {
     width: 100%;
 }
-.rememberMe {
-    margin-left: 10px;
+input[type='checkbox']{
+}
+
+.checkbox {
+    text-align: left;
+
 }

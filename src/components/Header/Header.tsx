@@ -3,7 +3,7 @@ import s from './Header.module.css'
 import {NavLink, useLocation} from "react-router-dom";
 import cn from "classnames";
 import logoImage from '../../assets/images/logo.png'
-import logOutImage from '../../assets/images/logout.png'
+import logOutImage from '../../assets/images/logout.jpg'
 import userImage from '../../assets/images/user.png'
 
 
@@ -38,16 +38,19 @@ const Header = (props: HeaderPropsType) => {
             <div className={s.loginBlock}>
                 {props.isAuth
                     ?
+                    <NavLink to='/profile'>
                     <div>
                         <span className={s.userImage} style={backgroundImageHelper(props.userPhoto)}/>
                         <span className={s.logOut} style={backgroundImageHelper(logOutImage)} onClick={logoutHandler}/>
                     </div>
-                    :
+                    </NavLink>
+                        :
 
-                    <div
-                        className={cn(s.button, {[s.hide]: params === '/login'}, '')}>
-                        <NavLink to='/login'>Sing In</NavLink>
+                    <NavLink to='/login'>
+                        <div className={cn(s.button, {[s.hide]: params === '/login'}, '')}>
+                            Sing In
                     </div>
+                    </NavLink>
                 }
             </div>
         </header>)

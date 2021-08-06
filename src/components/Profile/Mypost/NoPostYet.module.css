@@ -1,0 +1,24 @@
+.noPostYetContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 8px 30px rgb(0 0 0 / 3%);
+    background-color: white;
+    border-radius: 15px;
+    flex-direction: column;
+}
+.message {
+    background-color: #f5f5f5;
+    color: #888888;
+    border-radius: 5px;
+    padding: 5px 10px 5px 10px;
+    font-weight: 500;
+    margin-top: 10px;
+}
+.image {
+    height: 100px;
+    width: 100px;
+    background-size: cover;
+    background-position: center;
+
+}

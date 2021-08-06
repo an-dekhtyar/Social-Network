@@ -28,7 +28,9 @@ export const Input = (props:WrappedFieldProps) => {
 }
 export const Checkbox = (props:WrappedFieldProps) => {
     const { input, meta,...restProps } = props
-    return <FormControl {...props}><input className={style.superCheckBox} type={'checkbox'} {...input} {...restProps}/><span className={style.rememberMe}>Remember me</span></FormControl>
+    return <FormControl {...props}><input className={style.superCheckBox} type={'checkbox'} {...input} {...restProps}/>
+    {/*<span className={style.rememberMe}>Remember me</span>*/}
+    </FormControl>
 
 }
 /*

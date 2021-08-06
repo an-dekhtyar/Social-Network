@@ -1,0 +1,65 @@
+.profileDataFormBlock {
+
+
+}
+.profileDataFormBlock input {
+    width: 200px;
+    height: 25px;
+    color: #626262;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+.profileDataFormBlock label {
+  color:#0055ff;
+    font-size: 13px;
+}
+.checkbox {
+    display: inline-block;
+}
+
+.checkbox input {
+    width: 12px;
+    height: 12px;
+    text-align: left;
+    margin: 10px 10px 10px 0;
+}
+.lookingJob {
+    color: #626262;
+    font-size: 14px;
+}
+.title {
+    font-weight: 400;
+    color: #626262;
+    font-size: 15px;
+    margin: 15px 0 15px 0;
+    text-decoration: underline;
+
+}
+.contactsInput {
+    height: 60px;
+}
+.button {
+    font-weight: 600;
+    text-align: center;
+    padding: 0.5rem ;
+    border-radius: 30px ;
+    width: 80px ;
+    line-height: 20px ;
+    letter-spacing: 0.4px;
+    background: linear-gradient(135deg, #05f, #09f);
+    cursor: pointer;
+    color: white;
+    border: none;
+}
+.buttonContain {
+    text-align: right;
+}
+.headerForm {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.forError {
+    height: 40px;
+}

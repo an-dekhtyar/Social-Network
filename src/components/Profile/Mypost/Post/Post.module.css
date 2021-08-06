@@ -29,21 +29,31 @@
 
 }
 .likes {
-
+    color: #626262;
 }
 .like {
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    background-size: cover;
+    margin-right: 10px;
 
 }
 .userName {
     display: inline-block;
-    font-weight: bold;
-    color: #888888;
+    font-weight: 600;
+    color: #626262;
 }
 .header {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 5px;
 }
 .photoAndName {
     display: flex;
     align-items: center;
+}
+.text {
+    color: #626262;
+    margin-bottom: 5px;
 }

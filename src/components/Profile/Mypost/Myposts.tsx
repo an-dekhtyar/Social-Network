@@ -1,10 +1,10 @@
 import s from "./Myposts.module.css"
-import l from "./../../Login/Login.module.css"
-import React, {ChangeEvent} from "react";
+
+import React from "react";
 import {Post} from "./Post/Post";
 import {mapDispatchPropsType, mapStatePropsType} from "./MypostContain";
 import {reduxForm, Field, InjectedFormProps} from "redux-form";
-import {MaxValueCreator, required} from "../../../utils/validators/validators";
+import {MaxValueCreator} from "../../../utils/validators/validators";
 import {TextArea} from "../../../common/formControl/FormControl";
 import createPostIcon from '../../../assets/images/createPost.png'
 
@@ -35,7 +35,7 @@ const Myposts = (props: MypostPropsType) => {
         <div className={s.addNewPostContainer}>
             <div className={s.title}>
                 <div className={s.icon} style={icon}/>
-                <span>Create posts</span>
+                <span className={s.createPost}>Create posts</span>
             </div>
             <PostReduxForm onSubmit={onSubmit}/>
         </div>
@@ -51,7 +51,7 @@ const PostForm: React.FC<InjectedFormProps<PostFormType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div className={s.addPostButton}>
-                <button className={`${l.loginButton} ${s.button}`}>Add</button>
+                <button className={s.button}>Add</button>
             </div>
             <div className={s.myPostTextArea}>
                 <Field name='postText' component={TextArea}

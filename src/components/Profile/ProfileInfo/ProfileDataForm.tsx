@@ -1,11 +1,10 @@
 import React from "react";
-import {Contact } from "./ProfileInfo";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input} from "../../../common/formControl/FormControl";
-import {required} from "../../../utils/validators/validators";
 import {ProfileType} from "../../../redux/profileReducer";
-import s from "./ProfileInfo.module.css"
+import s from "./ProfileDataForm.module.css"
 import style from "../../../common/formControl/FormControl.module.css";
+import { MaxValueCreator } from "../../../utils/validators/validators";
 
 export type ProfileDataPropsType = {
     profile: ProfileType
@@ -17,67 +16,75 @@ export  type IProps = {
     profile: ProfileType,
     initialValues: ProfileType
 }
-
+const maxValueCreator20 = MaxValueCreator(20)
 
  const ProfileForm: React.FC<InjectedFormProps<FormDataType, IProps> & IProps> = ({profile,error,handleSubmit}) => {
 
 
 
     return(
+        <div className={s.profileDataFormBlock}>
         <form onSubmit={handleSubmit}>
-            <div>
-                <button>Save</button>
+            <div className={s.buttonContain}>
+
             </div>
+
+            <div className={s.headerForm}>
+                <div className={s.title}>Main information</div>
+                <button className={s.button}>Save</button>
+            </div>
+            <div className={s.forError}>
             {error && <div className={style.commonAuthError}>{error}</div>}
-            <div>
-                <b>Name</b>:
+            </div>
+            <div className={s.contactsInput}>
+                <label htmlFor={'fullName'}>Name</label>
                 <Field
-                    placeholder={'Name'}
                     component={Input}
                     name={'fullName'}
-                    validate={[]}
+                    validate={[maxValueCreator20]}
                 />
             </div>
-            <div>
-                <b>About me</b>:
+            <div className={s.contactsInput}>
+                <label htmlFor={'aboutMe'}>About me</label>
                 <Field
-                placeholder={'About me'}
                 component={Input}
                 name={'aboutMe'}
-                validate={[]}
+                validate={[maxValueCreator20]}
             />
             </div>
-            <div>
-                <b>Looking for a job</b>:
+
+            <div className={s.contactsInput}>
+                <label htmlFor={'lookingForAJobDescription'}>My professional skills</label>
                 <Field
-                    placeholder={'Looking for a job'}
+                    component={Input}
+                    name={'lookingForAJobDescription'}
+                    validate={[maxValueCreator20]}
+                />
+            </div>
+            <div className={s.checkbox}>
+
+                <Field
                     component={Input}
                     name={'lookingForAJob'}
                     type={'checkbox'}
-                    checked={profile.lookingForAJob}
+                    initialValue={profile.lookingForAJob}
                 />
+
             </div>
+            <span className={s.lookingJob}>Looking for a job</span>
             <div>
-                <b>My professional skills</b>:
-                <Field
-                    placeholder={'My professional skills'}
-                    component={Input}
-                    name={'lookingForAJobDescription'}
-                    validate={[]}
-                />
-            </div>
-            <div>
-                <b>Contacts</b> : {Object.keys(profile.contacts).map(key =>
-                <div>
-                <b>{key}:</b> <Field
+                <div className={s.title}>Contacts</div>{Object.keys(profile.contacts).map(key =>
+                <div className={s.contactsInput}>
+                <label htmlFor={`contacts[${key}]`}>{key}</label> <Field
                     component={Input}
                     name={`contacts[${key}]`}
-                    validate={[]}
+                    validate={[maxValueCreator20]}
                 />
                 </div>
             )}
             </div>
         </form>
+        </div>
     )
 }
 
