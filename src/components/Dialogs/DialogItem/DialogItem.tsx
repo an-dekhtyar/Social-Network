@@ -22,7 +22,6 @@ const DialogItem: React.FC<DialogItemPropsType> = (props) => {
             props.changeCollocutorHandler(id)
         }
     },[url.pathname, id, props])
-    console.log('d r')
     const onClickHandler = () => {
 
     }

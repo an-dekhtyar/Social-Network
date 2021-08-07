@@ -7,9 +7,9 @@
 }
 
 .loginPageContent {
-    padding: 35px;
+    padding: 25px;
     border: 0;
-    box-shadow: 0 8px 30px rgb(0 0 0 / 3%);
+    box-shadow: 0 8px 30px rgb(0 0 0 /5%);
     width: 400px;
     min-height: 440px;
     align-self: center;
@@ -17,7 +17,7 @@
     background-color: white;
     text-align: center;
     box-sizing: border-box;
-    color: #888888;
+    color: #626262;
 }
 .superInput {
     margin-top: 10px;
@@ -27,10 +27,12 @@ label {
     display: block;
     text-align: left;
     font-size: 14px;
+    color: #0055ff;
+    margin-left: 5px;
 }
 
 .loginButton {
-    margin: 50px 0 20px 0;
+    margin: 20px 0 20px 0;
     font-weight: 600;
     text-align: center;
     padding: 0.5rem ;
@@ -56,4 +58,18 @@ label {
     text-decoration: none;
     color: #05f;
     font-weight: bold;
+}
+.inputContain {
+    height: 85px;
+}
+.loginPageContent h2 {
+    margin-bottom: 20px;
+}
+.checkboxContain {
+    height: 30px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+}
+.inputContain input {
+    height: 35px;
 }

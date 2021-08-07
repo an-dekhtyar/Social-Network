@@ -4,7 +4,7 @@ import Profile from './Profile'
 import {getUserStatus, ProfileType, selectUser, updatePhoto, updateUserStatus} from '../../redux/profileReducer'
 import { AppStateType } from "../../redux/redux-store";
 import { withRouter } from "react-router";
-import {RouteComponentProps} from "react-router-dom";
+import {Redirect, RouteComponentProps} from "react-router-dom";
 import { compose } from "redux";
 
 export type mapDispatchPropsProfileType = {
@@ -19,6 +19,7 @@ export type mapStatePropsProfileType = {
     status:string
     authorizedUserId:number | null
     editMode:boolean
+    logInSuccess:boolean
 }
 type PathParamType = {
     userId:string
@@ -53,7 +54,7 @@ class ProfileContainer extends React.Component <PropsType> {
     }
 
     render () {
-        // if (!this.props.isAuth) return <Redirect to='/login' />
+        if (this.props.logInSuccess) return <Redirect to='/login' />
         return (
             <Profile
                 isOwner={!this.props.match.params.userId}
@@ -72,6 +73,7 @@ class ProfileContainer extends React.Component <PropsType> {
 const mapStateToProps = (state:AppStateType):mapStatePropsProfileType =>({
     profile:state.profilePageState.profile,
     isAuth:state.authUserData.isAuth,
+    logInSuccess:state.authUserData.logInSuccess,
     status:state.profilePageState.status,
     authorizedUserId:state.authUserData.id,
     editMode:state.profilePageState.editMode

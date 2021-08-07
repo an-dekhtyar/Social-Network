@@ -31,7 +31,6 @@ const Header = (props: HeaderPropsType) => {
     const logoutHandler = () => {
         props.logout()
     }
-    console.log(props.userPhoto)
 
     return (
         <header className={s.header}>

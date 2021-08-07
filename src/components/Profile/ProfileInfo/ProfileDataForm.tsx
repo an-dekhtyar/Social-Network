@@ -67,14 +67,13 @@ const maxValueCreator20 = MaxValueCreator(20)
                     component={Input}
                     name={'lookingForAJob'}
                     type={'checkbox'}
-                    initialValue={profile.lookingForAJob}
                 />
 
             </div>
             <span className={s.lookingJob}>Looking for a job</span>
             <div>
                 <div className={s.title}>Contacts</div>{Object.keys(profile.contacts).map(key =>
-                <div className={s.contactsInput}>
+                <div key={key} className={s.contactsInput}>
                 <label htmlFor={`contacts[${key}]`}>{key}</label> <Field
                     component={Input}
                     name={`contacts[${key}]`}

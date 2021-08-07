@@ -1,9 +1,9 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Checkbox, Input} from "../../common/formControl/FormControl";
 import {MaxValueCreator, required} from "../../utils/validators/validators";
-import {connect} from "react-redux";
-import {login} from "../../redux/auth-reducer";
+import {connect, useDispatch} from "react-redux";
+import {login, setLoginRedirect} from "../../redux/auth-reducer";
 import {Redirect} from "react-router-dom";
 import {AppStateType} from "../../redux/redux-store";
 import style from '../../common/formControl/FormControl.module.css'
@@ -31,11 +31,17 @@ type LoginType = MapDispatchToPropsType & MapStateToPropsType
 const maxValue10 = MaxValueCreator(20)
 
 const LoginForm: React.FC<InjectedFormProps<FormDataType, IpropsType> & IpropsType> = ({handleSubmit, error, captchaUrl}) => {
+
+    const dispatch = useDispatch()
+    useEffect(()=> {
+        dispatch(setLoginRedirect(false))
+    },[dispatch])
+
     return (
         <div className={s.loginPageContent}>
         <form onSubmit={handleSubmit}>
             <h2>Sing In</h2>
-            <div className={s.superInput}>
+            <div className={s.inputContain}>
                 <label htmlFor={'email'}>Email</label>
                 <Field
                     component={Input}
@@ -43,7 +49,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, IpropsType> & IpropsTy
                     validate={[required, maxValue10]}
                 />
             </div>
-            <div>
+            <div className={s.inputContain}>
                 <label htmlFor={'password'}>Password</label>
                 <Field
                     component={Input}
@@ -53,22 +59,27 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, IpropsType> & IpropsTy
 
                 />
             </div>
-            <div className={style.checkbox}>
+            <div className={`${style.checkbox} ${s.checkboxContain}`}>
                 <Field type={'checkbox'}
                        component={Checkbox}
                        name={'rememberMe'}
                 />
                 <span className={s.rememberMe}>Remember me</span>
+                {error && <div className={style.commonAuthError}>{error}</div>}
             </div>
-            {error && <div className={style.commonAuthError}>{error}</div>}
+
             {captchaUrl && <img alt={'captcha'} src={captchaUrl}/>}
-            {captchaUrl && <Field
-                placeholder={'Symbols from image'}
+            {captchaUrl &&
+            <div>
+            <label htmlFor={'captcha'}>Symbols from image</label>
+            <Field
                 component={Input}
                 name={'captcha'}
                 validate={[required]}
+            />
+            </div>
+            }
 
-            />}
                  <button className={s.loginButton}>Sing in</button>
 
                 <div className={s.singUp}>

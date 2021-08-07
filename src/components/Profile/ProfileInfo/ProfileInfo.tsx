@@ -119,7 +119,7 @@ export const ProfileData = (props: ProfileDataPropsType) => {
             </div>
             <div>
                 <div className={p.title}>Contacts</div> {Object.keys(profile.contacts).map(key =>
-                <Contact contactTitle={key} contactValue={profile.contacts[key]}/>)}
+                <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}/>)}
             </div>
         </div>
     )
