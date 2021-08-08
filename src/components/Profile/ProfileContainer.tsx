@@ -20,6 +20,7 @@ export type mapStatePropsProfileType = {
     authorizedUserId:number | null
     editMode:boolean
     logInSuccess:boolean
+    isFetching:boolean
 }
 type PathParamType = {
     userId:string
@@ -63,6 +64,7 @@ class ProfileContainer extends React.Component <PropsType> {
                 updateUserStatus={this.props.updateUserStatus}
                 updatePhoto={this.props.updatePhoto}
                 editMode={this.props.editMode}
+                isFetching={this.props.isFetching}
             />
 
         )
@@ -76,7 +78,8 @@ const mapStateToProps = (state:AppStateType):mapStatePropsProfileType =>({
     logInSuccess:state.authUserData.logInSuccess,
     status:state.profilePageState.status,
     authorizedUserId:state.authUserData.id,
-    editMode:state.profilePageState.editMode
+    editMode:state.profilePageState.editMode,
+    isFetching:state.profilePageState.isFetching
 })
 
 export default compose<React.ComponentType>(

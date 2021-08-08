@@ -1,5 +1,4 @@
 import React, {ChangeEvent} from "react";
-import {Preloader} from "../../../common/Preloader";
 import s from "./ProfileInfo.module.css"
 import p from "./ProfileDataForm.module.css"
 import {changeProfileData, ProfileType, toggleEditMode} from "../../../redux/profileReducer";
@@ -14,7 +13,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 
 type ProfileInfoType = {
-    profile: ProfileType | null
+    profile: ProfileType
     status: string
     updateUserStatus: (status: string) => void
     isOwner: boolean
@@ -31,9 +30,7 @@ const ProfileInfo = (props: ProfileInfoType) => {
     const dispatch = useDispatch()
 
     const {profile, status, updateUserStatus, isOwner, updatePhoto, editMode} = props
-    if (!profile) {
-        return <Preloader/>
-    }
+
 
     const userImg = {
         backgroundImage: `url(${profile.photos.large || userPhoto})`,

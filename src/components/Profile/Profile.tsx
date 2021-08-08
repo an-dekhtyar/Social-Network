@@ -4,6 +4,7 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import {MypostsContain} from "./Mypost/MypostContain";
 import {ProfileType} from "../../redux/profileReducer";
 import { NoPostYet } from "./Mypost/NoPostYet";
+import {Preloader} from "../../common/Preloader";
 
 type ProfilePropsType = {
     profile:ProfileType | null
@@ -12,14 +13,23 @@ type ProfilePropsType = {
     isOwner:boolean
     updatePhoto:(newPhoto:object)=>void
     editMode:boolean
+    isFetching:boolean
 }
 
 
 const Profile = (props:ProfilePropsType) => {
 
-    const {profile, status, updateUserStatus, isOwner, updatePhoto, editMode} = props
+    const {profile, status, updateUserStatus, isOwner, updatePhoto, editMode, isFetching} = props
+
+    if (!profile || !isFetching) {
+
+        return <Preloader/>
+
+    }
     return (
+
         <div className={s.content}>
+
             <ProfileInfo profile={profile}
                          status={status}
                          updateUserStatus={updateUserStatus}

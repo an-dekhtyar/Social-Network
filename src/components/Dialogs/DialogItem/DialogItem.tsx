@@ -28,7 +28,7 @@ const DialogItem: React.FC<DialogItemPropsType> = (props) => {
 
     return (
                 <div className={s.dialog}>
-                    <img alt={'urlImage'} src={props.urlImage}/>
+                    <img alt={'userImg'} src={props.urlImage}/>
                     <NavLink to={path} activeClassName={s.active} onClick={onClickHandler}>
                         {props.name}
                     </NavLink>

@@ -17,57 +17,74 @@ import {initializeAppTC} from "./redux/appReducer";
 import {AppStateType, store} from "./redux/redux-store";
 import {Preloader} from "./common/Preloader";
 import {NotFound} from "./components/NotFound404/NotFound404";
+import { ErrorWindow } from './common/ErrorWindow/ErrorWindow';
 
 
-type AppPropsType = mapDispatchPropsType & mapStatetoPropsTyep
+type AppPropsType = mapDispatchPropsType & mapStateToPropsType
 type mapDispatchPropsType = {
-    initializeAppTC:()=>void
+    initializeAppTC: () => void
 }
 
 class App extends React.Component<AppPropsType> {
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.initializeAppTC()
     }
 
     render() {
+        console.log('this.props.error: ',this.props.error)
         if (!this.props.initialized) {
-            return <Preloader/>
+            return (
+                <div className={'app-preloader'}>
+                    <Preloader/>
+                </div>)
         }
         return (
+            <div className='app'>
+                {this.props.error && <div className='errorWindow'>
+                    <ErrorWindow error={this.props.error}/>
+                </div>
+                }
             <div className='app-wrapper'>
                 <HeaderContain/>
                 <Navbar/>
+
                 <div className='app-wrapper-content'>
                     <Switch>
-                    <Route path={'/'} exact render={() => <Redirect to={'/profile'}/>}/>
-                    <Route path='/dialogs' render={() => <DialogsContain/>}/>
-                    <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
-                    <Route path='/news' render={() => <News/>}/>
-                    <Route path='/music' render={() => <Music/>}/>
-                    <Route path='/users' render={() => <UsersContain/>}/>
-                    <Route path='/settings' render={() => <Settings/>}/>
-                    <Route path='/login' render={() => <Login/>}/>
-                    <Route path='/404' render={() => <NotFound/>}/>
-                    <Redirect from='*' to={'/404'}/>
+                        <Route path={'/'} exact render={() => <Redirect to={'/profile'}/>}/>
+                        <Route path='/dialogs' render={() => <DialogsContain/>}/>
+                        <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
+                        <Route path='/news' render={() => <News/>}/>
+                        <Route path='/music' render={() => <Music/>}/>
+                        <Route path='/users' render={() => <UsersContain/>}/>
+                        <Route path='/settings' render={() => <Settings/>}/>
+                        <Route path='/login' render={() => <Login/>}/>
+                        <Route path='/404' render={() => <NotFound/>}/>
+                        <Redirect from='*' to={'/404'}/>
                     </Switch>
+
                 </div>
             </div>
-        )
+            </div>
+                )
     }
 }
-type mapStatetoPropsTyep = {
+
+type mapStateToPropsType = {
     initialized: boolean
+    error:string
 }
-const mapStatetoProps = (state:AppStateType) => (
-    {initialized:state.app.initialized}
+const mapStateToProps = (state: AppStateType) => ({
+        initialized: state.app.initialized,
+        error:state.app.error
+}
 )
 
 const AppContainer = compose<React.ComponentType>(
     withRouter,
-    connect(mapStatetoProps, {initializeAppTC}))(App);
+    connect(mapStateToProps, {initializeAppTC}))(App);
 
-const SamuraiJSApp = (props:any) => {
+const SamuraiJSApp = (props: any) => {
     return <BrowserRouter>
         <Provider store={store}>
             <AppContainer/>

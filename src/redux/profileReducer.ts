@@ -3,6 +3,7 @@ import {profileAPI} from "../api/api";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {stopSubmit} from "redux-form";
+import {setErrorNotification, setErrorNotificationType} from "./appReducer";
 
 
 
@@ -12,13 +13,19 @@ export type ProfilePageReducerType =
     ReturnType<typeof getStatus> |
     ReturnType<typeof deletePost> |
     ReturnType<typeof setPhoto> |
-    ReturnType<typeof toggleEditMode>
+    ReturnType<typeof toggleEditMode> |
+    ToggleIsFetchingType | setErrorNotificationType
+
+
+
+export type  ToggleIsFetchingType = ReturnType<typeof toggleIsFetching>
 
 export type ProfilePageType = {
     posts: Array<PostType>
     profile: ProfileType | null
     status: string
     editMode:boolean
+    isFetching:boolean
 }
 export type PostType = {
     id: number
@@ -40,6 +47,7 @@ export type ProfileType = {
     lookingForAJobDescription: string | null
     fullName: string
     aboutMe: string | null
+
 }
 
 
@@ -49,6 +57,7 @@ const GET_USER_STATUS = "social-network/profile-reducer/GET_USER_STATUS"
 const DELETE_POST = "social-network/profile-reducer/DELETE_POST"
 const SET_PHOTO = "social-network/profile-reducer/SET_PHOTO"
 const TOGGLE_EDIT_MODE = "social-network/profile-reducer/TOGGLE_EDIT_MODE"
+const TOGGLE_IS_FETCHING = "social-network/profile-reducer/TOGGLE_IS_FETCHING"
 
 export const addPost = (newPostElement: string) =>
     ({type: ADD_POST, postMessage: newPostElement}) as const;
@@ -62,6 +71,8 @@ export const setPhoto = (photo:string) =>
     ({type:SET_PHOTO, photo} as const)
 export const toggleEditMode = (value:boolean) =>
     ({type:TOGGLE_EDIT_MODE, value} as const)
+export const toggleIsFetching = (value:boolean) =>
+    ({type:TOGGLE_IS_FETCHING, value} as const)
 
 let initialState: ProfilePageType = {
     posts: [
@@ -83,7 +94,8 @@ let initialState: ProfilePageType = {
     ],
     profile: null,
     status: "",
-    editMode: false
+    editMode: false,
+    isFetching:true
 }
 
 
@@ -122,6 +134,11 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
             ...state,
                 editMode:action.value
         }
+        case TOGGLE_IS_FETCHING:
+            return {
+                ...state,
+                isFetching:action.value
+            }
         case SET_PHOTO:
             if (state.profile)
             return {
@@ -142,8 +159,17 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
 }
 
 export const selectUser = (userId: string) => async (dispatch: Dispatch<ProfilePageReducerType>) => {
-    let data = await profileAPI.selectUser(userId)
-    dispatch(setUserProfile(data))
+
+    dispatch(toggleIsFetching(false))
+
+    try {
+        let data = await profileAPI.selectUser(userId)
+        dispatch(setUserProfile(data))
+    } catch (e){
+        console.log('e',e)
+        dispatch(setErrorNotification(e.message))
+    }
+    dispatch(toggleIsFetching(true))
 }
 
 export const getUserStatus = (userId:string) => async (dispatch: Dispatch<ProfilePageReducerType>) => {
