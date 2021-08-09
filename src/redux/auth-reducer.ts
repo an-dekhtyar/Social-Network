@@ -3,13 +3,15 @@ import {authAPI, profileAPI, securityAPI} from "../api/api";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {stopSubmit} from "redux-form";
-import {appReducerType} from "./appReducer";
+import {appReducerType, setErrorNotification, setErrorNotificationType} from "./appReducer";
 
 export type AuthReducerType = |
     ReturnType<typeof setAuthUserData> |
     ReturnType<typeof setCaptchaUrl> |
     ReturnType<typeof setAuthUserPhoto> |
-    ReturnType<typeof setLoginRedirect>
+    ReturnType<typeof setLoginRedirect> |
+    setErrorNotificationType
+
 
 
 export type AuthType = {
@@ -75,43 +77,64 @@ export const authReducer = (state: AuthType = initialState, action: ActionsTypes
 }
 
 export const authMe = (): ThunkAction<void,AuthType,unknown, ActionsTypes >=> async (dispatch) => {
-    let data = await authAPI.getAuthUserData()
-    if (data.resultCode === 0) {
-        let {id, login, email, } = data.data
-        dispatch(setAuthUserData(id, login, email,true))
-        dispatch(getAuthUserPhoto(id))
+    try {
+        let data = await authAPI.getAuthUserData()
+        if (data.resultCode === 0) {
+            let {id, login, email, } = data.data
+            dispatch(setAuthUserData(id, login, email,true))
+            dispatch(getAuthUserPhoto(id))
+        }
+    }
+    catch (e) {
+        dispatch(setErrorNotification(e.message))
     }
 }
 export const getAuthUserPhoto = (id:string) => async (dispatch: Dispatch<AuthReducerType>) => {
-    let data = await profileAPI.selectUser(id)
-    dispatch(setAuthUserPhoto(data.photos.large))
+    try {
+        let data = await profileAPI.selectUser(id)
+        dispatch(setAuthUserPhoto(data.photos.large))
+    } catch (e) {
+        dispatch(setErrorNotification(e.message))
+    }
 }
 
 export const login = (email: string, password: string, rememberMe: boolean, captcha:string |null = null):ThunkAction<void,AuthType,unknown, ActionsTypes > => async (dispatch) => {
-    let response = await authAPI.login(email, password, rememberMe, captcha)
-    if (response.data.resultCode === 0) {
-        dispatch(authMe())
-        dispatch(setCaptchaUrl(null))
-    } else {
-        if(response.data.resultCode === 10) {
-         const error = response.data.messages.length > 0 ? response.data.messages[0] : 'Some Error!'
-         dispatch(stopSubmit('login',{_error:error}) as AuthReducerType)
-         dispatch(getCaptcha())
+    try {
+        let response = await authAPI.login(email, password, rememberMe, captcha)
+        if (response.data.resultCode === 0) {
+            dispatch(authMe())
+            dispatch(setCaptchaUrl(null))
         } else {
-            const error = response.data.messages.length > 0 ? response.data.messages[0] : 'Some Error!'
-            dispatch(stopSubmit('login',{_error:error}) as AuthReducerType)
+            if(response.data.resultCode === 10) {
+                const error = response.data.messages.length > 0 ? response.data.messages[0] : 'Some Error!'
+                dispatch(stopSubmit('login',{_error:error}) as AuthReducerType)
+                dispatch(getCaptcha())
+            } else {
+                const error = response.data.messages.length > 0 ? response.data.messages[0] : 'Some Error!'
+                dispatch(stopSubmit('login',{_error:error}) as AuthReducerType)
+            }
         }
+    } catch (e) {
+        dispatch(setErrorNotification(e.message))
     }
 }
 
 export const logout = () => async (dispatch: Dispatch<AuthReducerType | appReducerType>) => {
-    let response = await authAPI.logout()
-    if (response.data.resultCode === 0) {
-        dispatch(setAuthUserData(null, null, null,false))
-        dispatch(setLoginRedirect(true))
+    try {
+        let response = await authAPI.logout()
+        if (response.data.resultCode === 0) {
+            dispatch(setAuthUserData(null, null, null,false))
+            dispatch(setLoginRedirect(true))
+        }
+    } catch (e) {
+        dispatch(setErrorNotification(e.message))
     }
 }
 export const getCaptcha = ():ThunkAction<void,AuthType,unknown, ActionsTypes > => async (dispatch) => {
-    let response = await securityAPI.getCaptcha()
-    dispatch(setCaptchaUrl(response))
+    try {
+        let response = await securityAPI.getCaptcha()
+        dispatch(setCaptchaUrl(response))
+    } catch (e) {
+        dispatch(setErrorNotification(e.message))
+    }
 }

@@ -25,9 +25,31 @@
 }
 .errorWindow {
     position:absolute;
-    bottom: 0;
-    right:0;
-    padding: 10px;
+    bottom: 40px;
+    right:40px;
 }
+@keyframes show-error {
+    0%{
+        opacity: 0;
+        transform: translateY(200px);
+    }
+    50%{
+        opacity: 1;
+    }
+    100%{
+        transform: translateY(0);
+    }
+}
+.errorWindow.entering {
+    animation: show-error .5s forwards;
+}
+.errorWindow.entered {
+    opacity: 1;
+}
+.errorWindow.exiting {
+    animation: show-error .5s reverse;
+}
+.errorWindow.exited {
 
+}
 

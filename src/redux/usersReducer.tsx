@@ -2,7 +2,9 @@ import {ActionsTypes} from "./redux-store"
 import {followAPI, userAPI} from "../api/api";
 import {Dispatch} from "redux";
 
-import {updateObjectInArray} from './../utils/validators/object-helper'
+
+import { setErrorNotification, setErrorNotificationType } from "./appReducer";
+import { updateObjectInArray } from "../utils/validators/object-helper";
 
 export type UsersPageReducerType =
     followSuccessType
@@ -12,6 +14,7 @@ export type UsersPageReducerType =
     | setTotalCountType
     | toggleIsFetchingType
     | toggleIsFollowingType
+    | setErrorNotificationType
 
 export type followSuccessType = ReturnType<typeof followSuccess>
 export type unFollowSuccessType = ReturnType<typeof unfollowSuccess>
@@ -137,40 +140,59 @@ export const userReducer = (state: UserPageType = initialState, action: ActionsT
 
 
 export const requestUsers = (currentPage:number, pageSize:number) => async (dispatch:Dispatch<UsersPageReducerType>) => {
-    dispatch(toggleIsFetching(true))
-    let data = await userAPI.getUsers(currentPage, pageSize)
-    dispatch(toggleIsFetching(false))
-    dispatch(setUsers(data.items))
-    dispatch(setTotalCount(data.totalCount))
+    try {
+        dispatch(toggleIsFetching(true))
+        let data = await userAPI.getUsers(currentPage, pageSize)
+        dispatch(toggleIsFetching(false))
+        dispatch(setUsers(data.items))
+        dispatch(setTotalCount(data.totalCount))
+    }
+    catch (e) {
+        dispatch(setErrorNotification(e.message))
+    }
 
 }
 
 export const changeUsersPage = (page:number, pageSize:number) => async (dispatch:Dispatch<UsersPageReducerType>) =>{
-    dispatch(toggleIsFetching(true))
-    dispatch(setCurrentPage(page))
-    let data = await userAPI.changeUsersPage(page,pageSize)
-    dispatch(toggleIsFetching(false))
-    dispatch(setUsers(data.items))
+    try {
+        dispatch(toggleIsFetching(true))
+        dispatch(setCurrentPage(page))
+        let data = await userAPI.changeUsersPage(page,pageSize)
+        dispatch(toggleIsFetching(false))
+        dispatch(setUsers(data.items))
+    }
+    catch (e) {
+        dispatch(setErrorNotification(e.message))
+    }
 
 }
 
 
 export const follow = (userId:number) => async (dispatch:Dispatch<UsersPageReducerType>) => {
-
-    dispatch(toggleIsFollowing(true, userId))
-    let data = await followAPI.onFollow(userId)
-    if (data.resultCode === 0) {
-        dispatch(followSuccess(userId))
+    try {
+        dispatch(toggleIsFollowing(true, userId))
+        let data = await followAPI.onFollow(userId)
+        if (data.resultCode === 0) {
+            dispatch(followSuccess(userId))
+        }
+        dispatch(toggleIsFollowing(false, userId))
     }
-    dispatch(toggleIsFollowing(false, userId))
+    catch (e) {
+        dispatch(setErrorNotification(e.message))
+    }
 }
 
-export const unfollow = (userId:number) => async (dispatch:Dispatch<UsersPageReducerType>) => {
 
-    dispatch(toggleIsFollowing(true, userId))
-    let data = await followAPI.onUnFollow(userId)
-    if (data.resultCode === 0) {
-        dispatch(unfollowSuccess(userId))
+export const unfollow = (userId:number) => async (dispatch:Dispatch<UsersPageReducerType>) => {
+    try {
+        dispatch(toggleIsFollowing(true, userId))
+        let data = await followAPI.onUnFollow(userId)
+        if (data.resultCode === 0) {
+            dispatch(unfollowSuccess(userId))
+        }
+        dispatch(toggleIsFollowing(false, userId))
     }
-    dispatch(toggleIsFollowing(false, userId))
+    catch (e) {
+        dispatch(setErrorNotification(e.message))
+    }
 }

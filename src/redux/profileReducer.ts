@@ -131,9 +131,9 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
             }
         case TOGGLE_EDIT_MODE:
             return {
-            ...state,
+                ...state,
                 editMode:action.value
-        }
+            }
         case TOGGLE_IS_FETCHING:
             return {
                 ...state,
@@ -141,16 +141,16 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
             }
         case SET_PHOTO:
             if (state.profile)
-            return {
-                ...state,
-                profile: {
-                    ...state.profile,
-                   photos: {
-                        ...state.profile.photos,
-                        large: action.photo
+                return {
+                    ...state,
+                    profile: {
+                        ...state.profile,
+                        photos: {
+                            ...state.profile.photos,
+                            large: action.photo
+                        }
                     }
                 }
-            }
             else return state
         default:
             return state
@@ -161,51 +161,74 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
 export const selectUser = (userId: string) => async (dispatch: Dispatch<ProfilePageReducerType>) => {
 
     dispatch(toggleIsFetching(false))
-
     try {
         let data = await profileAPI.selectUser(userId)
         dispatch(setUserProfile(data))
+        dispatch(toggleIsFetching(true))
     } catch (e){
-        console.log('e',e)
         dispatch(setErrorNotification(e.message))
+        dispatch(toggleIsFetching(true))
     }
-    dispatch(toggleIsFetching(true))
+
 }
 
 export const getUserStatus = (userId:string) => async (dispatch: Dispatch<ProfilePageReducerType>) => {
-    let data = await profileAPI.getUserStatus(userId)
-    dispatch(getStatus(data))
+    try {
+        let data = await profileAPI.getUserStatus(userId)
+        dispatch(getStatus(data))
+    } catch (e) {
+        dispatch(setErrorNotification(e.message))
+    }
+
+
 }
 export const updateUserStatus = (status:string) => async (dispatch: Dispatch<ProfilePageReducerType>) => {
-    let response = await profileAPI.updateStatus(status)
-    if (response.data.resultCode === 0) {
-        dispatch(getStatus(status))
+    try {
+        let response = await profileAPI.updateStatus(status)
+        if (response.data.resultCode === 0) {
+            dispatch(getStatus(status))
+        }
+    } catch (e) {
+        dispatch(setErrorNotification(e.message))
     }
 }
 export const updatePhoto = (photoFile:any) => async (dispatch: Dispatch<ProfilePageReducerType>) => {
-    let response = await profileAPI.savePhoto(photoFile)
-    if (response.data.resultCode === 0) {
-        console.log(response.data.data)
-        dispatch(setPhoto(response.data.data.photos.large))
+
+    try {
+        let response = await profileAPI.savePhoto(photoFile)
+        if (response.data.resultCode === 0) {
+            console.log(response.data.data)
+            dispatch(setPhoto(response.data.data.photos.large))
+        }
+    } catch (e) {
+        dispatch(setErrorNotification(e.message))
     }
+
+
+
 }
 export const changeProfileData = (profileData:ProfileType):ThunkAction<void,ProfilePageType,unknown, ActionsTypes > => async (dispatch, getState:Function) => {
-    const id = getState().authUserData.id
-    let response = await profileAPI.changeProfile(profileData)
-    if (response.data.resultCode === 0) {
-        dispatch(selectUser(id))
-        dispatch(toggleEditMode(false))
-    } else {
-        let error = response.data.messages.length > 0 ? response.data.messages[0] : 'Some Error!'
-        if (error.includes('Contacts->')) {
-            let newError = error.split(' (')[0]
-            let field = error.split('->')[1].slice(0, -1).toLowerCase()
-            dispatch(stopSubmit('edit-profile',{ 'contacts' : { [field] : newError }} ))
+    try {
+        const id = getState().authUserData.id
+        let response = await profileAPI.changeProfile(profileData)
+        if (response.data.resultCode === 0) {
+            dispatch(selectUser(id))
+            dispatch(toggleEditMode(false))
+        } else {
+            let error = response.data.messages.length > 0 ? response.data.messages[0] : 'Some Error!'
+            if (error.includes('Contacts->')) {
+                let newError = error.split(' (')[0]
+                let field = error.split('->')[1].slice(0, -1).toLowerCase()
+                dispatch(stopSubmit('edit-profile',{ 'contacts' : { [field] : newError }} ))
+            }
+            else {
+                dispatch(stopSubmit('edit-profile',{_error:error}) as ProfilePageReducerType)
+            }
         }
-        else {
-            dispatch(stopSubmit('edit-profile',{_error:error}) as ProfilePageReducerType)
-        }
+    } catch (e) {
+        dispatch(setErrorNotification(e.message))
     }
+
 }
 
 
