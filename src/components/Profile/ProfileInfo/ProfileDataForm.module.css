@@ -10,9 +10,11 @@
     font-weight: 500;
     margin-bottom: 0;
 }
-.profileDataFormBlock label {
-  color:#0055ff;
+.contactsInput label {
+    color:#0055ff;
     font-size: 13px;
+    margin-left: 0;
+
 }
 .checkbox {
     display: inline-block;

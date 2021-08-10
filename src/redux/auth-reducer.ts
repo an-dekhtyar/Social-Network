@@ -4,6 +4,7 @@ import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {stopSubmit} from "redux-form";
 import {appReducerType, setErrorNotification, setErrorNotificationType} from "./appReducer";
+import { toggleIsFetching } from "./profileReducer";
 
 export type AuthReducerType = |
     ReturnType<typeof setAuthUserData> |
@@ -99,6 +100,7 @@ export const getAuthUserPhoto = (id:string) => async (dispatch: Dispatch<AuthRed
 }
 
 export const login = (email: string, password: string, rememberMe: boolean, captcha:string |null = null):ThunkAction<void,AuthType,unknown, ActionsTypes > => async (dispatch) => {
+        dispatch(toggleIsFetching(false))
     try {
         let response = await authAPI.login(email, password, rememberMe, captcha)
         if (response.data.resultCode === 0) {
@@ -114,8 +116,10 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
                 dispatch(stopSubmit('login',{_error:error}) as AuthReducerType)
             }
         }
+        dispatch(toggleIsFetching(true))
     } catch (e) {
         dispatch(setErrorNotification(e.message))
+        dispatch(toggleIsFetching(true))
     }
 }
 

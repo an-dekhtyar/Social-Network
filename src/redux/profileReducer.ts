@@ -78,17 +78,17 @@ let initialState: ProfilePageType = {
     posts: [
         {
             id: 1,
-            message: "In his work Leonard Bernstein, Humphrey Burton explained: When it was decided to add Tony’s first-act song “Something’s Coming,” Bernstein and Sond",
+            message: "All truly wise thoughts have been thoughts already thousands of times; but to make them truly ours, we must think them over again honestly, till they take root in our personal experience.",
             likesAmount: 45,
         },
         {
             id: 2,
-            message: "In his work Leonard Bernstein, Humphrey Burton explained: When it was decided to add Tony’s first-act song “Something’s Coming,” Bernstein and Sond",
+            message: "Experience is simply the name we give our mistakes.",
             likesAmount: 24,
         },
         {
             id: 3,
-            message: "In his work Leonard Bernstein, Humphrey Burton explained: When it was decided to add Tony",
+            message: "just setting up my react app",
             likesAmount: 56,
         },
     ],

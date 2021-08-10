@@ -73,3 +73,9 @@ label {
 .inputContain input {
     height: 35px;
 }
+.preloader {
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
