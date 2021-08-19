@@ -50,6 +50,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, IpropsType> & IpropsTy
                 <div className={s.inputContain}>
                     <label htmlFor={'email'}>Email</label>
                     <Field
+                        value={'antd3149@gmail.com'}
                         component={Input}
                         name={'email'}
                         validate={[required, maxValue10]}
@@ -58,6 +59,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, IpropsType> & IpropsTy
                 <div className={s.inputContain}>
                     <label htmlFor={'password'}>Password</label>
                     <Field
+                        value={'lsdfashionmix13'}
                         component={Input}
                         name={'password'}
                         type='password'
