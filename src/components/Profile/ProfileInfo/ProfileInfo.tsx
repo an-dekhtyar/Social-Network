@@ -17,7 +17,7 @@ type ProfileInfoType = {
     status: string
     updateUserStatus: (status: string) => void
     isOwner: boolean
-    updatePhoto: (newPhoto: object) => void
+    updatePhoto: (newPhoto: object, id?:string) => void
     editMode: boolean
 }
 
@@ -37,7 +37,7 @@ const ProfileInfo = (props: ProfileInfoType) => {
     };
     const onSavePhotoHandler = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
-            updatePhoto(e.target.files[0])
+            updatePhoto(e.target.files[0], profile.userId?.toString())
         }
     }
     const onSubmitEdit = (formData: any) => {

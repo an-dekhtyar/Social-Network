@@ -58,7 +58,8 @@ class App extends React.Component<AppPropsType> {
 
                     <div className='app-wrapper-content'>
                         <Switch>
-                            <Route path={'/' || '/Social-Network'} exact render={() => <Redirect to={'/profile'}/>}/>
+                            <Route path={'/'} exact render={() => <Redirect to={'/profile'}/>}/>
+                            <Route path={'/Social-Network'} exact render={() => <Redirect to={'/profile'}/>}/>
                             <Route path='/dialogs' render={() => <DialogsContain/>}/>
                             <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
                             <Route path='/news' render={() => <News/>}/>

@@ -11,7 +11,7 @@ export type mapDispatchPropsProfileType = {
     selectUser:(userId:number)=>void
     getUserStatus:(userId:number)=>void
     updateUserStatus:(status:string)=>void
-    updatePhoto:(newPhoto:object)=>void
+    updatePhoto:(newPhoto:object, id?:string)=>void
 }
 export type mapStatePropsProfileType = {
     profile:ProfileType | null

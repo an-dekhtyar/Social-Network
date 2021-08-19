@@ -4,6 +4,7 @@ import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {stopSubmit} from "redux-form";
 import {setErrorNotification, setErrorNotificationType} from "./appReducer";
+import {getAuthUserPhoto} from "./auth-reducer";
 
 
 
@@ -192,13 +193,14 @@ export const updateUserStatus = (status:string) => async (dispatch: Dispatch<Pro
         dispatch(setErrorNotification(e.message))
     }
 }
-export const updatePhoto = (photoFile:any) => async (dispatch: Dispatch<ProfilePageReducerType>) => {
+export const updatePhoto = (photoFile:any, id:number):ThunkAction<void,ProfilePageType,unknown, ActionsTypes > => async (dispatch) => {
 
     try {
         let response = await profileAPI.savePhoto(photoFile)
         if (response.data.resultCode === 0) {
             console.log(response.data.data)
             dispatch(setPhoto(response.data.data.photos.large))
+            dispatch(getAuthUserPhoto(id.toString()))
         }
     } catch (e) {
         dispatch(setErrorNotification(e.message))
