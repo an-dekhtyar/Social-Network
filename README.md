@@ -3,7 +3,8 @@
 ![Social Network](https://i.postimg.cc/x8FjnJX4/contruct.png)
 
 
-Демо приложения доступно по<!--  [ссылке]('https://an-dekhtyar.github.io/profile'). -->
+Демо приложения доступно по
+[ссылке]:('https://an-dekhtyar.github.io/profile')
 
 ## :memo: Полный стек:
 - ReactJS
