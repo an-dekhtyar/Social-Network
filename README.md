@@ -4,7 +4,7 @@
 
 
 Демо приложения доступно по
-[ссылке]:('https://an-dekhtyar.github.io/profile')
+[ссылке](https://an-dekhtyar.github.io/Social-Network/)
 
 ## :memo: Полный стек:
 - ReactJS
