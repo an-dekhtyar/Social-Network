@@ -1,6 +1,6 @@
 # Social Network 🌎:
 
-![Social Network](https://cdn1.savepice.ru/uploads/2021/8/30/2ed8ca7a05a2e0228815226a948f4d16-full.png)
+![Social Network](https://i.postimg.cc/x8FjnJX4/contruct.png)
 
 
 Демо приложения доступно по<!--  [ссылке]('https://an-dekhtyar.github.io/profile'). -->
