@@ -1,10 +1,9 @@
 # Social Network 🌎:
 
-![ReactPizza](https://repository-images.githubusercontent.com/286972844/62947000-eb8e-11ea-8157-c31608df9206)
+![Social Network](https://cdn1.savepice.ru/uploads/2021/8/30/2ed8ca7a05a2e0228815226a948f4d16-full.png)
 
-React Pizza - это интернет-магазин для заказа пиццы.
 
-Демо приложения доступно по<!--  [ссылке]('___'). -->
+Демо приложения доступно по<!--  [ссылке]('https://an-dekhtyar.github.io/profile'). -->
 
 ## :memo: Полный стек:
 - ReactJS
@@ -17,12 +16,12 @@ React Pizza - это интернет-магазин для заказа пиц�
 
 Клонируйте репозиторий на свой компьютер.
 ```
-git clone git@github.com:an-dekhtyar/pizza.git
+git clone git@github.com:an-dekhtyar/Social-Network.git
 ```
 
 Переход в рабочий каталог.
 ```
-cd react-pizza
+cd Social-Network
 ```
 Установка зависимостей, запуск сборки.
 ```
