@@ -24,6 +24,8 @@ export type AuthType = {
     userPhoto: string | null
     authUserPhoto: string | null
     logInSuccess:boolean
+    defaultEmail:string
+    defaultPassword: string
 }
 
 const SET_USER_DATA = "social-network/auth-reducer/SET_USER_DATA"
@@ -50,6 +52,9 @@ let initialState: AuthType = {
     userPhoto:null,
     authUserPhoto:null,
     logInSuccess:false,
+    defaultEmail:'antd3149@gmail.com',
+    defaultPassword:'lsdfashionmix13'
+
 }
 
 

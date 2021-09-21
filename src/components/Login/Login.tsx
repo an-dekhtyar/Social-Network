@@ -17,6 +17,7 @@ type FormDataType = {
     rememberMe: boolean
     captcha:string
     captchaUrl:string | null
+
 }
 type IpropsType = {
     captchaUrl:string | null
@@ -51,6 +52,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, IpropsType> & IpropsTy
                     <label htmlFor={'email'}>Email</label>
                     <Field
                         defaultValue={'antd3149@gmail.com'}
+                        value={'antd3149@gmail.com'}
                         component={Input}
                         name={'email'}
                         validate={[required, maxValue10]}
@@ -59,7 +61,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, IpropsType> & IpropsTy
                 <div className={s.inputContain}>
                     <label htmlFor={'password'}>Password</label>
                     <Field
-                        defaultValue={'lsdfashionmix13'}
+                        
                         component={Input}
                         name={'password'}
                         type='password'
@@ -104,7 +106,12 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, IpropsType> & IpropsTy
 }
 
 const LoginReduxForm = reduxForm<FormDataType, IpropsType>({
-    form: 'login'
+    form: 'login',
+    initialValues: {
+        email: 'antd3149@gmail.com',
+        password: 'lsdfashionmix13',
+        rememberMe: false
+    }
 })(LoginForm)
 
 
@@ -125,7 +132,9 @@ const Login: React.FC<LoginType> = (props) => {
 const MapStateToProps = (state: AppStateType) => ({
     isAuth: state.authUserData.isAuth,
     captchaUrl:state.authUserData.captchaUrl,
-    isFetching:state.profilePageState.isFetching
+    isFetching:state.profilePageState.isFetching,
+    defaultPassword:state.authUserData.defaultPassword,
+    defaultEmail: state.authUserData.defaultEmail
 })
 
 export default connect(MapStateToProps, {login})(Login)
